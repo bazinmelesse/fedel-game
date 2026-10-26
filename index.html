@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ፊደል ጨዋታ</title>
+<meta name="theme-color" content="#2e7d5b">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --bg:#fff8e7; --card:#ffffff; --ink:#2b2340; --muted:#6d6585;
+  --green:#2e9e6b; --yellow:#f7b500; --red:#e0483e; --blue:#3a7bd5;
+  --shadow:0 6px 0 rgba(0,0,0,.12);
+  --fidel:"Nyala","Ebrima","Abyssinica SIL","Noto Sans Ethiopic","Noto Serif Ethiopic","Kefa",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,"Segoe UI",Roboto,sans-serif;
+  user-select:none;-webkit-user-select:none;overflow-x:hidden}
+.flag{height:8px;background:linear-gradient(90deg,var(--green) 33.3%,var(--yellow) 33.3% 66.6%,var(--red) 66.6%)}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px}
+header h1{font-family:var(--fidel);font-size:28px;margin:0;flex:1}
+.stars{font-size:22px;font-weight:700;background:var(--card);padding:6px 14px;border-radius:999px;box-shadow:var(--shadow)}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.back{background:var(--card);border-radius:14px;padding:8px 14px;font-size:22px;box-shadow:var(--shadow)}
+.screen{display:none;padding:8px 16px 32px;max-width:1000px;margin:0 auto}
+.screen.on{display:block}
+/* home */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:12px}
+.mode{background:var(--card);border-radius:24px;padding:22px;text-align:left;box-shadow:var(--shadow);
+  display:flex;gap:16px;align-items:center;transition:transform .1s}
+.mode:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.mode .big{font-family:var(--fidel);font-size:64px;width:90px;height:90px;border-radius:20px;display:grid;place-items:center;color:#fff;flex:none}
+.mode b{display:block;font-size:22px}
+.mode span{color:var(--muted);font-size:16px}
+.levels{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
+.lvl{background:var(--card);border-radius:16px;padding:10px 14px;box-shadow:var(--shadow);font-family:var(--fidel);font-size:22px;min-width:64px}
+.lvl.sel{outline:4px solid var(--blue)}
+.lvl.lock{opacity:.4}
+.lvl small{display:block;font-family:system-ui;font-size:13px;color:var(--muted)}
+h2{margin:8px 0}
+.hint{color:var(--muted);margin:4px 0 0}
+/* learn */
+.fam-tabs{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 12px;scrollbar-width:thin}
+.fam-tab{font-family:var(--fidel);font-size:28px;background:var(--card);border-radius:14px;min-width:58px;height:58px;box-shadow:var(--shadow);flex:none}
+.fam-tab.sel{background:var(--yellow);color:#fff}
+.showcase{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:18px;text-align:center}
+.giant{font-family:var(--fidel);font-size:min(40vw,220px);line-height:1.1;margin:0}
+.say{font-size:34px;font-weight:700;color:var(--blue)}
+.row7{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px}
+.cell{font-family:var(--fidel);font-size:clamp(28px,6vw,48px);background:var(--bg);border-radius:14px;padding:6px 0}
+.cell small{display:block;font-family:system-ui;font-size:14px;color:var(--muted)}
+.cell.sel{background:var(--yellow);color:#fff}
+.cell.sel small{color:#fff}
+.nav{display:flex;justify-content:space-between;margin-top:14px}
+.pill{background:var(--blue);color:#fff;border-radius:999px;padding:12px 22px;font-size:20px;font-weight:700;box-shadow:var(--shadow)}
+/* quiz */
+.progress{height:16px;background:#eadfc4;border-radius:999px;overflow:hidden;margin:6px 0 16px}
+.progress div{height:100%;background:var(--green);width:0;transition:width .3s}
+.prompt{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:18px;text-align:center;min-height:180px;display:flex;flex-direction:column;justify-content:center}
+.prompt .q{font-size:20px;color:var(--muted)}
+.prompt .target{font-size:72px;font-weight:800;color:var(--blue)}
+.prompt .target.fidel{font-family:var(--fidel);color:var(--ink);font-size:120px;font-weight:400;line-height:1.1}
+.speak{background:var(--bg);border-radius:999px;padding:8px 16px;font-size:18px;margin:6px auto 0}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.choice{background:var(--card);border-radius:22px;box-shadow:var(--shadow);font-size:40px;padding:16px 4px;min-height:110px;font-weight:700}
+.choice.fidel{font-family:var(--fidel);font-size:72px;font-weight:400}
+.choice.good{background:var(--green);color:#fff}
+.choice.bad{background:var(--red);color:#fff;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@media (min-width:700px){.choices{grid-template-columns:repeat(4,1fr)}}
+/* memory */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.tile{aspect-ratio:1;border-radius:20px;background:var(--blue);color:#fff;font-size:34px;box-shadow:var(--shadow);font-weight:700;transition:transform .2s}
+.tile.up{background:var(--card);color:var(--ink)}
+.tile.fidel.up{font-family:var(--fidel);font-size:min(12vw,64px);font-weight:400}
+.tile.done{background:var(--green);color:#fff;visibility:visible}
+@media (min-width:700px){.mem{grid-template-columns:repeat(6,1fr)}}
+/* done */
+.result{text-align:center;padding-top:30px}
+.result .trophy{font-size:120px}
+.result .earned{font-size:40px;font-weight:800}
+#confetti{position:fixed;inset:0;pointer-events:none}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:20px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="flag"></div>
+<header>
+  <button class="back" id="backBtn" style="visibility:hidden" aria-label="Back">⬅</button>
+  <h1>ፊደል ጨዋታ</h1>
+  <div class="stars">⭐ <span id="starCount">0</span></div>
+</header>
+
+<!-- HOME -->
+<section class="screen on" id="home">
+  <h2>Pick a level · ደረጃ</h2>
+  <p class="hint">Each level adds new letter families. Earn 3 stars in a level to unlock the next one.</p>
+  <div class="levels" id="levels"></div>
+  <div class="modes">
+    <button class="mode" data-go="learn"><div class="big" style="background:var(--green)">ሀ</div><div><b>Learn · ተማር</b><span>See every letter and hear its sound</span></div></button>
+    <button class="mode" data-go="quizA"><div class="big" style="background:var(--blue)">?</div><div><b>Find the letter</b><span>Hear a sound, tap the right letter</span></div></button>
+    <button class="mode" data-go="quizB"><div class="big" style="background:var(--yellow)">ለ</div><div><b>What sound?</b><span>See a letter, tap its sound</span></div></button>
+    <button class="mode" data-go="memory"><div class="big" style="background:var(--red)">🃏</div><div><b>Memory match</b><span>Pair each letter with its sound</span></div></button>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section class="screen" id="learn">
+  <div class="fam-tabs" id="famTabs"></div>
+  <div class="showcase">
+    <p class="giant" id="giant">ሀ</p>
+    <div class="say" id="giantSay">hä</div>
+    <div class="row7" id="row7"></div>
+    <div class="nav"><button class="pill" id="prevFam">◀</button><button class="pill" id="playRow">🔊 All 7</button><button class="pill" id="nextFam">▶</button></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="quiz">
+  <div class="progress"><div id="bar"></div></div>
+  <div class="prompt">
+    <div class="q" id="qText"></div>
+    <div class="target" id="qTarget"></div>
+    <button class="speak" id="qSpeak">🔊 Again</button>
+  </div>
+  <div class="choices" id="choices"></div>
+</section>
+
+<!-- MEMORY -->
+<section class="screen" id="memory">
+  <p class="hint" id="memHint">Find each letter and its matching sound.</p>
+  <div class="mem" id="mem"></div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="result">
+  <div class="result">
+    <div class="trophy" id="trophy">🏆</div>
+    <div class="earned" id="earned"></div>
+    <p class="hint" id="resultMsg"></p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:20px">
+      <button class="pill" id="again">↻ Play again</button>
+      <button class="pill" style="background:var(--green)" id="toHome">🏠 Home</button>
+    </div>
+  </div>
+</section>
+
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ---------- Fidel data ----------
+   Each family: [Unicode code point of 1st order, Latin consonant, Amharic name].
+   The 7 orders sit at codepoint+0..6 in the Ethiopic block.
+   Letters that sound alike in modern Amharic (ሀ ሐ ኀ, ሰ ሠ, አ ዐ, ጸ ፀ) share a sound,
+   and the games never ask a child to tell them apart by sound. */
+const FAMILIES = [
+  [0x1200,"h"],[0x1208,"l"],[0x1210,"h"],[0x1218,"m"],[0x1220,"s"],[0x1228,"r"],[0x1230,"s"],
+  [0x1238,"sh"],[0x1240,"q"],[0x1260,"b"],[0x1270,"t"],[0x1278,"ch"],[0x1280,"h"],[0x1290,"n"],
+  [0x1298,"ñ"],[0x12A0,""],[0x12A8,"k"],[0x12B8,"kh"],[0x12C8,"w"],[0x12D0,""],[0x12D8,"z"],
+  [0x12E0,"zh"],[0x12E8,"y"],[0x12F0,"d"],[0x1300,"j"],[0x1308,"g"],[0x1320,"t'"],[0x1328,"ch'"],
+  [0x1330,"p'"],[0x1338,"ts'"],[0x1340,"ts'"],[0x1348,"f"],[0x1350,"p"],[0x1268,"v"]
+];
+const VOWELS = ["ä","u","i","a","e","ə","o"];
+// Simple, kid-friendly pronunciation shown under each letter
+function sound(fi, order){
+  const c = FAMILIES[fi][1], v = VOWELS[order];
+  if (c === "") return ["ä","u","i","a","e","ə","o"][order];
+  if (order === 5) return c;          // 6th order is often just the consonant
+  return c + v;
+}
+function glyph(fi, order){ return String.fromCodePoint(FAMILIES[fi][0] + order); }
+
+/* Levels: groups of families, in the traditional ሀ ለ ሐ መ order */
+const LEVELS = [];
+for (let i = 0; i < FAMILIES.length; i += 4) LEVELS.push([...Array(Math.min(4, FAMILIES.length - i)).keys()].map(k => k + i));
+const ROUND = 10;
+
+/* ---------- Saved progress (stays on the device) ---------- */
+const store = {
+  get(){ try { return JSON.parse(localStorage.getItem("fidel-save")) || {}; } catch(e){ return {}; } },
+  set(s){ try { localStorage.setItem("fidel-save", JSON.stringify(s)); } catch(e){} }
+};
+let save = Object.assign({stars:0, best:{}, level:0}, store.get());
+function bestStars(l){ return save.best[l] || 0; }
+function unlocked(l){ return l === 0 || bestStars(l-1) >= 3 || bestStars(l) > 0; }
+
+/* ---------- Sound: speech if an Amharic voice exists, plus effects ---------- */
+let amVoice = null;
+function findVoice(){
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  amVoice = vs.find(v => /^am/i.test(v.lang)) || vs.find(v => /^ti/i.test(v.lang)) || null;
+}
+if ("speechSynthesis" in window){ findVoice(); speechSynthesis.onvoiceschanged = findVoice; }
+function speak(text){
+  if (!amVoice) return false;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text); u.voice = amVoice; u.lang = amVoice.lang; u.rate = .8;
+  speechSynthesis.speak(u); return true;
+}
+let actx = null;
+function tone(freqs, dur=.12, type="sine"){
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    freqs.forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime + i*dur;
+      o.type = type; o.frequency.value = f; g.gain.setValueAtTime(.18, t); g.gain.exponentialRampToValueAtTime(.001, t + dur*1.6);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t + dur*1.7);
+    });
+  } catch(e){}
+}
+const sfx = { good:()=>tone([660,880]), bad:()=>tone([220,180],.15,"triangle"), win:()=>tone([523,659,784,1046],.14), tap:()=>tone([500],.05) };
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const pick = a => a[Math.random()*a.length|0];
+function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("on"),1400); }
+function addStars(n){ save.stars += n; store.set(save); $("starCount").textContent = save.stars; }
+$("starCount").textContent = save.stars;
+
+let current = "home";
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+  $("backBtn").style.visibility = id === "home" ? "hidden" : "visible";
+  current = id; window.scrollTo(0,0);
+}
+$("backBtn").onclick = () => { speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); renderHome(); show("home"); };
+
+/* ---------- Home ---------- */
+function renderHome(){
+  const box = $("levels"); box.innerHTML = "";
+  LEVELS.forEach((fams, l) => {
+    const b = document.createElement("button");
+    const ok = unlocked(l);
+    b.className = "lvl" + (l === save.level ? " sel" : "") + (ok ? "" : " lock");
+    b.innerHTML = fams.map(f => glyph(f,0)).join("") + `<small>${ok ? "★".repeat(bestStars(l)) + "☆".repeat(3-bestStars(l)) : "🔒"}</small>`;
+    b.onclick = () => { if (!ok){ sfx.bad(); toast("Get 3 stars on the level before 🔒"); return; } sfx.tap(); save.level = l; store.set(save); renderHome(); };
+    box.appendChild(b);
+  });
+}
+document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
+  sfx.tap();
+  const g = b.dataset.go;
+  if (g === "learn") startLearn();
+  else if (g === "memory") startMemory();
+  else startQuiz(g);
+});
+
+/* ---------- Learn ---------- */
+let learnFam = 0, learnOrder = 0;
+function startLearn(){ learnFam = LEVELS[save.level][0]; learnOrder = 0; renderLearn(); show("learn"); }
+function renderLearn(){
+  const tabs = $("famTabs"); tabs.innerHTML = "";
+  FAMILIES.forEach((_, fi) => {
+    const b = document.createElement("button");
+    b.className = "fam-tab" + (fi === learnFam ? " sel" : "");
+    b.textContent = glyph(fi,0);
+    b.onclick = () => { learnFam = fi; learnOrder = 0; renderLearn(); sayCurrent(); };
+    tabs.appendChild(b);
+    if (fi === learnFam) setTimeout(() => b.scrollIntoView({inline:"center", block:"nearest"}), 0);
+  });
+  $("giant").textContent = glyph(learnFam, learnOrder);
+  $("giantSay").textContent = sound(learnFam, learnOrder);
+  const row = $("row7"); row.innerHTML = "";
+  for (let o = 0; o < 7; o++){
+    const c = document.createElement("button");
+    c.className = "cell" + (o === learnOrder ? " sel" : "");
+    c.innerHTML = glyph(learnFam,o) + `<small>${sound(learnFam,o)}</small>`;
+    c.onclick = () => { learnOrder = o; renderLearn(); sayCurrent(); };
+    row.appendChild(c);
+  }
+}
+function sayCurrent(){ if (!speak(glyph(learnFam, learnOrder))) sfx.tap(); }
+$("giant").onclick = sayCurrent;
+$("prevFam").onclick = () => { learnFam = (learnFam + FAMILIES.length - 1) % FAMILIES.length; learnOrder = 0; renderLearn(); sayCurrent(); };
+$("nextFam").onclick = () => { learnFam = (learnFam + 1) % FAMILIES.length; learnOrder = 0; renderLearn(); sayCurrent(); };
+$("playRow").onclick = () => {
+  let o = 0;
+  const step = () => { if (current !== "learn" || o > 6) return; learnOrder = o++; renderLearn(); if (!speak(glyph(learnFam, learnOrder))) sfx.tap(); setTimeout(step, 1100); };
+  step();
+};
+
+/* ---------- Quiz ---------- */
+// Letters in play: all 7 orders of the level's families, plus 1st-order letters from earlier levels as review
+function pool(){
+  const out = [];
+  LEVELS[save.level].forEach(fi => { for (let o=0;o<7;o++) out.push([fi,o]); });
+  return out;
+}
+let quiz = null;
+function startQuiz(kind){
+  const p = pool();
+  quiz = { kind, n:0, right:0, misses:0, items: shuffle(p.slice()).slice(0, ROUND), pool:p };
+  while (quiz.items.length < ROUND) quiz.items.push(pick(p));
+  show("quiz"); nextQ();
+}
+function distractors(ans){
+  // Mix same-family (different vowel) and same-vowel (different family) look-alikes: the real confusions
+  const [fi,o] = ans, cand = [];
+  for (let k=0;k<7;k++) if (k!==o) cand.push([fi,k]);
+  quiz.pool.forEach(([f,k]) => { if (f!==fi && k===o) cand.push([f,k]); });
+  quiz.pool.forEach(x => cand.push(x));
+  const seen = new Set([ans.join()]), out = [];
+  shuffle(cand).forEach(x => { const s = sound(...x); if (!seen.has(x.join()) && ![...out, ans].some(y => sound(...y) === s) && out.length < 3){ seen.add(x.join()); out.push(x); } });
+  return out;
+}
+function nextQ(){
+  if (quiz.n >= ROUND) return finishQuiz();
+  const ans = quiz.items[quiz.n];
+  quiz.ans = ans; quiz.tries = 0;
+  $("bar").style.width = (quiz.n / ROUND * 100) + "%";
+  const opts = shuffle([ans, ...distractors(ans)]);
+  const t = $("qTarget"), box = $("choices"); box.innerHTML = "";
+  if (quiz.kind === "quizA"){
+    $("qText").textContent = "Tap the letter that says";
+    t.className = "target"; t.textContent = sound(...ans);
+  } else {
+    $("qText").textContent = "What sound does this letter make?";
+    t.className = "target fidel"; t.textContent = glyph(...ans);
+  }
+  $("qSpeak").style.display = amVoice ? "" : "none";
+  opts.forEach(x => {
+    const b = document.createElement("button");
+    b.className = "choice" + (quiz.kind === "quizA" ? " fidel" : "");
+    b.textContent = quiz.kind === "quizA" ? glyph(...x) : sound(...x);
+    b.onclick = () => answer(b, x);
+    box.appendChild(b);
+  });
+  if (quiz.kind === "quizA") speak(glyph(...ans));
+}
+$("qSpeak").onclick = () => speak(glyph(...quiz.ans));
+function answer(btn, x){
+  if (quiz.locked) return;
+  if (x.join() === quiz.ans.join()){
+    btn.classList.add("good"); sfx.good(); speak(glyph(...x));
+    if (quiz.tries === 0) quiz.right++;
+    quiz.locked = true;
+    burst(btn);
+    setTimeout(() => { quiz.locked = false; quiz.n++; nextQ(); }, 900);
+  } else {
+    quiz.tries++; quiz.misses++; sfx.bad();
+    btn.classList.add("bad"); btn.disabled = true;
+    // After two misses, show the answer so the child is never stuck
+    if (quiz.tries >= 2) [...$("choices").children].forEach(b => { if (b.textContent === (quiz.kind==="quizA" ? glyph(...quiz.ans) : sound(...quiz.ans))) b.classList.add("good"); });
+  }
+}
+function finishQuiz(){
+  $("bar").style.width = "100%";
+  const r = quiz.right, stars = r >= 9 ? 3 : r >= 7 ? 2 : r >= 4 ? 1 : 0;
+  endRound(stars, `${r} of ${ROUND} right on the first try`, () => startQuiz(quiz.kind));
+}
+function endRound(stars, msg, again){
+  const lvl = save.level, wasLocked = !unlocked(lvl+1);
+  save.best[lvl] = Math.max(bestStars(lvl), stars);
+  addStars(stars);
+  $("trophy").textContent = stars === 3 ? "🏆" : stars ? "🎉" : "💪";
+  $("earned").textContent = stars ? "⭐".repeat(stars) : "Try again!";
+  $("resultMsg").textContent = msg + (wasLocked && lvl+1 < LEVELS.length && unlocked(lvl+1) ? " · New level unlocked! 🔓" : "");
+  $("again").onclick = again;
+  show("result");
+  if (stars){ sfx.win(); confetti(); }
+}
+$("toHome").onclick = () => { renderHome(); show("home"); };
+
+/* ---------- Memory match ---------- */
+let mem = null;
+function startMemory(){
+  const pairs = [], heard = new Set();
+  shuffle(pool()).forEach(x => { const s = sound(...x); if (pairs.length < 6 && !heard.has(s)){ heard.add(s); pairs.push(x); } });
+  const tiles = shuffle(pairs.flatMap((x,i) => [{id:i, fidel:true, x}, {id:i, fidel:false, x}]));
+  mem = { tiles, open:[], found:0, flips:0 };
+  const box = $("mem"); box.innerHTML = "";
+  tiles.forEach(t => {
+    const b = document.createElement("button");
+    b.className = "tile" + (t.fidel ? " fidel" : "");
+    b.textContent = "★";
+    b.onclick = () => flip(b, t);
+    t.el = b; box.appendChild(b);
+  });
+  show("memory");
+}
+function flip(b, t){
+  if (mem.busy || t.done || mem.open.includes(t)) return;
+  sfx.tap(); b.classList.add("up"); b.textContent = t.fidel ? glyph(...t.x) : sound(...t.x);
+  if (t.fidel) speak(glyph(...t.x));
+  mem.open.push(t);
+  if (mem.open.length < 2) return;
+  mem.flips++;
+  const [a, c] = mem.open;
+  if (a.id === c.id){
+    a.done = c.done = true; mem.open = []; mem.found++;
+    setTimeout(() => { a.el.classList.add("done"); c.el.classList.add("done"); sfx.good(); burst(c.el); }, 250);
+    if (mem.found === 6) setTimeout(() => {
+      const stars = mem.flips <= 9 ? 3 : mem.flips <= 13 ? 2 : 1;
+      endRound(stars, `All pairs found in ${mem.flips} tries`, startMemory);
+    }, 900);
+  } else {
+    mem.busy = true;
+    setTimeout(() => { [a,c].forEach(z => { z.el.classList.remove("up"); z.el.textContent = "★"; }); mem.open = []; mem.busy = false; }, 1000);
+  }
+}
+
+/* ---------- Confetti ---------- */
+const cv = $("confetti"), cx = cv.getContext("2d"); let bits = [], raf = 0;
+function resize(){ cv.width = innerWidth; cv.height = innerHeight; } resize(); addEventListener("resize", resize);
+const COLORS = ["#2e9e6b","#f7b500","#e0483e","#3a7bd5","#ff7ac6"];
+function spawn(x, y, n, spread){ for (let i=0;i<n;i++) bits.push({x, y, vx:(Math.random()-.5)*spread, vy:-Math.random()*spread-2, s:6+Math.random()*6, c:pick(COLORS), r:Math.random()*6, life:90}); if (!raf) loop(); }
+function burst(el){ const r = el.getBoundingClientRect(); spawn(r.left + r.width/2, r.top + r.height/2, 24, 10); }
+function confetti(){ for (let i=0;i<6;i++) spawn(innerWidth*Math.random(), innerHeight*.3, 30, 14); }
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  bits = bits.filter(b => b.life-- > 0);
+  bits.forEach(b => { b.vy += .35; b.x += b.vx; b.y += b.vy; b.r += .2; cx.save(); cx.translate(b.x,b.y); cx.rotate(b.r); cx.fillStyle = b.c; cx.fillRect(-b.s/2,-b.s/4,b.s,b.s/2); cx.restore(); });
+  raf = bits.length ? requestAnimationFrame(loop) : 0;
+  if (!raf) cx.clearRect(0,0,cv.width,cv.height);
+}
+
+/* ---------- Offline install (works when served from a web address) ---------- */
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+renderHome();
+</script>
+</body>
+</html>
