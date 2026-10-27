@@ -196,7 +196,16 @@ function findVoice(){
   amVoice = vs.find(v => /^am/i.test(v.lang)) || vs.find(v => /^ti/i.test(v.lang)) || null;
 }
 if ("speechSynthesis" in window){ findVoice(); speechSynthesis.onvoiceschanged = findVoice; }
+// Each letter has a recorded clip in audio/<codepoint>.mp3 (made with the free espeak-ng Amharic voice)
+let clip = null;
 function speak(text){
+  const cp = text.codePointAt(0);
+  if (text.length === 1 && cp >= 0x1200 && cp <= 0x137F){
+    if (clip) clip.pause();
+    clip = new Audio("audio/" + cp.toString(16) + ".mp3");
+    clip.play().catch(() => {});
+    return true;
+  }
   if (!amVoice) return false;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text); u.voice = amVoice; u.lang = amVoice.lang; u.rate = .8;
@@ -323,7 +332,6 @@ function nextQ(){
     $("qText").textContent = "What sound does this letter make?";
     t.className = "target fidel"; t.textContent = glyph(...ans);
   }
-  $("qSpeak").style.display = amVoice ? "" : "none";
   opts.forEach(x => {
     const b = document.createElement("button");
     b.className = "choice" + (quiz.kind === "quizA" ? " fidel" : "");
