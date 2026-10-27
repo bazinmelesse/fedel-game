@@ -111,7 +111,7 @@ h2{margin:8px 0}
   <div class="fam-tabs" id="famTabs"></div>
   <div class="showcase">
     <p class="giant" id="giant">ሀ</p>
-    <div class="say" id="giantSay">hä</div>
+    <div class="say" id="giantSay">ha</div>
     <div class="row7" id="row7"></div>
     <div class="nav"><button class="pill" id="prevFam">◀</button><button class="pill" id="playRow">🔊 All 7</button><button class="pill" id="nextFam">▶</button></div>
   </div>
@@ -164,13 +164,13 @@ const FAMILIES = [
   [0x12E0,"zh"],[0x12E8,"y"],[0x12F0,"d"],[0x1300,"j"],[0x1308,"g"],[0x1320,"t'"],[0x1328,"ch'"],
   [0x1330,"p'"],[0x1338,"ts'"],[0x1340,"ts'"],[0x1348,"f"],[0x1350,"p"],[0x1268,"v"]
 ];
-const VOWELS = ["ä","u","i","a","e","ə","o"];
-// Simple, kid-friendly pronunciation shown under each letter
+// Kid-friendly spellings, as on Ethiopian school fidel charts: ለ le, ሉ lu, ሊ li, ላ la, ሌ lé, ል l, ሎ lo
+const VOWELS = ["e","u","i","a","é","","o"];
 function sound(fi, order){
-  const c = FAMILIES[fi][1], v = VOWELS[order];
-  if (c === "") return ["ä","u","i","a","e","ə","o"][order];
-  if (order === 5) return c;          // 6th order is often just the consonant
-  return c + v;
+  const c = FAMILIES[fi][1];
+  if (c === "") return ["a","u","i","a","é","e","o"][order]; // አ and ዐ: the 1st form says "a"
+  if (c === "h" && order === 0) return "ha";                  // ሀ ሐ ኀ are said "ha", the same as ሃ
+  return c + VOWELS[order];
 }
 function glyph(fi, order){ return String.fromCodePoint(FAMILIES[fi][0] + order); }
 
