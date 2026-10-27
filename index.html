@@ -76,6 +76,16 @@ h2{margin:8px 0}
 .tile.fidel.up{font-family:var(--fidel);font-size:min(12vw,64px);font-weight:400}
 .tile.done{background:var(--green);color:#fff;visibility:visible}
 @media (min-width:700px){.mem{grid-template-columns:repeat(6,1fr)}}
+/* numbers */
+.numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:12px}
+.numcard{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:10px 4px}
+.numcard .g{font-family:var(--fidel);font-size:56px;line-height:1.1}
+.numcard .d{font-size:26px;font-weight:800;color:var(--blue)}
+.numcard .w{font-family:var(--fidel);font-size:18px;color:var(--muted)}
+.numcard.on{background:var(--yellow);color:#fff}.numcard.on .d,.numcard.on .w{color:#fff}
+.builder{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:16px;text-align:center;margin-top:12px}
+.builder .eq{font-family:var(--fidel);font-size:44px}
+.builder .eq b{color:var(--blue);font-family:system-ui}
 /* done */
 .result{text-align:center;padding-top:30px}
 .result .trophy{font-size:120px}
@@ -104,6 +114,18 @@ h2{margin:8px 0}
     <button class="mode" data-go="quizB"><div class="big" style="background:var(--yellow)">ለ</div><div><b>What sound?</b><span>See a letter, tap its sound</span></div></button>
     <button class="mode" data-go="memory"><div class="big" style="background:var(--red)">🃏</div><div><b>Memory match</b><span>Pair each letter with its sound</span></div></button>
   </div>
+  <h2 style="margin-top:28px">Numbers · ቁጥሮች</h2>
+  <div class="modes">
+    <button class="mode" data-go="numLearn"><div class="big" style="background:var(--green)">፩</div><div><b>Learn numbers</b><span>See and hear Ge'ez numbers ፩ to ፻</span></div></button>
+    <button class="mode" data-go="numQuiz"><div class="big" style="background:var(--blue)">፯?</div><div><b>Number quiz</b><span>Match Ge'ez numbers to 1, 2, 3…</span></div></button>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="screen" id="numLearn">
+  <p class="hint">Tap a number to hear it. Big numbers are built from tens and ones.</p>
+  <div class="builder" id="builder"></div>
+  <div class="numgrid" id="numGrid"></div>
 </section>
 
 <!-- LEARN -->
@@ -257,6 +279,8 @@ document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
   const g = b.dataset.go;
   if (g === "learn") startLearn();
   else if (g === "memory") startMemory();
+  else if (g === "numLearn") startNumLearn();
+  else if (g === "numQuiz") startNumQuiz();
   else startQuiz(g);
 });
 
@@ -323,9 +347,13 @@ function nextQ(){
   const ans = quiz.items[quiz.n];
   quiz.ans = ans; quiz.tries = 0;
   $("bar").style.width = (quiz.n / ROUND * 100) + "%";
-  const opts = shuffle([ans, ...distractors(ans)]);
+  const opts = shuffle([ans, ...(quiz.kind === "num" ? numDistractors(ans[0]) : distractors(ans))]);
   const t = $("qTarget"), box = $("choices"); box.innerHTML = "";
-  if (quiz.kind === "quizA"){
+  if (quiz.kind === "num"){
+    const geezAsk = quiz.dirs[quiz.n] === 0;
+    $("qText").textContent = geezAsk ? "Tap the Ge'ez number for" : "What number is this?";
+    t.className = geezAsk ? "target" : "target fidel"; t.textContent = geezAsk ? ans[0] : geezNum(ans[0]);
+  } else if (quiz.kind === "quizA"){
     $("qText").textContent = "Tap the letter that says";
     t.className = "target"; t.textContent = sound(...ans);
   } else {
@@ -334,18 +362,25 @@ function nextQ(){
   }
   opts.forEach(x => {
     const b = document.createElement("button");
-    b.className = "choice" + (quiz.kind === "quizA" ? " fidel" : "");
-    b.textContent = quiz.kind === "quizA" ? glyph(...x) : sound(...x);
+    b.className = "choice" + (choiceIsFidel() ? " fidel" : "");
+    b.textContent = choiceLabel(x);
     b.onclick = () => answer(b, x);
     box.appendChild(b);
   });
   if (quiz.kind === "quizA") speak(glyph(...ans));
+  if (quiz.kind === "num" && quiz.dirs[quiz.n] === 0) sayNum(ans[0]);
 }
-$("qSpeak").onclick = () => speak(glyph(...quiz.ans));
+function choiceIsFidel(){ return quiz.kind === "quizA" || (quiz.kind === "num" && quiz.dirs[quiz.n] === 0); }
+function choiceLabel(x){
+  if (quiz.kind === "num") return choiceIsFidel() ? geezNum(x[0]) : String(x[0]);
+  return quiz.kind === "quizA" ? glyph(...x) : sound(...x);
+}
+function sayAns(x){ quiz.kind === "num" ? sayNum(x[0]) : speak(glyph(...x)); }
+$("qSpeak").onclick = () => sayAns(quiz.ans);
 function answer(btn, x){
   if (quiz.locked) return;
   if (x.join() === quiz.ans.join()){
-    btn.classList.add("good"); sfx.good(); speak(glyph(...x));
+    btn.classList.add("good"); sfx.good(); sayAns(x);
     if (quiz.tries === 0) quiz.right++;
     quiz.locked = true;
     burst(btn);
@@ -354,17 +389,18 @@ function answer(btn, x){
     quiz.tries++; quiz.misses++; sfx.bad();
     btn.classList.add("bad"); btn.disabled = true;
     // After two misses, show the answer so the child is never stuck
-    if (quiz.tries >= 2) [...$("choices").children].forEach(b => { if (b.textContent === (quiz.kind==="quizA" ? glyph(...quiz.ans) : sound(...quiz.ans))) b.classList.add("good"); });
+    if (quiz.tries >= 2) [...$("choices").children].forEach(b => { if (b.textContent === choiceLabel(quiz.ans)) b.classList.add("good"); });
   }
 }
 function finishQuiz(){
   $("bar").style.width = "100%";
   const r = quiz.right, stars = r >= 9 ? 3 : r >= 7 ? 2 : r >= 4 ? 1 : 0;
-  endRound(stars, `${r} of ${ROUND} right on the first try`, () => startQuiz(quiz.kind));
+  const kind = quiz.kind;
+  endRound(stars, `${r} of ${ROUND} right on the first try`, () => kind === "num" ? startNumQuiz() : startQuiz(kind), kind !== "num");
 }
-function endRound(stars, msg, again){
+function endRound(stars, msg, again, countsForLevel = true){
   const lvl = save.level, wasLocked = !unlocked(lvl+1);
-  save.best[lvl] = Math.max(bestStars(lvl), stars);
+  if (countsForLevel) save.best[lvl] = Math.max(bestStars(lvl), stars);
   addStars(stars);
   $("trophy").textContent = stars === 3 ? "🏆" : stars ? "🎉" : "💪";
   $("earned").textContent = stars ? "⭐".repeat(stars) : "Try again!";
@@ -374,6 +410,69 @@ function endRound(stars, msg, again){
   if (stars){ sfx.win(); confetti(); }
 }
 $("toHome").onclick = () => { renderHome(); show("home"); };
+
+/* ---------- Numbers ----------
+   Ge'ez has its own signs for 1–9 (፩–፱), 10–90 (፲–፺), 100 (፻) and 10,000 (፼). There is no zero:
+   23 is written ፳፫ (20 + 3). Each number's Amharic word has a clip in audio/num/<n>.mp3. */
+const NUM_BASIC = [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,10000];
+const ONES = ["","አንድ","ሁለት","ሦስት","አራት","አምስት","ስድስት","ሰባት","ስምንት","ዘጠኝ"];
+const TENS = ["","አስር","ሃያ","ሠላሳ","አርባ","ሃምሳ","ስልሳ","ሰባ","ሰማንያ","ዘጠና"];
+function geezNum(n){
+  if (n === 10000) return "፼";
+  if (n === 100) return "፻";
+  const t = Math.floor(n / 10), o = n % 10;
+  return (t ? String.fromCodePoint(0x1371 + t) : "") + (o ? String.fromCodePoint(0x1368 + o) : "");
+}
+function numWord(n){
+  if (n === 10000) return "አስር ሺህ";
+  if (n === 100) return "መቶ";
+  const t = Math.floor(n / 10), o = n % 10;
+  if (!t) return ONES[o];
+  if (!o) return TENS[t];
+  return (t === 1 ? "አስራ" : TENS[t]) + " " + ONES[o];
+}
+function sayNum(n){
+  if (clip) clip.pause();
+  clip = new Audio("audio/num/" + n + ".mp3");
+  clip.play().catch(() => {});
+}
+function startNumLearn(){
+  const grid = $("numGrid"); grid.innerHTML = "";
+  NUM_BASIC.forEach(n => {
+    const c = document.createElement("button");
+    c.className = "numcard";
+    c.innerHTML = `<div class="g">${geezNum(n)}</div><div class="d">${n.toLocaleString("en")}</div><div class="w">${numWord(n)}</div>`;
+    c.onclick = () => { grid.querySelectorAll(".on").forEach(x => x.classList.remove("on")); c.classList.add("on"); sayNum(n); };
+    grid.appendChild(c);
+  });
+  renderBuilder(23);
+  show("numLearn");
+}
+function renderBuilder(n){
+  const t = n - n % 10, o = n % 10;
+  $("builder").innerHTML = `<div class="eq">${geezNum(t)} + ${geezNum(o)} = ${geezNum(n)}</div>
+    <div class="eq"><b>${t} + ${o} = ${n}</b></div>
+    <div class="w" style="font-family:var(--fidel);font-size:22px">${numWord(n)}</div>
+    <button class="pill" style="margin-top:10px" id="newNum">🎲 Another number</button>`;
+  $("builder").querySelector(".eq").onclick = () => sayNum(n);
+  $("newNum").onclick = () => { let m; do { m = 11 + (Math.random() * 89 | 0); } while (m % 10 === 0); renderBuilder(m); sayNum(m); };
+}
+function startNumQuiz(){
+  // 6 single-sign numbers and 4 two-sign numbers (like ፳፫) per round
+  const basic = shuffle(NUM_BASIC.filter(n => n <= 100)).slice(0, 6);
+  const built = []; while (built.length < 4){ const m = 11 + (Math.random() * 89 | 0); if (m % 10 && !built.includes(m)) built.push(m); }
+  quiz = { kind:"num", n:0, right:0, misses:0, items: shuffle([...basic, ...built].map(n => [n])), dirs: shuffle([0,0,0,0,0,1,1,1,1,1]) };
+  show("quiz"); nextQ();
+}
+function numDistractors(n){
+  const cand = new Set();
+  if (n % 10 && n > 10){ // look-alikes: same tens or same ones
+    const t = n - n % 10, o = n % 10;
+    [1,2,3].forEach(k => { cand.add(t + ((o + k - 1) % 9) + 1); if (t + 10 * k < 100) cand.add(t + 10 * k + o); if (t - 10 * k > 0) cand.add(t - 10 * k + o); });
+  } else NUM_BASIC.filter(m => m <= 100).forEach(m => cand.add(m));
+  cand.delete(n);
+  return shuffle([...cand]).slice(0, 3).map(m => [m]);
+}
 
 /* ---------- Memory match ---------- */
 let mem = null;
