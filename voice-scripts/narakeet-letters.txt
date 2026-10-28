@@ -1,0 +1,475 @@
+ሀ።
+(pause: 1.5)
+ሁ።
+(pause: 1.5)
+ሂ።
+(pause: 1.5)
+ሃ።
+(pause: 1.5)
+ሄ።
+(pause: 1.5)
+ህ።
+(pause: 1.5)
+ሆ።
+(pause: 1.5)
+ለ።
+(pause: 1.5)
+ሉ።
+(pause: 1.5)
+ሊ።
+(pause: 1.5)
+ላ።
+(pause: 1.5)
+ሌ።
+(pause: 1.5)
+ል።
+(pause: 1.5)
+ሎ።
+(pause: 1.5)
+ሐ።
+(pause: 1.5)
+ሑ።
+(pause: 1.5)
+ሒ።
+(pause: 1.5)
+ሓ።
+(pause: 1.5)
+ሔ።
+(pause: 1.5)
+ሕ።
+(pause: 1.5)
+ሖ።
+(pause: 1.5)
+መ።
+(pause: 1.5)
+ሙ።
+(pause: 1.5)
+ሚ።
+(pause: 1.5)
+ማ።
+(pause: 1.5)
+ሜ።
+(pause: 1.5)
+ም።
+(pause: 1.5)
+ሞ።
+(pause: 1.5)
+ሠ።
+(pause: 1.5)
+ሡ።
+(pause: 1.5)
+ሢ።
+(pause: 1.5)
+ሣ።
+(pause: 1.5)
+ሤ።
+(pause: 1.5)
+ሥ።
+(pause: 1.5)
+ሦ።
+(pause: 1.5)
+ረ።
+(pause: 1.5)
+ሩ።
+(pause: 1.5)
+ሪ።
+(pause: 1.5)
+ራ።
+(pause: 1.5)
+ሬ።
+(pause: 1.5)
+ር።
+(pause: 1.5)
+ሮ።
+(pause: 1.5)
+ሰ።
+(pause: 1.5)
+ሱ።
+(pause: 1.5)
+ሲ።
+(pause: 1.5)
+ሳ።
+(pause: 1.5)
+ሴ።
+(pause: 1.5)
+ስ።
+(pause: 1.5)
+ሶ።
+(pause: 1.5)
+ሸ።
+(pause: 1.5)
+ሹ።
+(pause: 1.5)
+ሺ።
+(pause: 1.5)
+ሻ።
+(pause: 1.5)
+ሼ።
+(pause: 1.5)
+ሽ።
+(pause: 1.5)
+ሾ።
+(pause: 1.5)
+ቀ።
+(pause: 1.5)
+ቁ።
+(pause: 1.5)
+ቂ።
+(pause: 1.5)
+ቃ።
+(pause: 1.5)
+ቄ።
+(pause: 1.5)
+ቅ።
+(pause: 1.5)
+ቆ።
+(pause: 1.5)
+በ።
+(pause: 1.5)
+ቡ።
+(pause: 1.5)
+ቢ።
+(pause: 1.5)
+ባ።
+(pause: 1.5)
+ቤ።
+(pause: 1.5)
+ብ።
+(pause: 1.5)
+ቦ።
+(pause: 1.5)
+ተ።
+(pause: 1.5)
+ቱ።
+(pause: 1.5)
+ቲ።
+(pause: 1.5)
+ታ።
+(pause: 1.5)
+ቴ።
+(pause: 1.5)
+ት።
+(pause: 1.5)
+ቶ።
+(pause: 1.5)
+ቸ።
+(pause: 1.5)
+ቹ።
+(pause: 1.5)
+ቺ።
+(pause: 1.5)
+ቻ።
+(pause: 1.5)
+ቼ።
+(pause: 1.5)
+ች።
+(pause: 1.5)
+ቾ።
+(pause: 1.5)
+ኀ።
+(pause: 1.5)
+ኁ።
+(pause: 1.5)
+ኂ።
+(pause: 1.5)
+ኃ።
+(pause: 1.5)
+ኄ።
+(pause: 1.5)
+ኅ።
+(pause: 1.5)
+ኆ።
+(pause: 1.5)
+ነ።
+(pause: 1.5)
+ኑ።
+(pause: 1.5)
+ኒ።
+(pause: 1.5)
+ና።
+(pause: 1.5)
+ኔ።
+(pause: 1.5)
+ን።
+(pause: 1.5)
+ኖ።
+(pause: 1.5)
+ኘ።
+(pause: 1.5)
+ኙ።
+(pause: 1.5)
+ኚ።
+(pause: 1.5)
+ኛ።
+(pause: 1.5)
+ኜ።
+(pause: 1.5)
+ኝ።
+(pause: 1.5)
+ኞ።
+(pause: 1.5)
+አ።
+(pause: 1.5)
+ኡ።
+(pause: 1.5)
+ኢ።
+(pause: 1.5)
+ኣ።
+(pause: 1.5)
+ኤ።
+(pause: 1.5)
+እ።
+(pause: 1.5)
+ኦ።
+(pause: 1.5)
+ከ።
+(pause: 1.5)
+ኩ።
+(pause: 1.5)
+ኪ።
+(pause: 1.5)
+ካ።
+(pause: 1.5)
+ኬ።
+(pause: 1.5)
+ክ።
+(pause: 1.5)
+ኮ።
+(pause: 1.5)
+ኸ።
+(pause: 1.5)
+ኹ።
+(pause: 1.5)
+ኺ።
+(pause: 1.5)
+ኻ።
+(pause: 1.5)
+ኼ።
+(pause: 1.5)
+ኽ።
+(pause: 1.5)
+ኾ።
+(pause: 1.5)
+ወ።
+(pause: 1.5)
+ዉ።
+(pause: 1.5)
+ዊ።
+(pause: 1.5)
+ዋ።
+(pause: 1.5)
+ዌ።
+(pause: 1.5)
+ው።
+(pause: 1.5)
+ዎ።
+(pause: 1.5)
+ዐ።
+(pause: 1.5)
+ዑ።
+(pause: 1.5)
+ዒ።
+(pause: 1.5)
+ዓ።
+(pause: 1.5)
+ዔ።
+(pause: 1.5)
+ዕ።
+(pause: 1.5)
+ዖ።
+(pause: 1.5)
+ዘ።
+(pause: 1.5)
+ዙ።
+(pause: 1.5)
+ዚ።
+(pause: 1.5)
+ዛ።
+(pause: 1.5)
+ዜ።
+(pause: 1.5)
+ዝ።
+(pause: 1.5)
+ዞ።
+(pause: 1.5)
+ዠ።
+(pause: 1.5)
+ዡ።
+(pause: 1.5)
+ዢ።
+(pause: 1.5)
+ዣ።
+(pause: 1.5)
+ዤ።
+(pause: 1.5)
+ዥ።
+(pause: 1.5)
+ዦ።
+(pause: 1.5)
+የ።
+(pause: 1.5)
+ዩ።
+(pause: 1.5)
+ዪ።
+(pause: 1.5)
+ያ።
+(pause: 1.5)
+ዬ።
+(pause: 1.5)
+ይ።
+(pause: 1.5)
+ዮ።
+(pause: 1.5)
+ደ።
+(pause: 1.5)
+ዱ።
+(pause: 1.5)
+ዲ።
+(pause: 1.5)
+ዳ።
+(pause: 1.5)
+ዴ።
+(pause: 1.5)
+ድ።
+(pause: 1.5)
+ዶ።
+(pause: 1.5)
+ጀ።
+(pause: 1.5)
+ጁ።
+(pause: 1.5)
+ጂ።
+(pause: 1.5)
+ጃ።
+(pause: 1.5)
+ጄ።
+(pause: 1.5)
+ጅ።
+(pause: 1.5)
+ጆ።
+(pause: 1.5)
+ገ።
+(pause: 1.5)
+ጉ።
+(pause: 1.5)
+ጊ።
+(pause: 1.5)
+ጋ።
+(pause: 1.5)
+ጌ።
+(pause: 1.5)
+ግ።
+(pause: 1.5)
+ጎ።
+(pause: 1.5)
+ጠ።
+(pause: 1.5)
+ጡ።
+(pause: 1.5)
+ጢ።
+(pause: 1.5)
+ጣ።
+(pause: 1.5)
+ጤ።
+(pause: 1.5)
+ጥ።
+(pause: 1.5)
+ጦ።
+(pause: 1.5)
+ጨ።
+(pause: 1.5)
+ጩ።
+(pause: 1.5)
+ጪ።
+(pause: 1.5)
+ጫ።
+(pause: 1.5)
+ጬ።
+(pause: 1.5)
+ጭ።
+(pause: 1.5)
+ጮ።
+(pause: 1.5)
+ጰ።
+(pause: 1.5)
+ጱ።
+(pause: 1.5)
+ጲ።
+(pause: 1.5)
+ጳ።
+(pause: 1.5)
+ጴ።
+(pause: 1.5)
+ጵ።
+(pause: 1.5)
+ጶ።
+(pause: 1.5)
+ጸ።
+(pause: 1.5)
+ጹ።
+(pause: 1.5)
+ጺ።
+(pause: 1.5)
+ጻ።
+(pause: 1.5)
+ጼ።
+(pause: 1.5)
+ጽ።
+(pause: 1.5)
+ጾ።
+(pause: 1.5)
+ፀ።
+(pause: 1.5)
+ፁ።
+(pause: 1.5)
+ፂ።
+(pause: 1.5)
+ፃ።
+(pause: 1.5)
+ፄ።
+(pause: 1.5)
+ፅ።
+(pause: 1.5)
+ፆ።
+(pause: 1.5)
+ፈ።
+(pause: 1.5)
+ፉ።
+(pause: 1.5)
+ፊ።
+(pause: 1.5)
+ፋ።
+(pause: 1.5)
+ፌ።
+(pause: 1.5)
+ፍ።
+(pause: 1.5)
+ፎ።
+(pause: 1.5)
+ፐ።
+(pause: 1.5)
+ፑ።
+(pause: 1.5)
+ፒ።
+(pause: 1.5)
+ፓ።
+(pause: 1.5)
+ፔ።
+(pause: 1.5)
+ፕ።
+(pause: 1.5)
+ፖ።
+(pause: 1.5)
+ቨ።
+(pause: 1.5)
+ቩ።
+(pause: 1.5)
+ቪ።
+(pause: 1.5)
+ቫ።
+(pause: 1.5)
+ቬ።
+(pause: 1.5)
+ቭ።
+(pause: 1.5)
+ቮ።
