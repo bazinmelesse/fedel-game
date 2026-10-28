@@ -218,7 +218,7 @@ function findVoice(){
   amVoice = vs.find(v => /^am/i.test(v.lang)) || vs.find(v => /^ti/i.test(v.lang)) || null;
 }
 if ("speechSynthesis" in window){ findVoice(); speechSynthesis.onvoiceschanged = findVoice; }
-// Each letter has a recorded clip in audio/<codepoint>.mp3 (made with the free espeak-ng Amharic voice)
+// Each letter has a recorded clip in audio/<codepoint>.mp3 (Amharic voice recorded with Narakeet)
 let clip = null;
 function speak(text){
   const cp = text.codePointAt(0);
