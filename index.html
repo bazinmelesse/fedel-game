@@ -730,7 +730,12 @@ function drawScene(kind){
 }
 
 /* ---------- Offline install (works when served from a web address) ---------- */
-if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  // When a new version installs, reload once so the child sees it straight away
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !window.__reloaded){ window.__reloaded = true; location.reload(); } });
+  navigator.serviceWorker.register("sw.js", { updateViaCache:"none" }).then(r => r.update()).catch(()=>{});
+}
 
 renderHome();
 </script>
