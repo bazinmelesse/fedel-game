@@ -4,6 +4,7 @@ A kids' game for learning the Ge'ez (Ethiopic) alphabet. It works offline on PCs
 
 - **Learn**: each letter family with its 7 forms and their sounds
 - **Find the letter**, **What sound?**, **Memory match**: practice games with stars and unlockable levels
+- **Voices**: a voice picker (🔊 at the top) with Normal, Bird, Cat, Bear, Lion and Surprise character voices made from the same recordings
 - **Numbers**: Ge'ez numbers ፩ to ፼ with spoken Amharic words, plus a number quiz
 - **Songs**: two sing-along songs (የፊደል ደስታ and የፊደል ቤተሰብ) with lyrics shown one line at a time over an Ethiopian highlands scene, with things labelled by their Amharic word and balloons carrying the letters being sung. "Fix timing" lets a grown-up tap along once to make the lyric timing exact.
 
