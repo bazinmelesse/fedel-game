@@ -26,6 +26,16 @@ npx eas-cli@latest build --platform ios
 
 `eas.json` has a `preview` profile that makes an installable Android APK.
 
+## Put it on the web
+
+```bash
+npm run build:web     # builds into ../app, then commit that folder
+```
+
+GitHub Pages serves it at https://bazinmelesse.github.io/fedel-game/app/. A service worker saves the whole game
+on the first visit, so after that it plays with no internet. The original web game at the repo root is unchanged.
+The `.nojekyll` file at the repo root is needed so Pages serves the build's `_expo` and `_audio` folders.
+
 ## Where things are
 
 | Path | What |

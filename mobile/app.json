@@ -21,7 +21,11 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "name": "ፊደል ጨዋታ · Fidel Game",
+      "shortName": "ፊደል",
+      "themeColor": "#2e7d5b",
+      "backgroundColor": "#fff8e7"
     },
     "plugins": [
       [
@@ -43,6 +47,9 @@
         }
       ]
     ],
-    "backgroundColor": "#fff8e7"
+    "backgroundColor": "#fff8e7",
+    "experiments": {
+      "baseUrl": "/fedel-game/app"
+    }
   }
 }

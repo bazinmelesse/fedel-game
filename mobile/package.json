@@ -28,7 +28,8 @@
     "web": "expo start --web",
     "gen:audio": "node scripts/gen-audio-map.js",
     "gen:sfx": "node scripts/make-sfx.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:web": "node scripts/build-web.js"
   },
   "private": true
 }
