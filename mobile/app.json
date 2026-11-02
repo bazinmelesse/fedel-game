@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "ፊደል ጨዋታ",
+    "slug": "fidel-game",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bazinmelesse.fidelgame"
+    },
+    "android": {
+      "package": "com.bazinmelesse.fidelgame",
+      "adaptiveIcon": {
+        "backgroundColor": "#2e9e6b",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "name": "ፊደል ጨዋታ · Fidel Game",
+      "shortName": "ፊደል",
+      "themeColor": "#2e7d5b",
+      "backgroundColor": "#fff8e7"
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false
+        }
+      ],
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#fff8e7"
+        }
+      ]
+    ],
+    "backgroundColor": "#fff8e7",
+    "experiments": {
+      "baseUrl": "/fedel-game/app"
+    }
+  }
+}

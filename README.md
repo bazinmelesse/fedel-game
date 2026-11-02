@@ -11,6 +11,8 @@ A kids' game for learning the Ge'ez (Ethiopic) alphabet. It works offline on PCs
 Letter and number voices were recorded with Narakeet.
 
 ## Play
+- **Phone or tablet app:** the React Native + Expo version is in [`mobile/`](mobile/README.md). It has the same games, voices and songs, all bundled for offline play.
+- **New version in the browser:** https://bazinmelesse.github.io/fedel-game/app/ runs the React Native version as a web page. It works offline after the first visit, and you can add it to the home screen.
 - **Online / install on a tablet:** open the GitHub Pages link in Chrome, then use the menu and tap "Add to Home screen". After the first visit it works with no internet.
 - **PC without internet:** download this repo and open `index.html` in Chrome or Edge.
 
