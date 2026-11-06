@@ -15,3 +15,25 @@ Letter and number voices were recorded with Narakeet.
 - **PC without internet:** download this repo and open `index.html` in Chrome or Edge.
 
 Progress is saved on each device.
+
+## Family app (`/app`)
+
+A second version of the game at `/app/` with family accounts:
+
+- **Parent account** with email and password (Firebase), password reset, and a 4-digit PIN for the parent page. Or "this device only" with no email.
+- **Child profiles**, each with their own stars, stickers and letter progress, synced across tablets when online.
+- **Parent page**: a progress grid of all 238 letters, tricky letters, which games each child can play, voice lock, sound effects, daily time limit, open all levels.
+- **New games**: journey map across Ethiopia with stickers, trace the letter, balloon pop, build a word, picture words in Learn, smart review.
+
+Firestore security rules (Firebase console → Firestore → Rules):
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /families/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+```
