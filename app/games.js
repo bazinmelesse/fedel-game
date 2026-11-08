@@ -268,4 +268,5 @@ function stopGames(){
   cancelAnimationFrame(BP.raf); BP.prev = 0;
   document.querySelectorAll("#bSky .bal").forEach(b => b.remove()); BP.bals = [];
   if (typeof player !== "undefined") player.pause();
+  if (typeof mvideo !== "undefined") mvideo.pause();
 }
