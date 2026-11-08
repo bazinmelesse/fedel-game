@@ -1,6 +1,6 @@
 "use strict";
 /* ---------- Family: sign-up, sign-in, who's playing, parent page, daily time ---------- */
-const AVATARS = ["🦁","🐘","🦒","🐒","🐆","🦓","🐢","🐰","🦊","🐼","🐨","🦜"];
+const AVATARS = ["k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11","k12"];
 const LIMITS = [0, 10, 15, 20, 30, 45, 60, 90];
 const PLAY_SCREENS = ["home","learn","quiz","memory","numLearn","song","trace","balloon","words","stickers","result"];
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]);
@@ -137,7 +137,7 @@ function goWho(){
   const box = $("kidList"); box.innerHTML = "";
   db.kids.forEach(k => {
     const b = document.createElement("button"); b.className = "kid";
-    b.innerHTML = `<span class="av">${k.avatar}</span>${esc(k.name)}<small>⭐ ${k.save.stars || 0} · 🏅 ${(k.save.stickers || []).length}</small>`;
+    b.innerHTML = `<span class="av">${avHTML(k.avatar)}</span>${esc(k.name)}<small>⭐ ${k.save.stars || 0} · 🏅 ${(k.save.stickers || []).length}</small>`;
     b.onclick = () => { sfx.tap(); pickKid(k.id); };
     box.appendChild(b);
   });
@@ -168,7 +168,7 @@ function editKid(id, from = "parent"){
   drawAvatars(); show("kidEdit");
 }
 function drawAvatars(){
-  $("keAvatars").innerHTML = AVATARS.map(a => `<button type="button" class="${a === kidAvatar ? "sel" : ""}">${a}</button>`).join("");
+  $("keAvatars").innerHTML = AVATARS.map(a => `<button type="button" class="${a === kidAvatar ? "sel" : ""}">${avHTML(a)}</button>`).join("");
   [...$("keAvatars").children].forEach((b, i) => b.onclick = () => { kidAvatar = AVATARS[i]; drawAvatars(); });
 }
 $("kidForm").onsubmit = e => {
@@ -196,7 +196,7 @@ function openParent(){
     const b = document.createElement("button"); b.className = "kidcard";
     const done = LEVELS.filter((_, l) => (k.save.best || {})[l] >= 3).length;
     const known = Object.keys(k.stats || {}).filter(g => letterState(k, g) === "known").length;
-    b.innerHTML = `<span class="av">${k.avatar}</span><div><b>${esc(k.name)}</b>
+    b.innerHTML = `<span class="av">${avHTML(k.avatar)}</span><div><b>${esc(k.name)}</b>
       <span>⭐ ${k.save.stars || 0} stars · ${done} of ${LEVELS.length} stops done</span>
       <span>${known} of 238 letters known · ${minutesToday(k)} min today</span></div>`;
     b.onclick = () => openKid(k.id);
@@ -245,7 +245,7 @@ function renderAccount(){
 let pk = null;
 function openKid(id){
   pk = db.kids.find(k => k.id === id); if (!pk) return openParent();
-  $("pkHead").innerHTML = `<span class="av">${pk.avatar}</span>${esc(pk.name)}`;
+  $("pkHead").innerHTML = `<span class="av">${avHTML(pk.avatar)}</span>${esc(pk.name)}`;
   renderProgress(); renderSettings(); tab("prog");
   show("pKid");
 }

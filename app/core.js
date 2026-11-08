@@ -20,6 +20,9 @@ function persist(localOnly){
   try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e){}
   if (!localOnly) cloudPush();
 }
+// A profile picture is either one of the character pictures ("k1".."k12" in avatars/) or an emoji (older profiles)
+const isPic = a => /^k\d+$/.test(a || "");
+function avHTML(a){ return isPic(a) ? `<img class="avimg" src="avatars/${a}.jpg" alt="">` : (a || "🙂"); }
 function activeKid(){ return db.kids.find(k => k.id === db.last) || null; }
 function kidSet(k = activeKid()){
   const s = Object.assign({}, DEFAULT_SET, k && k.set);

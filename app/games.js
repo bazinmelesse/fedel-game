@@ -20,7 +20,7 @@ function renderMap(){
   MAP_ORDER.forEach(l => {
     const st = STOPS[l], ok = unlocked(l), b = document.createElement("button");
     b.className = "stop" + (l === save.level ? " sel" : "") + (ok ? "" : " lock") + (save.stickers.includes(l) ? " got" : "");
-    b.innerHTML = (l === save.level ? `<span class="me">${activeKid() ? activeKid().avatar : "🙂"}</span>` : "")
+    b.innerHTML = (l === save.level ? `<span class="me">${avHTML(activeKid() && activeKid().avatar)}</span>` : "")
       + `<span class="ic">${ok ? st.icon : "🔒"}</span><span class="nm">${st.am}</span>`
       + `<span class="ls">${LEVELS[l].map(f => glyph(f,0)).join(" ")}</span>`
       + `<span class="st">${"★".repeat(bestStars(l))}${"☆".repeat(3 - bestStars(l))}</span>`;

@@ -139,7 +139,14 @@ h2{margin:8px 0}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:20px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
 /* ---------- accounts, parent page, new games ---------- */
-.kidbtn{font-size:30px}
+.kidbtn{font-size:30px;padding:0;overflow:hidden}
+.avimg{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.kidbtn .avimg{width:46px;height:46px;margin:auto}
+.kid .av{width:120px;height:120px;margin:0 auto 6px;display:grid;place-items:center}
+.kidcard .av,.kidhead .av{width:64px;height:64px;flex:none;display:grid;place-items:center}
+.stop .me{width:40px;height:40px;display:block}
+.stop .me .avimg{border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.avatars button .avimg{aspect-ratio:1;height:auto}
 body.grown .stars,body.grown .voicebtn{visibility:hidden}
 .panel{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:20px;max-width:520px;margin:12px auto}
 .panel.wide{max-width:none}
@@ -157,6 +164,7 @@ body.grown .stars,body.grown .voicebtn{visibility:hidden}
 .kid .av{font-size:72px;display:block}
 .kid small{display:block;color:var(--muted);font-weight:400;font-size:15px}
 .avatars{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:8px 0}
+.avatars button{padding:4px!important;border-radius:50%!important}
 .avatars button{font-size:36px;background:var(--bg);border-radius:14px;padding:6px 0}
 .avatars button.sel{outline:4px solid var(--blue)}
 .kidcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
@@ -647,7 +655,7 @@ $("backBtn").onclick = () => {
 function renderHome(){
   const k = activeKid(), set = kidSet();
   $("starCount").textContent = save.stars;
-  $("kidBtn").textContent = k ? k.avatar : "🙂";
+  $("kidBtn").innerHTML = avHTML(k && k.avatar);
   $("hello").textContent = k ? `Hi ${k.name}! · ሰላም` : "";
   renderMap();
   // Hide the games a parent switched off
