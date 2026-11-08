@@ -147,7 +147,21 @@ function pickKid(id){
   db.last = id; persist(true); loadKid(); surprise.left = 0;
   if (overLimit()) return show("rest");
   renderHome(); show("home");
+  // Children made before the character pictures existed get to choose one
+  if (!isPic(activeKid().avatar)) setTimeout(openPicPicker, 400);
 }
+/* ----- A child changes their own picture (no PIN needed) ----- */
+function openPicPicker(){
+  const k = activeKid(); if (!k) return;
+  $("picOpts").innerHTML = AVATARS.map(a => `<button type="button" class="${a === k.avatar ? "sel" : ""}">${avHTML(a)}</button>`).join("");
+  [...$("picOpts").children].forEach((b, i) => b.onclick = () => {
+    k.avatar = AVATARS[i]; persist(); sfx.good(); burst(b);
+    $("picModal").classList.remove("on"); renderHome();
+  });
+  $("picModal").classList.add("on");
+}
+$("myPic").onclick = () => { sfx.tap(); openPicPicker(); };
+$("picClose").onclick = () => $("picModal").classList.remove("on");
 $("kidBtn").onclick = () => { sfx.tap(); goWho(); };
 $("toParent").onclick = () => askPin(openParent);
 $("restWho").onclick = goWho;
