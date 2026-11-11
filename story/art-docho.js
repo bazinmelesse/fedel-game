@@ -1,4 +1,4 @@
-/* Drawn illustrations for "Lomi and the Giant's Shoe" (ሎሚ እና የግዙፉ ጫማ).
+/* Drawn illustrations for "Docho and the Giant's Shoe" (ዶጮ እና የግዙፉ ጫማ).
    Uses the shared helpers from art.js so both books look like one series. */
 (function(){
 const K = window.STORY_KIT, LINE = K.LINE, C = K.C;
@@ -38,7 +38,7 @@ function person(o){
     ${hair}
   </g>`;
 }
-const lomi = o => person(Object.assign({ hair:"cap", shirt:"#f2c94c", pants:"#2f6db5", apron:true }, o));
+const docho = o => person(Object.assign({ hair:"cap", shirt:"#f2c94c", pants:"#2f6db5", apron:true }, o));
 const kidA = o => person(Object.assign({ hair:"braids", shirt:"#e35d8c", dress:true, skin:"#7a4a2f" }, o));
 const kidB = o => person(Object.assign({ hair:"short", shirt:"#4fb3a9", pants:"#5b4a8a", skin:"#9a6440" }, o));
 const kidC = o => person(Object.assign({ hair:"braids", shirt:"#8e6ad8", dress:true, skin:"#6a3f26" }, o));
@@ -157,7 +157,7 @@ function sign(x, y, text, s = 1){
 const ART = {
   cover: () => K.svg(
     K.hills() + K.tukul(110, 360, .7) + K.warka(690, 360, .6) + K.grass(480) +
-    boot(400, 470, 1.4) + lomi({ x:420, y:378, s:.9, arm:"both" }) +
+    boot(400, 470, 1.4) + docho({ x:420, y:378, s:.9, arm:"both" }) +
     kidA({ x:200, y:478, s:.75, arm:"wave" }) + kidB({ x:610, y:478, s:.75, arm:"wave", flip:true }) +
     K.flowers([[90, 470, C.red], [720, 465, C.yellow]]),
     K.sky("#9fd8ff", "#fff3d6", "l0")),
@@ -168,7 +168,7 @@ const ART = {
     boot(470, 420, .18, { colour:"#2f6db5" }) + boot(505, 420, .14, { colour:C.red }) +
     `<path d="M560,250 h120" stroke="#8a5a33" stroke-width="4"/>` + boot(585, 290, .14) + boot(625, 290, .16, { colour:"#2f6db5" }) + boot(665, 290, .12, { colour:C.green }) +
     `<path d="M585,250 v26 M625,250 v24 M665,250 v28" stroke="${LINE}" stroke-width="2"/>` +
-    lomi({ x:400, y:475, s:.9, arm:"wave" }) +
+    docho({ x:400, y:475, s:.9, arm:"wave" }) +
     person({ x:200, y:478, s:1.1, hair:"short", shirt:"#8e6ad8", pants:"#444", skin:"#7a4a2f" }) +
     kidA({ x:270, y:478, s:.7 }),
     K.sky(undefined, undefined, "l1")),
@@ -176,7 +176,7 @@ const ART = {
   p2: () => K.svg(
     K.hills() + K.tukul(110, 380, .6) + K.tukul(260, 370, .5) + K.grass(485) +
     giant({ x:570, y:480, s:.92, shoes:"old", arm:"down" }) +
-    lomi({ x:330, y:480, s:.75, arm:"wave", flip:true }) +
+    docho({ x:330, y:480, s:.75, arm:"wave", flip:true }) +
     `<g font-size="34" font-weight="700" fill="${LINE}" font-family="system-ui,sans-serif"><text x="380" y="300" transform="rotate(-10 380 300)">ዱም!</text><text x="300" y="230" transform="rotate(8 300 230)" font-size="26">ዱም!</text></g>` +
     `<path d="M460,488 l-14,-10 M660,488 l14,-10 M520,492 l-10,-14" stroke="${LINE}" stroke-width="3" stroke-linecap="round"/>`,
     K.sky(undefined, undefined, "l2")),
@@ -184,14 +184,14 @@ const ART = {
   p3: () => K.svg(
     `<path d="M0,470 L800,470 L800,500 L0,500Z" fill="${C.hill2}"/>` + K.grass(495) +
     foot(470, 470, 1.05) +
-    ladder(560, 470, 640, 330) + lomi({ x:620, y:368, s:.8, arm:"both" }) +
+    ladder(560, 470, 640, 330) + docho({ x:620, y:368, s:.8, arm:"both" }) +
     `<path d="M600,280 C540,260 420,300 330,330" stroke="#c9a24f" stroke-width="4" fill="none" stroke-dasharray="10 6"/>` +
     `<g font-size="22" fill="${LINE}" font-family="Nyala,'Noto Sans Ethiopic',sans-serif"><text x="470" y="270">፩</text><text x="400" y="292">፪</text><text x="335" y="315">፫</text></g>`,
     K.sky("#a9dcff", "#fff3d6", "l3")),
 
   p4: () => K.svg(
     K.hills() + K.tukul(680, 360, .6) + K.grass(480) +
-    lomi({ x:130, y:470, s:.95, arm:"both" }) +
+    docho({ x:130, y:470, s:.95, arm:"both" }) +
     kidA({ x:310, y:474, s:.85, run:true, flip:true }) + hide(275, 380, 1) +
     kidB({ x:450, y:476, s:.85, run:true, flip:true }) + rope(415, 395, 1) +
     kidC({ x:590, y:474, s:.85, run:true, flip:true }) + needle(500, 380, 130, -8) +
@@ -204,7 +204,7 @@ const ART = {
     `<path d="M0,380 C200,350 600,360 800,380 L800,500 L0,500Z" fill="#4a7a4a"/>` +
     boot(400, 470, 2) + `<path d="M260,-0" />` +
     `<path d="M220,330 q30,20 60,0 q30,20 60,0 q30,20 60,0 q30,20 60,0" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="6 6" transform="translate(-30,20)"/>` +
-    lomi({ x:250, y:278, s:.85, arm:"both" }) +
+    docho({ x:250, y:278, s:.85, arm:"both" }) +
     kidA({ x:120, y:480, s:.75, arm:"up" }) + kidB({ x:640, y:482, s:.75, arm:"up", flip:true }) + kidC({ x:720, y:480, s:.7 }) +
     `<path d="M140,370 C200,330 260,320 330,350" stroke="#c9a24f" stroke-width="5" fill="none"/>` +
     notes([[180, 300], [600, 300], [690, 330]]),
@@ -214,7 +214,7 @@ const ART = {
     K.sun(690, 90, 50) + K.hills() + K.grass(485) +
     giant({ x:430, y:482, s:.95, shoes:"new", arm:"wave", dance:true }) +
     kidA({ x:140, y:482, s:.75, arm:"both" }) + kidB({ x:220, y:484, s:.75, arm:"both" }) +
-    lomi({ x:680, y:484, s:.8, arm:"both", flip:true }) + kidC({ x:740, y:482, s:.7, arm:"wave", flip:true }) +
+    docho({ x:680, y:484, s:.8, arm:"both", flip:true }) + kidC({ x:740, y:482, s:.7, arm:"wave", flip:true }) +
     notes([[260, 200], [600, 180], [640, 260]]) +
     `<path d="M330,492 l-16,-8 M530,492 l16,-8" stroke="${LINE}" stroke-width="3" stroke-linecap="round"/>`,
     K.sky("#9fd8ff", "#fff3d6", "l6")),
@@ -222,14 +222,14 @@ const ART = {
   p7: () => K.svg(
     K.hills() + K.warka(120, 380, .55) + K.grass(485) +
     giant({ x:470, y:482, s:.95, shoes:"new", arm:"hold", holdShoe:true }) +
-    lomi({ x:700, y:484, s:.95, arm:"wave", flip:true }) +
+    docho({ x:700, y:484, s:.95, arm:"wave", flip:true }) +
     `<text x="650" y="300" font-size="44" font-weight="800" fill="${C.red}" font-family="system-ui,sans-serif">?</text>`,
     K.sky(undefined, undefined, "l7")),
 
   p8: () => K.svg(
     K.hills() + K.grass(485) +
-    shoeHouse(400, 465, 1.5) + sign(650, 480, "የሎሚ ጫማ ቤት", 1.1) +
-    lomi({ x:250, y:480, s:.8, arm:"wave" }) + kidA({ x:140, y:482, s:.7, arm:"up" }) + kidB({ x:740, y:484, s:.7, arm:"both", flip:true }) +
+    shoeHouse(400, 465, 1.5) + sign(650, 480, "የዶጮ ጫማ ቤት", 1.1) +
+    docho({ x:250, y:480, s:.8, arm:"wave" }) + kidA({ x:140, y:482, s:.7, arm:"up" }) + kidB({ x:740, y:484, s:.7, arm:"both", flip:true }) +
     K.flowers([[300, 478, C.red], [330, 470, C.yellow], [520, 478, "#b06ad8"]]),
     K.sky("#9fd8ff", "#fff3d6", "l8")),
 
@@ -237,15 +237,16 @@ const ART = {
     K.sun(120, 80, 40) + lalibela(640, 300, .9) + giant({ x:640, y:220, s:.22, shoes:"new", arm:"wave" }) +
     `<path d="M0,330 C200,300 500,310 800,330 L800,500 L0,500Z" fill="${C.hill1}"/>` +
     `<path d="M0,410 C200,390 500,400 800,410 L800,500 L0,500Z" fill="${C.hill2}"/>` + K.grass(485) +
-    shoeHouse(300, 470, 1.3) + lomi({ x:420, y:478, s:.85, arm:"wave" }) +
+    shoeHouse(300, 470, 1.3) + docho({ x:420, y:478, s:.85, arm:"wave" }) +
     `<path d="M560,190 q10,-10 20,0 M590,170 q10,-10 20,0" stroke="${LINE}" stroke-width="2" fill="none"/>`,
     K.sky("#ffd9b0", "#fff3d6", "l9")),
 
   end: () => K.svg(
     K.hills() + K.grass(480) +
     `<ellipse cx="400" cy="250" rx="240" ry="175" fill="#fff" stroke="${C.yellow}" stroke-width="14"/>` +
-    shoeHouse(390, 380, 1.1) + lomi({ x:520, y:385, s:.7, arm:"wave" }),
+    shoeHouse(390, 380, 1.1) + docho({ x:520, y:385, s:.7, arm:"wave" }),
     K.sky("#ffe2b8", "#fff3d6", "le"))
 };
-window.STORY_ART_LOMI = ART;
+window.STORY_ART_DOCHO = ART;
+Object.assign(K, { person, boot });
 })();

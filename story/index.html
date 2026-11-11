@@ -92,11 +92,12 @@ body.english .en{display:block}
 <audio id="voice" preload="auto"></audio>
 
 <script src="art.js"></script>
-<script src="art-lomi.js"></script>
+<script src="art-docho.js"></script>
+<script src="art-mumu.js"></script>
 <script src="books.js"></script>
 <script>
 /* Picture books that turn their pages with a tap or a swipe. Which book shows comes from the address:
-   story/#dama or story/#lomi. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
+   story/#dama, story/#docho or story/#mumu. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
    up to the last page ("The End").
    A page without a recording simply stays quiet. */
 const BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
