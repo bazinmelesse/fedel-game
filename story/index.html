@@ -92,67 +92,18 @@ body.english .en{display:block}
 <audio id="voice" preload="auto"></audio>
 
 <script src="art.js"></script>
+<script src="art-lomi.js"></script>
+<script src="books.js"></script>
 <script>
-/* Dama the Proud Cat: a picture book that turns its pages with a tap or a swipe.
-   Narration: put one recording per page in story/audio, named dama-0.mp3 (cover) to dama-10.mp3 (the end).
+/* Picture books that turn their pages with a tap or a swipe. Which book shows comes from the address:
+   story/#dama or story/#lomi. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
+   up to the last page ("The End").
    A page without a recording simply stays quiet. */
-const PAGES = [
-  { art:"cover", full:true, am:[], en:[] },
-  { art:"p1", key:"ድ", am:[
-      "በአንድ ትንሽ መንደር ዳማ የሚባል ነጭ ድመት ይኖር ነበር። ዳማ ቆንጆ ነበር፤ ግን በጣም ኩራተኛ ነበር።",
-      "«እኔ ከድመቶች ሁሉ እበልጣለሁ!» ይል ነበር። «ከሁሉ የምትበልጠውን አግኝቼ አገባታለሁ!»",
-      "ዳማ የመንደሩን ድመቶች ሁሉ ይንቃቸው ነበር። ትንሿን ባለ ሸንተረር ድመት ሚሚንም ጭምር።"],
-    en:["In a small village lived a white cat named Dama. Dama was handsome, but very proud.",
-      "\"I am the best of all the cats!\" he would say. \"I will find the greatest one of all, and I will marry her!\"",
-      "Dama looked down on every cat in the village, even little striped Mimi."] },
-  { art:"p2", key:"ጉ", am:[
-      "ዳማ ወደ ትልቁ የዋርካ ዛፍ ሄደ። እዚያ ጥበበኛዋ እማማ ጉጉት ትኖር ነበር።",
-      "«እማማ ጉጉት፣ ከሁሉ የሚበልጥ ማን ነው?» ብሎ ጠየቃት።",
-      "እማማ ጉጉት «ወደ ላይ ተመልከት» አለች። «ፀሐይ ዓለምን ሁሉ ታበራለች። ሂድና ፀሐይን ጠይቅ።»"],
-    en:["Dama went to the big warka tree, where wise Grandma Owl lived.",
-      "\"Grandma Owl, who is the greatest of all?\" he asked.",
-      "\"Look up,\" said Grandma Owl. \"The Sun lights up the whole world. Go and ask the Sun.\""] },
-  { art:"p3", key:"ፀ", am:[
-      "ዳማ ወደ ረጅሙ ኮረብታ ወጣ፤ ወደ ፀሐይም ጮኸ። «ፀሐይ ሆይ! ከሁሉ የምትበልጪው አንቺ ነሽ?»",
-      "ፀሐይ ፈገግ አለች። «እኔ ብርቱ ነኝ፤ ዓለምን አሞቃለሁ። ግን ደመና ሲመጣ ይሸፍነኛል። ደመና ከእኔ ይበልጣል።»",
-      "ዳማም ሄደ፣ ሄደ፣ ሄደ…"],
-    en:["Dama climbed the tall hill and called to the Sun. \"Sun! Are you the greatest of all?\"",
-      "The Sun smiled. \"I am strong. I warm the whole world. But when Cloud comes, he covers me. Cloud is greater than me.\"",
-      "And Dama walked, and walked, and walked…"] },
-  { art:"p4", key:"ደ", am:[
-      "«ደመና ሆይ! ከሁሉ የሚበልጠው አንተ ነህ?»",
-      "ደመናው እንዲህ አለ፦ «እኔ ፀሐይን እሸፍናለሁ። ግን ነፋስ ሲነፍስ ይበትነኛል። ነፋስ ከእኔ ይበልጣል።»"],
-    en:["\"Cloud! Are you the greatest of all?\"",
-      "The Cloud said, \"I cover the Sun. But when Wind blows, he scatters me. Wind is greater than me.\""] },
-  { art:"p5", key:"ነ", am:[
-      "«ነፋስ ሆይ! ከሁሉ የሚበልጠው አንተ ነህ?»",
-      "ነፋሱ «ፋውውው!» አለ። «እኔ ደመናን እበትናለሁ። ግን ተራራን ማንቀሳቀስ አልችልም። ተራራ ከእኔ ይበልጣል።»"],
-    en:["\"Wind! Are you the greatest of all?\"",
-      "The Wind went \"Whoooosh!\" \"I scatter the clouds. But I cannot move the Mountain. Mountain is greater than me.\""] },
-  { art:"p6", key:"ተ", am:[
-      "«ተራራ ሆይ! ከሁሉ የሚበልጠው አንተ ነህ?»",
-      "ተራራው በዝግታ መለሰ። «እኔ ነፋስን አቆማለሁ። ግን ትንሿ አይጥ ከእግሬ ስር ጉድጓድ ትቆፍራለች፤ ቀስ በቀስ ታፈርሰኛለች። አይጥ ከእኔ ትበልጣለች።»"],
-    en:["\"Mountain! Are you the greatest of all?\"",
-      "The Mountain answered slowly. \"I stop the Wind. But a little Mouse digs holes under my feet, and bit by bit she wears me down. Mouse is greater than me.\""] },
-  { art:"p7", key:"አ", am:[
-      "ዳማ ትንሿን አይጥ አገኛት። «አይጥ ሆይ! ከሁሉ የምትበልጪው አንቺ ነሽ?»",
-      "አይጧ ተንቀጠቀጠች። «እኔ? ኧረ በፍጹም! እኔ ሚሚን እፈራታለሁ። ሚሚ ስትመጣ ወደ ጉድጓዴ እሮጣለሁ። ሚሚ ከእኔ ትበልጣለች።»"],
-    en:["Dama found the little Mouse. \"Mouse! Are you the greatest of all?\"",
-      "The Mouse trembled. \"Me? Oh no, not at all! I am scared of Mimi. When Mimi comes, I run into my hole. Mimi is greater than me.\""] },
-  { art:"p8", key:"ሚ", am:[
-      "«ሚሚ? ያቺ ትንሿ ሚሚ?» ዳማ በጣም ተገረመ። ፀሐይ፣ ደመና፣ ነፋስ፣ ተራራ፣ አይጥ… እና ሚሚ!",
-      "ዳማ ወደ መንደሩ ተመልሶ ሚሚን አገኛት። «ሚሚ፣ ይቅርታ አድርጊልኝ። ናቅሁሽ ነበር። አንቺ ግን ከሁሉ ትበልጫለሽ።»",
-      "ሚሚ ፈገግ አለች። «ይቅር ብዬሃለሁ፣ ዳማ።»"],
-    en:["\"Mimi? Little Mimi?\" Dama was amazed. Sun, Cloud, Wind, Mountain, Mouse… and Mimi!",
-      "Dama went back to the village and found her. \"Mimi, please forgive me. I looked down on you. But you are the greatest of all.\"",
-      "Mimi smiled. \"I forgive you, Dama.\""] },
-  { art:"p9", key:"ሰ", am:[
-      "ዳማና ሚሚ ተጋቡ። መንደሩ ሁሉ በሰርጉ ላይ ጨፈረ። ፀሐይም ከላይ ፈገግ አለች።",
-      "ዳማም ተማረ፦ «ማንንም መናቅ አይገባም። ትንሹም ቢሆን የራሱ ብርታት አለው።»"],
-    en:["Dama and Mimi got married. The whole village danced at the wedding, and the Sun smiled down from above.",
-      "And Dama learned: \"Never look down on anyone. Even the smallest has their own strength.\""] },
-  { art:"end", full:true, end:true, am:[], en:[] }
-];
+const BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
+const BK = BOOKS[BOOK_ID], PAGES = BK.pages, ART = BK.art();
+document.title = BK.title;
+document.querySelector("header h1").textContent = BK.title;
+addEventListener("hashchange", () => location.reload());
 
 const book = document.getElementById("book"), voice = document.getElementById("voice");
 const N = PAGES.length;
@@ -171,13 +122,13 @@ const leaves = PAGES.map((pg, i) => {
   leaf.className = "leaf";
   leaf.style.zIndex = N - i;
   let words;
-  if (i === 0) words = `<div class="title">ዳማ ኩሩው ድመት</div><div class="sub">Dama the Proud Cat · ተረት</div>`;
+  if (i === 0) words = `<div class="title">${BK.title}</div><div class="sub">${BK.en} · ተረት</div>`;
   else if (pg.end) words = `<div class="title">ተፈጸመ!</div><div class="sub">The End</div>`;
   else words = pg.am.map((t, k) => `<p>${markKey(t, pg.key)}<span class="en">${esc(pg.en[k] || "")}</span></p>`).join("");
   leaf.innerHTML = `
     <div class="face front">
       <div class="page${pg.full ? " full" : ""}">
-        <div class="pic">${STORY_ART[pg.art]()}${pg.key ? `<div class="badge">${pg.key}</div>` : ""}</div>
+        <div class="pic">${pg.full ? ART[pg.art]().replace("xMidYMid slice", "xMidYMax slice") : ART[pg.art]()}${pg.key ? `<div class="badge">${pg.key}</div>` : ""}</div>
         <div class="words">${words}</div>
       </div>
       ${i === 0 ? `<div class="tapme">ንካኝ · Tap to read ›</div>` : ""}
@@ -204,7 +155,7 @@ function setAngle(i, deg, animate){
 function narrate(){
   clearTimeout(autoTimer);
   voice.pause();
-  voice.src = `audio/dama-${cur}.mp3`;
+  voice.src = `audio/${BOOK_ID}-${cur}.mp3`;
   voice.currentTime = 0;
   voice.play().catch(() => {});
 }

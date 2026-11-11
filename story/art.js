@@ -285,4 +285,6 @@ const ART = {
 };
 
 window.STORY_ART = ART;
+// Shared drawing helpers so other books match this style
+window.STORY_KIT = { LINE, C, svg, sky, hills, grass, flowers, tukul, warka, face, sun, cloud, hearts, bunting, motion, owl };
 })();

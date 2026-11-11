@@ -1,7 +1,6 @@
-Narration for "Dama the Proud Cat". One recording per page:
+Narration for the picture books. One recording per page, named by book and page number:
 
-- dama-0.mp3: the cover (title)
-- dama-1.mp3 to dama-9.mp3: story pages 1 to 9
-- dama-10.mp3: "The End" page
+- Dama the Proud Cat: dama-0.mp3 (cover), dama-1.mp3 to dama-9.mp3 (story pages), dama-10.mp3 ("The End")
+- Lomi and the Giant's Shoe: lomi-0.mp3 (cover), lomi-1.mp3 to lomi-9.mp3, lomi-10.mp3 ("The End")
 
 A page without a recording stays quiet. After adding recordings, list them in FILES in sw.js and bump CACHE so they work offline.
