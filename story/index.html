@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ውሮ ኩሩው ድመት</title>
+<meta name="theme-color" content="#2e7d5b">
+<link rel="manifest" href="../manifest.json">
+<style>
+:root{
+  --bg:#fff8e7; --paper:#fffdf6; --ink:#2b2340; --muted:#6d6585;
+  --green:#2e9e6b; --yellow:#f7b500; --red:#e0483e; --blue:#3a7bd5;
+  --shadow:0 6px 0 rgba(0,0,0,.12);
+  --fidel:"Nyala","Ebrima","Abyssinica SIL","Noto Sans Ethiopic","Noto Serif Ethiopic","Kefa",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,"Segoe UI",Roboto,sans-serif;
+  user-select:none;-webkit-user-select:none;display:flex;flex-direction:column}
+.flag{height:8px;background:linear-gradient(90deg,var(--green) 33.3%,var(--yellow) 33.3% 66.6%,var(--red) 66.6%);flex:none}
+header{display:flex;align-items:center;gap:10px;padding:10px 16px;flex:none}
+header h1{font-family:var(--fidel);font-size:24px;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button,a.btn{font:inherit;color:inherit;border:0;cursor:pointer;text-decoration:none}
+.btn{background:#fff;border-radius:14px;padding:8px 14px;font-size:20px;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:6px}
+.btn.on{background:var(--green);color:#fff}
+.btn small{font-size:14px}
+
+/* the book */
+.desk{flex:1;display:grid;place-items:center;padding:4px 16px 16px;min-height:0}
+.book{position:relative;width:min(100%, calc((100vh - 110px) * 2.15), 1400px);aspect-ratio:2.15;perspective:2400px;touch-action:none}
+.leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.1,.3,1)}
+.leaf.drag{transition:none}
+.leaf.gone{visibility:hidden}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px 18px 18px 6px;overflow:hidden;
+  background:var(--paper);box-shadow:0 10px 30px rgba(60,40,10,.18), inset 14px 0 18px -14px rgba(0,0,0,.35)}
+.back{transform:rotateY(180deg);background:linear-gradient(90deg,#f3ead2,#fffaf0 40%,#efe4c8);border-radius:18px 6px 6px 18px}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.35));opacity:0;transition:opacity .7s}
+/* page layout: picture beside the words */
+.page{position:absolute;inset:0;display:grid;grid-template-columns:auto 1fr}
+.page > .pic{height:100%;aspect-ratio:1.35}
+.pic{position:relative;overflow:hidden}
+.pic svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.words{padding:clamp(14px,2.4vw,34px) clamp(14px,2.4vw,34px) 34px;display:flex;flex-direction:column;justify-content:safe center;gap:.6em;overflow:auto;
+  font-family:var(--fidel);font-size:clamp(15px,1.75vw,26px);line-height:1.55}
+.words p{margin:0}
+.en{display:none;font-family:system-ui,"Segoe UI",Roboto,sans-serif;font-size:.62em;line-height:1.45;color:var(--muted);font-style:italic}
+body.english .en{display:block}
+.key{color:var(--red);font-weight:700;background:#fff0c2;border-radius:6px;padding:0 2px;cursor:pointer}
+.key.pop{animation:pop .5s}
+@keyframes pop{50%{transform:scale(1.5);display:inline-block}}
+.badge{position:absolute;left:14px;top:14px;background:#fff;border-radius:16px;padding:4px 12px;box-shadow:var(--shadow);font-family:var(--fidel);font-size:clamp(22px,3vw,34px);color:var(--red);font-weight:700}
+.num{position:absolute;right:58px;bottom:10px;font-size:15px;color:var(--muted)}
+.curl{position:absolute;right:0;bottom:0;width:44px;height:44px;background:linear-gradient(135deg,rgba(0,0,0,0) 50%,#e9ddbd 50%,#fff8e3 75%);border-top-left-radius:10px;
+  box-shadow:-3px -3px 6px rgba(0,0,0,.08);animation:wiggle 2.4s ease-in-out infinite}
+@keyframes wiggle{0%,80%,100%{width:44px;height:44px}90%{width:58px;height:58px}}
+/* cover and end pages: picture fills the page, title on top */
+.page.full{grid-template-columns:1fr}
+.page.full > .pic{aspect-ratio:auto}
+.page.full .words{position:absolute;left:0;right:0;top:0;justify-content:flex-start;align-items:center;text-align:center;overflow:visible;padding-top:clamp(12px,3vw,30px)}
+.title{font-size:clamp(34px,6vw,70px);font-weight:800;color:var(--ink);background:rgba(255,255,255,.85);border-radius:22px;padding:0 .4em;line-height:1.3}
+.sub{font-size:clamp(15px,1.8vw,20px);background:rgba(255,255,255,.85);border-radius:12px;padding:2px 12px;font-family:system-ui,sans-serif;color:var(--muted)}
+.start{margin-top:auto}
+.endbtns{position:absolute;left:0;right:0;bottom:6%;display:flex;gap:12px;justify-content:center}
+.endbtns .btn{font-size:clamp(15px,2vw,22px);padding:12px 18px;white-space:nowrap}
+.tapme{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;border-radius:999px;padding:12px 26px;
+  font-size:clamp(18px,2.4vw,26px);font-family:var(--fidel);box-shadow:var(--shadow);animation:bob 1.6s ease-in-out infinite;white-space:nowrap}
+@keyframes bob{50%{transform:translate(-50%,-6px)}}
+
+/* phones held upright: picture on top, words below */
+@media (orientation:portrait){
+  .book{width:min(100%, 640px);aspect-ratio:auto;height:min(100%, calc(100vh - 110px))}
+  .desk{align-items:stretch;justify-items:center}
+  .page{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .page > .pic{height:auto;aspect-ratio:1.6}
+  .page.full{grid-template-rows:1fr}
+  .words{font-size:clamp(17px,4.6vw,24px);justify-content:flex-start}
+  .page.full > .pic{aspect-ratio:auto;height:100%}
+}
+@media (max-width:520px){ .btn small{display:none} header h1{font-size:20px} .endbtns{flex-direction:column;align-items:center} }
+</style>
+</head>
+<body>
+<div class="flag"></div>
+<header>
+  <a class="btn" href="../index.html" aria-label="Back to the games">←</a>
+  <h1>ውሮ ኩሩው ድመት</h1>
+  <button class="btn" id="readBtn" aria-label="Read to me: turn the pages by itself">📖 <small>Read to me</small></button>
+  <button class="btn" id="enBtn" aria-label="Show English">EN</button>
+  <button class="btn" id="sayBtn" aria-label="Listen again">🔊</button>
+</header>
+<div class="desk"><div class="book" id="book"></div></div>
+<audio id="voice" preload="auto"></audio>
+
+<script src="art.js"></script>
+<script src="art-docho.js"></script>
+<script src="art-mumu.js"></script>
+<script src="art-selam.js"></script>
+<script src="art-nib.js"></script>
+<script src="art-ayit.js"></script>
+<script src="books.js"></script>
+<script>
+/* Picture books that turn their pages with a tap or a swipe. Which book shows comes from the address:
+   story/#dama, story/#docho or story/#mumu. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
+   up to the last page ("The End").
+   A page without a recording simply stays quiet. */
+let BOOK_ID, BK, PAGES, ART, N, leaves = [];
+const book = document.getElementById("book"), voice = document.getElementById("voice");
+let cur = 0, busy = false, autoRead = false, started = false, autoTimer = null;
+try { if (localStorage.getItem("story-en") === "1") document.body.classList.add("english"); } catch(e){}
+document.getElementById("enBtn").classList.toggle("on", document.body.classList.contains("english"));
+
+const esc = s => s.replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]));
+function markKey(text, key){
+  return esc(text).split(key).join(`<span class="key" data-l="${key}">${key}</span>`);
+}
+
+/* Open a book: build one leaf per page, the first page on top */
+const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../index.html";
+document.querySelector('a[aria-label="Back to the games"]').href = HOME;
+function openBook(){
+  BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
+  BK = BOOKS[BOOK_ID]; PAGES = BK.pages; ART = BK.art(); N = PAGES.length;
+  document.title = BK.title;
+  document.querySelector("header h1").textContent = BK.title;
+  setReadMode(false); voice.pause();
+  cur = 0; busy = false; started = false;
+  book.innerHTML = "";
+  leaves = PAGES.map((pg, i) => {
+  const leaf = document.createElement("div");
+  leaf.className = "leaf";
+  leaf.style.zIndex = N - i;
+  let words;
+  if (i === 0) words = `<div class="title">${BK.title}</div><div class="sub">${BK.en} · ተረት</div>`;
+  else if (pg.end) words = `<div class="title">ተፈጸመ!</div><div class="sub">The End</div>`;
+  else words = pg.am.map((t, k) => `<p>${markKey(t, pg.key)}<span class="en">${esc(pg.en[k] || "")}</span></p>`).join("");
+  leaf.innerHTML = `
+    <div class="face front">
+      <div class="page${pg.full ? " full" : ""}">
+        <div class="pic">${pg.full ? ART[pg.art]().replace("xMidYMid slice", "xMidYMax slice") : ART[pg.art]()}${pg.key ? `<div class="badge">${pg.key}</div>` : ""}</div>
+        <div class="words">${words}</div>
+      </div>
+      ${i === 0 ? `<div class="tapme">ንካኝ · Tap to read ›</div>` : ""}
+      ${pg.end ? `<div class="endbtns"><button class="btn" data-again>↺ እንደገና · Again</button><a class="btn" href="${HOME}">🏠 ጨዋታዎች · Games</a></div>` : ""}
+      ${!pg.full ? `<div class="num">${i} / ${N - 2}</div><div class="curl"></div>` : ""}
+      <div class="shade"></div>
+    </div>
+    <div class="face back"></div>`;
+  book.appendChild(leaf);
+  return leaf;
+  });
+}
+openBook();
+addEventListener("hashchange", openBook);
+
+function setAngle(i, deg, animate){
+  const leaf = leaves[i];
+  leaf.classList.toggle("drag", !animate);
+  leaf.classList.remove("gone");
+  leaf.style.transform = `rotateY(${deg}deg)`;
+  const sh = leaf.querySelector(".shade");
+  sh.style.transition = animate ? "" : "none";
+  sh.style.opacity = Math.min(1, -deg / 140).toFixed(2);
+}
+
+/* Narration for the page that is showing */
+function narrate(){
+  clearTimeout(autoTimer);
+  voice.pause();
+  voice.src = `audio/${BOOK_ID}-${cur}.mp3`;
+  voice.currentTime = 0;
+  voice.play().catch(() => {});
+}
+voice.addEventListener("ended", () => { if (autoRead) autoTimer = setTimeout(() => turn(1), 1200); });
+voice.addEventListener("error", () => {
+  // No recording for this page yet: when reading by itself, give time to look at the page, then turn
+  if (!autoRead) return;
+  const words = (PAGES[cur].am.join(" ").length || 30);
+  autoTimer = setTimeout(() => turn(1), Math.max(4000, words * 90));
+});
+
+function afterTurn(){
+  started = true;
+  narrate();
+  if (cur === N - 1) setReadMode(false);
+}
+function forward(){            // the top page swings over to the left
+  const c = cur;
+  setAngle(c, -180, true);
+  busy = true;
+  setTimeout(() => { leaves[c].classList.add("gone"); busy = false; }, 720);
+  cur = c + 1; afterTurn();
+}
+function backward(fromDrag){   // the last turned page swings back
+  const l = cur - 1;
+  if (!fromDrag){ setAngle(l, -180, false); leaves[l].getBoundingClientRect(); }
+  setAngle(l, 0, true);
+  busy = true;
+  setTimeout(() => { busy = false; }, 720);
+  cur = l; afterTurn();
+}
+function turn(dir){
+  clearTimeout(autoTimer);
+  if (busy) return;
+  if (dir > 0 && cur < N - 1) forward();
+  if (dir < 0 && cur > 0) backward(false);
+}
+
+function setReadMode(on){
+  autoRead = on;
+  document.getElementById("readBtn").classList.toggle("on", on);
+  if (!on) clearTimeout(autoTimer);
+}
+
+function playLetter(el){
+  const hex = el.dataset.l.codePointAt(0).toString(16);
+  const a = new Audio(`../audio/${hex}.mp3`);
+  a.play().catch(() => {});
+  el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop");
+}
+
+/* Touch: drag the page to turn it, or tap the right side for next and the left side for back */
+let drag = null;
+book.addEventListener("pointerdown", e => {
+  if (busy || e.target.closest("button, a, .key")) return;
+  drag = { x:e.clientX, y:e.clientY, w:book.clientWidth, leaf:-1, deg:0, t:Date.now() };
+  book.setPointerCapture(e.pointerId);
+});
+book.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (Math.abs(dx) < 8 && drag.leaf < 0) return;
+  if (dx < 0 && cur < N - 1){ drag.leaf = cur; drag.deg = Math.max(-180, dx / drag.w * 200); }
+  else if (dx > 0 && cur > 0){ drag.leaf = cur - 1; drag.deg = Math.min(0, -180 + dx / drag.w * 200); }
+  else return;
+  setAngle(drag.leaf, drag.deg, false);
+});
+function endDrag(e){
+  if (!drag) return;
+  const d = drag; drag = null;
+  const dx = e.clientX - d.x, quick = Date.now() - d.t < 300;
+  if (d.leaf < 0){
+    // a tap
+    if (Math.abs(dx) < 8 && Math.abs(e.clientY - d.y) < 8){
+      const r = book.getBoundingClientRect();
+      if (cur === 0 || e.clientX > r.left + r.width / 2) turn(1); else turn(-1);
+    }
+    return;
+  }
+  if (d.leaf === cur){
+    if (d.deg < -60 || (quick && dx < -30)) forward(); else setAngle(cur, 0, true);
+  } else {
+    if (d.deg > -120 || (quick && dx > 30)) backward(true);
+    else { setAngle(d.leaf, -180, true); const l = d.leaf; setTimeout(() => leaves[l].classList.add("gone"), 720); }
+  }
+}
+book.addEventListener("pointerup", endDrag);
+book.addEventListener("pointercancel", e => { if (drag){ const d = drag; drag = null; if (d.leaf >= 0) setAngle(d.leaf, d.leaf === cur ? 0 : -180, true); } });
+
+book.addEventListener("click", e => {
+  const k = e.target.closest(".key");
+  if (k){ playLetter(k); return; }
+  if (e.target.closest("[data-again]")){
+    voice.pause();
+    for (let i = N - 2; i >= 0; i--){ leaves[i].classList.remove("gone"); setAngle(i, 0, true); }
+    cur = 0; started = false;
+  }
+});
+
+/* Keyboard arrows on a PC */
+addEventListener("keydown", e => {
+  if (e.key === "ArrowRight" || e.key === " ") turn(1);
+  if (e.key === "ArrowLeft") turn(-1);
+});
+
+document.getElementById("readBtn").onclick = () => {
+  setReadMode(!autoRead);
+  if (autoRead){
+    if (cur === 0 || cur === N - 1){ if (cur === N - 1) book.querySelector("[data-again]").click(); turn(1); }
+    else narrate();
+  }
+};
+document.getElementById("enBtn").onclick = () => {
+  const on = document.body.classList.toggle("english");
+  document.getElementById("enBtn").classList.toggle("on", on);
+  try { localStorage.setItem("story-en", on ? "1" : "0"); } catch(e){}
+};
+document.getElementById("sayBtn").onclick = () => narrate();
+</script>
+</body>
+</html>
