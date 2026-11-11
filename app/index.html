@@ -255,6 +255,103 @@ body.grown .stars,body.grown .voicebtn{visibility:hidden}
 .setrow .pill{flex:none;white-space:nowrap;font-size:16px;padding:10px 16px}
 header h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media (max-width:480px){header h1{font-size:22px}header{gap:8px}.map{gap:8px;padding:10px}.stop .ic{font-size:30px}.stop .nm{font-size:14px}.slots div{width:60px;height:70px;font-size:40px}.tiles button{width:68px;height:68px;font-size:40px}}
+/* ---------- landing page, tabs, journey ---------- */
+body.tabs-on{padding-bottom:86px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:15;display:none;justify-content:space-around;gap:2px;background:var(--card);
+  box-shadow:0 -4px 16px rgba(0,0,0,.1);padding:6px 4px calc(6px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0}
+body.tabs-on .tabbar{display:flex}
+.tabbar button{flex:1;max-width:120px;background:none;border-radius:16px;padding:4px 0;font-size:13px;font-weight:700;color:var(--muted)}
+.tabbar button span{display:block;font-size:28px;line-height:1.15}
+.tabbar button.sel{background:var(--bg);color:var(--ink)}
+.hero{width:100%;display:flex;align-items:center;gap:16px;text-align:left;border-radius:28px;padding:18px;margin:6px 0 18px;color:#fff;
+  background:linear-gradient(135deg,#2e9e6b,#3a7bd5);box-shadow:var(--shadow)}
+.hero:active{transform:translateY(4px)}
+.hero .hl{font-family:var(--fidel);font-size:72px;width:110px;height:110px;border-radius:24px;background:rgba(255,255,255,.22);display:grid;place-items:center;flex:none}
+.hero b{display:block;font-size:24px}
+.hero small{display:block;font-size:16px;opacity:.92}
+.hero .go{margin-left:auto;font-size:40px;flex:none}
+.hero .hbar{display:block;height:12px;border-radius:999px;background:rgba(255,255,255,.3);margin-top:8px;overflow:hidden;max-width:300px}
+.hero .hbar i{display:block;height:100%;background:#ffd84d;border-radius:999px}
+.hubtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hubtile{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:16px 6px;border-bottom:8px solid var(--c)}
+.hubtile:active{transform:translateY(4px)}
+.hubtile span{display:block;font-size:56px;line-height:1.1}
+.hubtile b{display:block;font-size:20px}
+.hubtile small{font-family:var(--fidel);color:var(--muted);font-size:16px}
+.jpath{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.jstop{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:var(--card);border-radius:20px;padding:10px 14px;box-shadow:var(--shadow);margin:18px 0 8px}
+.jstop .ic{font-size:40px}
+.jstop b{font-family:var(--fidel);font-size:20px;display:block}
+.jstop span{font-size:14px;color:var(--muted)}
+.jstop .sk{margin-left:auto;font-size:30px}
+.jstop.no .sk{filter:grayscale(1);opacity:.35}
+.jnode{position:relative;width:96px;height:96px;border-radius:50%;font-family:var(--fidel);font-size:48px;color:#fff;
+  background:conic-gradient(var(--yellow) calc(var(--p) * 1%), #e8dcbc 0);padding:8px;display:block}
+.jnode i{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--green);font-style:normal;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15)}
+.jnode.done i{background:#f7b500}
+.jnode.lock{background:#e8dcbc}.jnode.lock i{background:#cfc6ad;color:#f4efe2}
+.jnode.cur{animation:bounce 1.4s ease-in-out infinite}
+.jnode .me{position:absolute;top:-10px;right:-14px;width:44px;height:44px;font-size:30px}
+.jnode .me .avimg{border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.jnode .crown{position:absolute;bottom:-6px;right:-4px;font-size:26px}
+.jrow{display:flex;padding:4px 0}
+.jrow:nth-child(4n+1){justify-content:center}.jrow:nth-child(4n+2){justify-content:flex-start;padding-left:18%}
+.jrow:nth-child(4n+3){justify-content:center}.jrow:nth-child(4n){justify-content:flex-end;padding-right:18%}
+.famhead{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:16px;text-align:center}
+.famhead .big{font-family:var(--fidel);font-size:90px;line-height:1.1}
+.famhead .row7 .cell{position:relative}
+.famhead .row7 .cell::after{content:"";position:absolute;top:5px;right:5px;width:10px;height:10px;border-radius:50%;background:#d9d1bd}
+.famhead .row7 .cell.known::after{background:var(--green)}.famhead .row7 .cell.learning::after{background:var(--yellow)}.famhead .row7 .cell.hard::after{background:var(--red)}
+.jsteps{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.jstep{display:flex;align-items:center;gap:14px;background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:12px 16px;text-align:left}
+.jstep .ic{font-size:40px;width:64px;height:64px;border-radius:18px;background:var(--bg);display:grid;place-items:center;flex:none}
+.jstep b{display:block;font-size:20px}
+.jstep span{color:var(--muted);font-size:15px}
+.jstep .st{margin-left:auto;font-size:30px;flex:none}
+.jstep.next{outline:4px solid var(--blue)}
+.jstep.lock{opacity:.5}
+.jstep.done .ic{background:#d9f2e3}
+#learn.meet .fam-tabs,#learn.meet .nav #prevFam,#learn.meet .nav #nextFam{visibility:hidden}
+#learn.meet .fam-tabs{display:none}
+.meetbar{display:none;text-align:center;margin-top:14px}
+#learn.meet .meetbar{display:block}
+.meetbar .dots{font-size:22px;letter-spacing:4px;margin-bottom:8px}
+/* tic-tac-toe */
+.tttboard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:420px;margin:12px auto}
+.tttboard button{aspect-ratio:1;border-radius:22px;background:var(--card);box-shadow:var(--shadow);font-family:var(--fidel);font-size:min(16vw,72px);position:relative}
+.tttboard button.me{background:#d9f2e3}.tttboard button.cpu{background:#ffe0dc}
+.tttboard button .mk{position:absolute;inset:8px;display:grid;place-items:center;font-size:min(14vw,64px)}
+.tttboard button .mk .avimg{width:80%;height:80%}
+.tttboard button.pick{outline:5px solid var(--blue)}
+.tttboard button.win{animation:bounce .8s ease-in-out infinite}
+.tttask{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;min-height:90px;margin-top:8px}
+.tttask button{background:var(--card);border-radius:20px;box-shadow:var(--shadow);font-size:34px;font-weight:800;padding:12px 22px;min-width:96px}
+.tttask button.good{background:var(--green);color:#fff}.tttask button.bad{background:var(--red);color:#fff}
+/* piano and drum */
+.keys{display:flex;gap:6px;height:min(52vh,360px);margin:10px 0 16px}
+.keys button{flex:1;border-radius:0 0 18px 18px;background:#fff;box-shadow:inset 0 -12px 0 rgba(0,0,0,.08),var(--shadow);font-family:var(--fidel);font-size:clamp(26px,6vw,52px);
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:16px;border-top:10px solid var(--c)}
+.keys button small{font-family:system-ui;font-size:15px;color:var(--muted)}
+.keys button.on{background:var(--c);color:#fff;transform:translateY(4px)}
+.drumwrap{display:grid;place-items:center;margin:20px 0}
+.kebero{width:min(80vw,380px);aspect-ratio:1;border-radius:50%;position:relative;
+  background:radial-gradient(circle,#f3e2c0 0 52%,#e2c993 53% 60%,#8b4a22 61% 100%);box-shadow:0 14px 0 #5c2f12,0 20px 30px rgba(0,0,0,.25)}
+.kebero.hit{transform:scale(.97)}
+.kebero .edge{position:absolute;inset:0;border-radius:50%}
+/* colouring and drawing */
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:12px}
+.artgrid button{background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:10px}
+.artgrid svg{width:100%;aspect-ratio:1;display:block}
+.artgrid b{display:block;font-family:var(--fidel);font-size:20px}
+.colorwrap{max-width:min(520px,62vh);margin:0 auto;background:#fff;border-radius:28px;box-shadow:var(--shadow);padding:8px}
+.colorwrap svg{width:100%;display:block;aspect-ratio:1}
+#colorSvg [data-r]{cursor:pointer}
+.palette{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px auto 4px;max-width:620px}
+.palette button{width:46px;height:46px;border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.18);border:3px solid #fff}
+.palette button.sel{outline:4px solid var(--ink);transform:scale(1.12)}
+.drawbox{max-width:800px;margin:0 auto;background:#fff;border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.drawbox canvas{width:100%;display:block;touch-action:none;aspect-ratio:4/3}
+@media (max-width:480px){.hubtiles{gap:10px}.hubtile span{font-size:44px}.hubtile b{font-size:16px}.hero .hl{width:84px;height:84px;font-size:54px}.hero b{font-size:20px}.jnode{width:80px;height:80px;font-size:40px}.tabbar button{font-size:11px}.tabbar button span{font-size:24px}}
 </style>
 </head>
 <body>
@@ -356,22 +453,58 @@ header h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   <div id="pkSet" style="display:none"></div>
 </section>
 
-<!-- HOME -->
-<section class="screen" id="home">
+<!-- HOME: the landing page after a child is picked -->
+<section class="screen tabpage" id="home">
   <div class="hellorow"><button class="mypic" id="myPic" aria-label="Change my picture"></button><h2 id="hello"></h2></div>
-  <p class="hint">Your journey across Ethiopia · Tap a stop to play its letters. Get 3 stars to win its sticker and travel on.</p>
-  <div class="map" id="map"></div>
-  <h2 style="margin-top:22px">Letters · ፊደላት</h2>
+  <button class="hero" id="hero"></button>
+  <div class="hubtiles">
+    <button class="hubtile" data-tab="journey" style="--c:#2e9e6b"><span>🗺️</span><b>Journey</b><small>ጉዞ</small></button>
+    <button class="hubtile" data-tab="books" style="--c:#3a7bd5"><span>📚</span><b>Books</b><small>መጻሕፍት</small></button>
+    <button class="hubtile" data-tab="games" style="--c:#e0483e"><span>🎮</span><b>Games</b><small>ጨዋታዎች</small></button>
+    <button class="hubtile" data-tab="music" style="--c:#f7b500"><span>🎵</span><b>Music</b><small>ሙዚቃ</small></button>
+    <button class="hubtile" data-tab="art" style="--c:#8a5cd6"><span>🎨</span><b>Art</b><small>ስዕል</small></button>
+    <button class="hubtile" id="hubStickers" style="--c:#e08a00"><span>🏅</span><b>Stickers</b><small>ተለጣፊዎች</small></button>
+  </div>
+</section>
+
+<!-- JOURNEY: one letter family at a time, grouped into stops across Ethiopia -->
+<section class="screen tabpage" id="journey">
+  <h2>My journey · ጉዞዬ</h2>
+  <p class="hint">Learn one letter family at a time. Finish its activities to master it and open the next one.</p>
+  <div class="jpath" id="jPath"></div>
+</section>
+
+<!-- ONE LETTER FAMILY: its activities in order -->
+<section class="screen" id="fam">
+  <div class="famhead" id="famHead"></div>
+  <div class="jsteps" id="famSteps"></div>
+</section>
+
+<!-- BOOKS -->
+<section class="screen tabpage" id="books">
+  <h2>Books · መጻሕፍት</h2>
+  <p class="hint">Picture books to read along. Tap a word's red letter to hear it.</p>
+  <div class="modes" id="bookList"></div>
+</section>
+
+<!-- GAMES -->
+<section class="screen tabpage" id="games">
+  <h2>Letter games · የፊደል ጨዋታዎች</h2>
+  <p class="hint" id="gamesHint"></p>
   <div class="modes">
-    <button class="mode" data-go="learn" data-mode="learn"><div class="big" style="background:var(--green)">ሀ</div><div><b>Learn · ተማር</b><span>See every letter, hear it, and see a picture word</span></div></button>
-    <button class="mode" data-go="trace" data-mode="trace"><div class="big" style="background:#8a5cd6">✍️</div><div><b>Trace the letter</b><span>Draw each letter with your finger</span></div></button>
     <button class="mode" data-go="quizA" data-mode="quizA"><div class="big" style="background:var(--blue)">?</div><div><b>Find the letter</b><span>Hear a sound, tap the right letter</span></div></button>
     <button class="mode" data-go="quizB" data-mode="quizB"><div class="big" style="background:var(--yellow)">ለ</div><div><b>What sound?</b><span>See a letter, tap its sound</span></div></button>
     <button class="mode" data-go="balloon" data-mode="balloon"><div class="big" style="background:#ff7ac6">🎈</div><div><b>Balloon pop</b><span>Pop the balloon with the letter you hear</span></div></button>
     <button class="mode" data-go="memory" data-mode="memory"><div class="big" style="background:var(--red)">🃏</div><div><b>Memory match</b><span>Pair each letter with its sound</span></div></button>
-    <button class="mode" data-go="words" data-mode="words"><div class="big" style="background:#e08a00">🧩</div><div><b>Build a word</b><span>Put the letters of a picture word in order</span></div></button>
+    <button class="mode" data-go="trace" data-mode="trace"><div class="big" style="background:#8a5cd6">✍️</div><div><b>Trace the letter</b><span>Draw each letter with your finger</span></div></button>
+    <button class="mode" data-go="ttt" data-mode="ttt"><div class="big" style="background:#2e7d5b">⭕</div><div><b>Fidel tic-tac-toe</b><span>Say the letter's sound to claim the square. Get 3 in a row!</span></div></button>
     <button class="mode" data-go="review" data-mode="review"><div class="big" style="background:#2e7d5b">🧠</div><div><b>Smart review</b><span>Practise the letters you find tricky</span></div></button>
-    <button class="mode" data-go="stickers"><div class="big" style="background:#3a7bd5">🏅</div><div><b>Sticker book</b><span>Places you've visited on your journey</span></div></button>
+    <button class="mode" data-go="learn" data-mode="learn"><div class="big" style="background:var(--green)">ሀ</div><div><b>All the letters</b><span>Look through every family and hear each letter</span></div></button>
+  </div>
+  <h2 style="margin-top:28px">Word games · የቃላት ጨዋታዎች</h2>
+  <div class="modes">
+    <button class="mode" data-go="words" data-mode="words"><div class="big" style="background:#e08a00">🧩</div><div><b>Build a word</b><span>Put the letters of a picture word in order</span></div></button>
+    <button class="mode" data-go="missing" data-mode="missing"><div class="big" style="background:#3a7bd5">❔</div><div><b>Missing letter</b><span>Find the letter that finishes the word</span></div></button>
   </div>
   <div data-mode="numbers">
   <h2 style="margin-top:28px">Numbers · ቁጥሮች</h2>
@@ -380,14 +513,93 @@ header h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
     <button class="mode" data-go="numQuiz"><div class="big" style="background:var(--blue)">፯?</div><div><b>Number quiz</b><span>Match Ge'ez numbers to 1, 2, 3…</span></div></button>
   </div>
   </div>
+</section>
+
+<!-- MUSIC -->
+<section class="screen tabpage" id="music">
   <div data-mode="songs">
-  <h2 style="margin-top:28px">Songs · መዝሙሮች</h2>
+  <h2>Songs · መዝሙሮች</h2>
   <div class="modes">
-    <button class="mode" data-song="0"><div class="big" style="background:var(--yellow)">🎵</div><div><b>የፊደል ደስታ</b><span>Sing along: ሀ to ፐ</span></div></button>
+    <button class="mode" data-song="0"><div class="big" style="background:var(--yellow)">🎵</div><div><b>የፊደል ደስታ</b><span>Music video and sing along: ሀ to ፐ</span></div></button>
     <button class="mode" data-song="1"><div class="big" style="background:var(--red)">🎶</div><div><b>የፊደል ቤተሰብ</b><span>All 7 forms of every letter</span></div></button>
   </div>
   </div>
+  <div data-mode="piano">
+  <h2 style="margin-top:28px">Make music · ሙዚቃ ስራ</h2>
+  <div class="modes">
+    <button class="mode" data-go="piano"><div class="big" style="background:#8a5cd6">🎹</div><div><b>Fidel piano</b><span>Each key sings a letter. Play a tune with a letter family!</span></div></button>
+    <button class="mode" data-go="drum"><div class="big" style="background:#a0522d">🥁</div><div><b>Kebero drum</b><span>Tap the drum and keep the beat</span></div></button>
+  </div>
+  </div>
 </section>
+
+<!-- ART -->
+<section class="screen tabpage" id="art">
+  <h2>Colouring · ቀለም መቀባት</h2>
+  <p class="hint">Pick a colour, then tap a part of the picture to fill it.</p>
+  <div class="artgrid" id="artList"></div>
+  <h2 style="margin-top:28px">Draw · ሳል</h2>
+  <div class="modes">
+    <button class="mode" data-go="draw"><div class="big" style="background:#ff7ac6">🖍️</div><div><b>Draw and paint</b><span>Draw anything, or draw over a big letter</span></div></button>
+  </div>
+</section>
+
+<!-- TIC-TAC-TOE -->
+<section class="screen" id="ttt">
+  <p class="hint" style="text-align:center" id="tttHint">Tap a square, then pick its sound to claim it</p>
+  <div class="tttboard" id="tttBoard"></div>
+  <div class="tttask" id="tttAsk"></div>
+</section>
+
+<!-- MISSING LETTER -->
+<section class="screen" id="missing">
+  <div class="progress"><div id="mlBar"></div></div>
+  <div class="prompt"><div class="pic" id="mlPic"></div><div class="q" id="mlMeaning"></div></div>
+  <div class="slots" id="mlSlots"></div>
+  <div class="tiles" id="mlTiles"></div>
+</section>
+
+<!-- FIDEL PIANO -->
+<section class="screen" id="piano">
+  <div class="fam-tabs" id="pnFams"></div>
+  <div class="keys" id="pnKeys"></div>
+  <div class="nav" style="justify-content:center;gap:12px;flex-wrap:wrap">
+    <button class="pill" id="pnSong">▶ Play a tune</button><button class="pill alt" id="pnRec">⏺ Record</button><button class="pill" style="background:var(--green)" id="pnPlay" disabled>▶ My tune</button>
+  </div>
+</section>
+
+<!-- KEBERO DRUM -->
+<section class="screen" id="drum">
+  <p class="hint" style="text-align:center">Tap the middle for a deep ዱም, the edge for a light ታክ. Copy the beat!</p>
+  <div class="drumwrap"><button class="kebero" id="kebero"><span class="edge" id="kbEdge"></span></button></div>
+  <div class="nav" style="justify-content:center;gap:12px"><button class="pill" id="kbListen">👂 Hear a beat</button></div>
+  <p class="hint" style="text-align:center;font-size:22px" id="kbMsg"></p>
+</section>
+
+<!-- COLOURING -->
+<section class="screen" id="color">
+  <div class="colorwrap"><svg id="colorSvg" viewBox="0 0 400 400"></svg></div>
+  <div class="palette" id="colorPal"></div>
+  <div class="nav" style="justify-content:center;gap:12px"><button class="pill alt" id="colorClear">↺ Start again</button><button class="pill" style="background:var(--green)" id="colorDone">✓ Finished</button></div>
+</section>
+
+<!-- DRAW -->
+<section class="screen" id="draw">
+  <div class="drawbox"><canvas id="drawCanvas" width="800" height="600"></canvas></div>
+  <div class="palette" id="drawPal"></div>
+  <div class="nav" style="justify-content:center;gap:10px;flex-wrap:wrap">
+    <button class="pill" id="drawSize">● Big</button><button class="pill alt" id="drawLetter">ሀ Letter</button><button class="pill alt" id="drawClear">↺ Clear</button><button class="pill" style="background:var(--green)" id="drawSave">💾 Save</button>
+  </div>
+</section>
+
+<nav class="tabbar" id="tabbar">
+  <button data-tab="home"><span>🏠</span>Home</button>
+  <button data-tab="journey"><span>🗺️</span>Journey</button>
+  <button data-tab="books"><span>📚</span>Books</button>
+  <button data-tab="games"><span>🎮</span>Games</button>
+  <button data-tab="music"><span>🎵</span>Music</button>
+  <button data-tab="art"><span>🎨</span>Art</button>
+</nav>
 
 <!-- TRACE -->
 <section class="screen" id="trace">
@@ -464,6 +676,7 @@ header h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
     <div class="picword" id="picWord"></div>
     <div class="row7" id="row7"></div>
     <div class="nav"><button class="pill" id="prevFam">◀</button><button class="pill" id="playRow">🔊 All 7</button><button class="pill" id="nextFam">▶</button></div>
+    <div class="meetbar"><div class="dots" id="meetDots"></div><button class="pill" style="background:var(--green)" id="meetDone" disabled>✓ I met them all!</button></div>
   </div>
 </section>
 
@@ -551,7 +764,8 @@ const ROUND = 10;
 /* Each child's progress lives in their profile (see core.js); loadKid() swaps it in */
 let save = { stars:0, best:{}, level:0 };
 function loadKid(){
-  save = Object.assign({ stars:0, best:{}, level:0, voice:"normal", stickers:[] }, store.get());
+  save = Object.assign({ stars:0, best:{}, level:0, voice:"normal", stickers:[], fam:{} }, store.get());
+  if (!save.fam) save.fam = {};
   if (!save.stickers) save.stickers = [];
   if (save.level >= LEVELS.length) save.level = 0;
 }
@@ -642,13 +856,16 @@ function addStars(n){ save.stars += n; store.set(save); $("starCount").textConte
 
 let current = "home";
 // Screens with no back button, and where "back" goes from the parent and sign-in screens
-const NO_BACK = ["home","who","welcome","rest"];
+const NO_BACK = ["home","who","welcome","rest","journey","books","games","music","art"];
+const TAB_SCREENS = ["home","journey","books","games","music","art"];
 const GROWN = ["welcome","signin","signup","devonly","forgot","parent","pKid","kidEdit"];
 const BACK_TO = { parent:"who", pKid:"parent", kidEdit:"parent", signin:"welcome", signup:"welcome", devonly:"welcome", forgot:"signin" };
 function show(id){
   document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
   $("backBtn").style.visibility = NO_BACK.includes(id) ? "hidden" : "visible";
   document.body.classList.toggle("grown", GROWN.includes(id));
+  document.body.classList.toggle("tabs-on", TAB_SCREENS.includes(id) || id === "fam" || id === "stickers");
+  document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("sel", b.dataset.tab === (id === "fam" ? "journey" : id)));
   current = id; window.scrollTo(0,0);
   if (window.onShow) onShow(id);
 }
@@ -661,7 +878,7 @@ $("backBtn").onclick = () => {
   if (to === "who") return goWho();
   if (to === "parent") return openParent();
   if (to) return show(to);
-  renderHome(); show("home");
+  goBack();
 };
 
 /* ---------- Home ---------- */
@@ -671,14 +888,16 @@ function renderHome(){
   $("kidBtn").innerHTML = avHTML(k && k.avatar);
   $("myPic").innerHTML = avHTML(k && k.avatar);
   $("hello").textContent = k ? `Hi ${k.name}! · ሰላም` : "";
-  renderMap();
+  renderHero();
   // Hide the games a parent switched off
-  document.querySelectorAll("#home [data-mode]").forEach(b => { b.style.display = set.modes[b.dataset.mode] === false ? "none" : ""; });
+  document.querySelectorAll(".tabpage [data-mode]").forEach(b => { b.style.display = set.modes[b.dataset.mode] === false ? "none" : ""; });
   renderVoices();
 }
 document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
   sfx.tap();
   const g = b.dataset.go;
+  // Games started from a tab go back to that tab, and play the letters reached on the journey
+  if (TAB_SCREENS.includes(current)){ JR.fam = null; backTo = current; }
   if (g === "learn") startLearn();
   else if (g === "memory") startMemory();
   else if (g === "numLearn") startNumLearn();
@@ -687,12 +906,13 @@ document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
   else if (g === "balloon") startBalloon();
   else if (g === "words") startWords();
   else if (g === "stickers") showStickers();
+  else if (HUB_GAMES[g]) HUB_GAMES[g]();
   else startQuiz(g);
 });
 
 /* ---------- Learn ---------- */
 let learnFam = 0, learnOrder = 0;
-function startLearn(){ learnFam = LEVELS[save.level][0]; learnOrder = 0; renderLearn(); show("learn"); }
+function startLearn(){ $("learn").classList.remove("meet"); learnFam = curFam(); learnOrder = 0; renderLearn(); show("learn"); }
 function renderLearn(){
   const tabs = $("famTabs"); tabs.innerHTML = "";
   FAMILIES.forEach((_, fi) => {
@@ -726,22 +946,15 @@ $("playRow").onclick = () => {
 };
 
 /* ---------- Quiz ---------- */
-// Letters in play: all 7 orders of the level's families, plus 1st-order letters from earlier levels as review
-function pool(){
-  const out = [];
-  LEVELS[save.level].forEach(fi => { for (let o=0;o<7;o++) out.push([fi,o]); });
-  return out;
-}
+// Letters in play: one family on the journey, otherwise the newest families the child has reached (see hub.js)
+function pool(){ return JR.fam != null ? famLetters(JR.fam) : playPool(); }
 let quiz = null;
 // Smart review: letters from every level the child has reached, missed letters come up more often
-function reviewPool(){
-  const out = [];
-  LEVELS.forEach((fams, l) => { if (l <= save.level || bestStars(l) > 0) fams.forEach(fi => { for (let o=0;o<7;o++) out.push([fi,o]); }); });
-  return out;
-}
+function reviewPool(){ return openFams().flatMap(famLetters); }
 function startQuiz(kind){
   const p = kind === "review" ? reviewPool() : pool();
-  quiz = { kind, n:0, right:0, misses:0, items: weightedSample(p, ROUND), pool:p };
+  const total = JR.fam != null ? 7 : ROUND;
+  quiz = { kind, n:0, right:0, misses:0, total, items: weightedSample(p, total), pool:p };
   // Review mixes both question types
   if (kind === "review") quiz.kinds = quiz.items.map(() => pick(["quizA","quizB"]));
   show("quiz"); nextQ();
@@ -759,10 +972,10 @@ function distractors(ans){
   return out;
 }
 function nextQ(){
-  if (quiz.n >= ROUND) return finishQuiz();
+  if (quiz.n >= quiz.total) return finishQuiz();
   const ans = quiz.items[quiz.n];
   quiz.ans = ans; quiz.tries = 0;
-  $("bar").style.width = (quiz.n / ROUND * 100) + "%";
+  $("bar").style.width = (quiz.n / quiz.total * 100) + "%";
   const opts = shuffle([ans, ...(quiz.kind === "num" ? numDistractors(ans[0]) : distractors(ans))]);
   const t = $("qTarget"), box = $("choices"); box.innerHTML = "";
   if (quiz.kind === "num"){
@@ -811,26 +1024,23 @@ function answer(btn, x){
 }
 function finishQuiz(){
   $("bar").style.width = "100%";
-  const r = quiz.right, stars = r >= 9 ? 3 : r >= 7 ? 2 : r >= 4 ? 1 : 0;
+  const r = quiz.right, f = r / quiz.total, stars = f >= .85 ? 3 : f >= .7 ? 2 : f >= .4 ? 1 : 0;
   const kind = quiz.kind;
-  endRound(stars, `${r} of ${ROUND} right on the first try`, () => kind === "num" ? startNumQuiz() : startQuiz(kind), kind === "quizA" || kind === "quizB");
+  endRound(stars, `${r} of ${quiz.total} right on the first try`, () => kind === "num" ? startNumQuiz() : startQuiz(kind));
 }
-function endRound(stars, msg, again, countsForLevel = true){
-  const lvl = save.level, wasLocked = !unlocked(lvl+1);
-  if (countsForLevel) save.best[lvl] = Math.max(bestStars(lvl), stars);
-  // A sticker for each stop on the journey, the first time its level gets 3 stars
-  const sticker = countsForLevel && stars === 3 && !save.stickers.includes(lvl) ? STOPS[lvl] : null;
-  if (sticker) save.stickers.push(lvl);
+// Every game ends here. On the journey, a good round completes that activity (see journeyResult in hub.js)
+function endRound(stars, msg, again){
+  const jr = JR.fam != null ? journeyResult(stars) : null;
   addStars(stars);
-  $("trophy").textContent = sticker ? sticker.icon : stars === 3 ? "🏆" : stars ? "🎉" : "💪";
+  $("trophy").textContent = jr && jr.sticker ? jr.sticker.icon : jr && jr.mastered ? "👑" : stars === 3 ? "🏆" : stars ? "🎉" : "💪";
   $("earned").textContent = stars ? "⭐".repeat(stars) : "Try again!";
-  $("resultMsg").textContent = msg + (wasLocked && lvl+1 < LEVELS.length && unlocked(lvl+1) ? " · New level unlocked! 🔓" : "")
-    + (sticker ? ` · New sticker: ${sticker.am} ${sticker.icon}` : "");
+  $("resultMsg").textContent = msg + (jr ? " · " + jr.msg : "");
   $("again").onclick = again;
+  $("toHome").textContent = jr ? (jr.passed ? "➡ Next" : "🗺️ Family") : "⬅ Back";
   show("result");
   if (stars){ sfx.win(); confetti(); }
 }
-$("toHome").onclick = () => { renderHome(); show("home"); };
+$("toHome").onclick = () => goBack();
 
 /* ---------- Numbers ----------
    Ge'ez has its own signs for 1–9 (፩–፱), 10–90 (፲–፺), 100 (፻) and 10,000 (፼). There is no zero:
@@ -1167,7 +1377,9 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
 $("voiceBtn").onclick = e => { e.stopPropagation(); $("voicePick").classList.toggle("on"); };
 document.addEventListener("click", e => { if (!$("voicePick").contains(e.target)) $("voicePick").classList.remove("on"); });
 </script>
+<script src="../story/books.js"></script>
 <script src="games.js"></script>
+<script src="hub.js"></script>
 <script src="family.js"></script>
 </body>
 </html>
