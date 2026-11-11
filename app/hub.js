@@ -502,44 +502,24 @@ const HUB_GAMES = { ttt:startTTT, missing:startMissing, piano:startPiano, drum:s
 const _stopGames = stopGames;
 stopGames = function(){ _stopGames(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
 
-/* ---------- Intro: five seconds of the የፊደል ደስታ chorus when the app opens ----------
-   Plays once each time the app is opened (not on every reload within the visit), with the picture
-   showing the whole time, then fades away by itself. Browsers only let sound start after a tap, so when
-   it can't start straight away the picture waits, and the first tap anywhere on it starts the tune.
-   A parent can turn it off on the parent page. */
-const INTRO_LINES = [[.24, "ፊደል ፊደል እንማር፣"], [2.54, "በደስታ እንዘምር፣"]];
-const intro = { a:null, raf:0, done:false, playing:false };
+/* ---------- Intro: a short picture when the app opens ----------
+   Shows once each time the app is opened (not on every reload within the visit) and fades away by
+   itself after a few seconds; a tap closes it sooner. A parent can turn it off on the parent page. */
 function introOff(){ return !!db.introOff; }
+let introDone = false;
 function showIntro(){
   let seen = false; try { seen = sessionStorage.getItem("fidel-intro") === "1"; sessionStorage.setItem("fidel-intro", "1"); } catch(e){}
   if (seen || introOff()) return;
   $("introLetters").innerHTML = ["ሀ","ለ","ሐ","መ","ሠ"].map((c, i) => `<span style="background:${BCOLORS[i]};animation-delay:${i * .15}s">${c}</span>`).join("");
-  $("introLine").textContent = INTRO_LINES[0][1];
+  $("introLine").textContent = "ፊደል ፊደል እንማር!";
   $("intro").classList.add("on");
-  intro.a = new Audio("../songs/intro.mp3");
-  intro.a.addEventListener("ended", endIntro);
-  playIntro(() => $("intro").classList.add("wait"));
-}
-function playIntro(blocked){
-  intro.a.play().then(() => {
-    intro.playing = true; $("intro").classList.remove("wait"); introTick();
-    setTimeout(endIntro, 6500);           // in case "ended" never comes
-  }, blocked || endIntro);
-}
-// While waiting for a tap, the first tap anywhere starts the tune (with the picture still showing)
-$("intro").onclick = () => { if (!intro.playing) playIntro(); };
-function introTick(){
-  if (intro.done) return;
-  const t = intro.a.currentTime;
-  let line = ""; INTRO_LINES.forEach(([s, l]) => { if (t >= s) line = l; });
-  if ($("introLine").textContent !== line) $("introLine").textContent = line;
-  intro.raf = requestAnimationFrame(introTick);
+  setTimeout(endIntro, 2800);
 }
 function endIntro(){
-  if (intro.done) return;
-  intro.done = true; cancelAnimationFrame(intro.raf);
-  if (intro.a) intro.a.pause();
+  if (introDone) return;
+  introDone = true;
   const el = $("intro"); el.classList.add("out");
-  setTimeout(() => el.classList.remove("on", "out", "wait"), 600);
+  setTimeout(() => el.classList.remove("on", "out"), 600);
 }
+$("intro").onclick = endIntro;
 addEventListener("load", showIntro);
