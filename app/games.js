@@ -11,32 +11,12 @@ const STOPS = [
   { am:"ስሜን ተራሮች", en:"Simien Mountains", icon:"🐒", fact:"High mountains where gelada monkeys live." },
   { am:"ባሌ ተራሮች", en:"Bale Mountains", icon:"🐺", fact:"Home of the Ethiopian wolf, found nowhere else in the world." },
 ];
-// 3 x 3 snake: left to right, then right to left, then left to right
-const MAP_ORDER = [0,1,2,5,4,3,6,7,8];
-function renderMap(){
-  const box = $("map"); box.innerHTML = "";
-  const svg = `<svg viewBox="0 0 300 300" preserveAspectRatio="none"><path d="M50 50 H250 V150 H50 V250 H250" fill="none" stroke="#c8a36a" stroke-width="8" stroke-dasharray="12 10" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
-  box.insertAdjacentHTML("beforeend", svg);
-  MAP_ORDER.forEach(l => {
-    const st = STOPS[l], ok = unlocked(l), b = document.createElement("button");
-    b.className = "stop" + (l === save.level ? " sel" : "") + (ok ? "" : " lock") + (save.stickers.includes(l) ? " got" : "");
-    b.innerHTML = (l === save.level ? `<span class="me">${avHTML(activeKid() && activeKid().avatar)}</span>` : "")
-      + `<span class="ic">${ok ? st.icon : "🔒"}</span><span class="nm">${st.am}</span>`
-      + `<span class="ls">${LEVELS[l].map(f => glyph(f,0)).join(" ")}</span>`
-      + `<span class="st">${"★".repeat(bestStars(l))}${"☆".repeat(3 - bestStars(l))}</span>`;
-    b.onclick = () => {
-      if (!ok){ sfx.bad(); toast("Get 3 stars at the stop before 🔒"); return; }
-      sfx.tap(); save.level = l; store.set(save); renderHome(); toast(`${st.icon} ${st.am} · ${st.en}`);
-    };
-    box.appendChild(b);
-  });
-}
 function showStickers(){
   const g = $("stickerGrid"); g.innerHTML = "";
   STOPS.forEach((st, l) => {
     const got = save.stickers.includes(l), d = document.createElement("button");
     d.className = "sticker" + (got ? "" : " no");
-    d.innerHTML = `<span class="ic">${st.icon}</span><b>${got ? st.am : "？"}</b><span>${got ? st.en + " · " + st.fact : "Get 3 stars at stop " + (l + 1)}</span>`;
+    d.innerHTML = `<span class="ic">${st.icon}</span><b>${got ? st.am : "？"}</b><span>${got ? st.en + " · " + st.fact : "Master all the letters of stop " + (l + 1)}</span>`;
     d.onclick = () => { if (got){ sfx.good(); burst(d); } else sfx.tap(); };
     g.appendChild(d);
   });
@@ -68,12 +48,13 @@ function renderPicWord(fi){
 const TR = { n:0, items:[], strokes:[], drawing:false, mask:null };
 function startTrace(){
   const p = pool();
-  TR.items = shuffle(p.slice()).slice(0, 5); TR.n = 0;
+  // On the journey, trace all 7 letters of the family in order; otherwise 5 letters from the pool
+  TR.items = JR.fam != null ? p.slice() : shuffle(p.slice()).slice(0, 5); TR.n = 0;
   show("trace"); nextTrace();
 }
 function nextTrace(){
   if (TR.n >= TR.items.length){
-    endRound(TR.items.length >= 5 ? 3 : 2, "You traced 5 letters! ✍️", startTrace, false);
+    endRound(3, `You traced ${TR.items.length} letters! ✍️`, startTrace);
     return;
   }
   $("trBar").style.width = (TR.n / TR.items.length * 100) + "%";
@@ -148,7 +129,7 @@ const BP = { raf:0 };
 const BCOLORS = ["#e0483e","#2e9e6b","#f7b500","#3a7bd5","#ff7ac6","#8a5cd6"];
 function startBalloon(){
   const p = pool();
-  Object.assign(BP, { targets: weightedSample(p, 10), n:0, misses:0, tries:0, pool:p, bals:[], last:0 });
+  Object.assign(BP, { targets: weightedSample(p, JR.fam != null ? 7 : 10), n:0, misses:0, tries:0, pool:p, bals:[], last:0 });
   $("bSky").querySelectorAll(".bal").forEach(b => b.remove());
   show("balloon"); askBalloon();
   cancelAnimationFrame(BP.raf); BP.t0 = performance.now(); BP.raf = requestAnimationFrame(stepBalloons);
@@ -157,11 +138,11 @@ function askBalloon(){
   if (BP.n >= BP.targets.length){
     stopGames();
     const stars = BP.misses <= 2 ? 3 : BP.misses <= 5 ? 2 : 1;
-    return endRound(stars, `You popped all 10 balloons! 🎈`, startBalloon, false);
+    return endRound(stars, `You popped all ${BP.targets.length} balloons! 🎈`, startBalloon);
   }
   BP.ans = BP.targets[BP.n]; BP.tries = 0;
   $("bAsk").textContent = `Pop “${sound(...BP.ans)}”`;
-  $("bLeft").textContent = `${BP.n + 1}/10`;
+  $("bLeft").textContent = `${BP.n + 1}/${BP.targets.length}`;
   speak(glyph(...BP.ans));
   // Make sure the answer is floating up soon
   BP.needAns = true;
@@ -219,7 +200,7 @@ $("bHear").onclick = () => speak(glyph(...BP.ans));
 const hasClip = ch => famOf(ch) >= 0;
 const WB = {};
 function wordChoices(){
-  const fams = new Set(); LEVELS.forEach((f, l) => { if (unlocked(l)) f.forEach(x => fams.add(x)); });
+  const fams = new Set(openFams());
   const ok = PICWORDS.map((w, fi) => w && fams.has(fi) && [...w[0]].every(hasClip) ? w : null).filter(Boolean);
   const all = PICWORDS.filter(w => w && [...w[0]].every(hasClip));
   return ok.length >= 5 ? ok : all;
@@ -231,7 +212,7 @@ function startWords(){
 function nextWord(){
   if (WB.n >= WB.items.length){
     const stars = WB.misses <= 2 ? 3 : WB.misses <= 6 ? 2 : 1;
-    return endRound(stars, "You built 5 words! 🧩", startWords, false);
+    return endRound(stars, "You built 5 words! 🧩", startWords);
   }
   $("wBar").style.width = (WB.n / WB.items.length * 100) + "%";
   const [word, pic, en] = WB.items[WB.n], letters = [...word];
