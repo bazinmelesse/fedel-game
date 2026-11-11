@@ -1,4 +1,4 @@
-/* Drawn illustrations for "Mare and Zizi" (ማሬ እና ዝዝ): a bee, a fly and the rainy season. */
+/* Drawn illustrations for "Mare and Zizi" (ማሬ እና ዚዚ): a bee, a fly and the rainy season. */
 (function(){
 const K = window.STORY_KIT, LINE = K.LINE, C = K.C;
 
