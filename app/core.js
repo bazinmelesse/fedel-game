@@ -6,7 +6,7 @@
    The PIN only keeps little hands out of the parent area. */
 const DB_KEY = "fidel-app-db";
 const DEFAULT_SET = {
-  modes:{ learn:true, quizA:true, quizB:true, memory:true, trace:true, balloon:true, words:true, review:true, numbers:true, songs:true },
+  modes:{ learn:true, quizA:true, quizB:true, memory:true, trace:true, balloon:true, words:true, review:true, numbers:true, songs:true, ttt:true, missing:true, piano:true },
   voiceLock:false, voice:"normal", limit:0, sfx:true, unlockAll:false
 };
 let db = loadDB();
@@ -144,6 +144,9 @@ function mergeDB(a, b){
     }
     k.save.stickers = [...new Set([...(x.save.stickers || []), ...(y.save.stickers || [])])];
     k.save.stars = Math.max(x.save.stars || 0, y.save.stars || 0);
+    // Journey: each family's finished activities are bits, so both copies' bits are kept
+    k.save.fam = {};
+    [x, y].forEach(z => Object.entries(z.save.fam || {}).forEach(([f, v]) => k.save.fam[f] = (k.save.fam[f] || 0) | v));
     k.save.best = {};
     [x, y].forEach(z => Object.entries(z.save.best || {}).forEach(([l, v]) => k.save.best[l] = Math.max(k.save.best[l] || 0, v)));
     k.stats = {};

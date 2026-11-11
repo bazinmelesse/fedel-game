@@ -2,7 +2,7 @@
 /* ---------- Family: sign-up, sign-in, who's playing, parent page, daily time ---------- */
 const AVATARS = ["k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11","k12"];
 const LIMITS = [0, 10, 15, 20, 30, 45, 60, 90];
-const PLAY_SCREENS = ["home","learn","quiz","memory","numLearn","song","trace","balloon","words","stickers","result"];
+const PLAY_SCREENS = ["home","journey","fam","books","games","music","art","learn","quiz","memory","numLearn","song","trace","balloon","words","stickers","result","ttt","missing","piano","drum","color","draw"];
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]);
 
 function cloudErr(e){
@@ -208,10 +208,10 @@ function openParent(){
   const box = $("pKids"); box.innerHTML = "";
   db.kids.forEach(k => {
     const b = document.createElement("button"); b.className = "kidcard";
-    const done = LEVELS.filter((_, l) => (k.save.best || {})[l] >= 3).length;
+    const done = FAMILIES.filter((_, fi) => famMastered(fi, k.save, kidSet(k))).length;
     const known = Object.keys(k.stats || {}).filter(g => letterState(k, g) === "known").length;
     b.innerHTML = `<span class="av">${avHTML(k.avatar)}</span><div><b>${esc(k.name)}</b>
-      <span>⭐ ${k.save.stars || 0} stars · ${done} of ${LEVELS.length} stops done</span>
+      <span>⭐ ${k.save.stars || 0} stars · ${done} of ${FAMILIES.length} letter families mastered</span>
       <span>${known} of 238 letters known · ${minutesToday(k)} min today</span></div>`;
     b.onclick = () => openKid(k.id);
     box.appendChild(b);
@@ -282,9 +282,10 @@ function renderProgress(){
     ${hard.length ? `<p><b>Tricky letters:</b> <span style="font-family:var(--fidel);font-size:26px">${hard.join(" ")}</span><br><span class="hint">Smart review shows these more often.</span></p>` : ""}
     <div class="legend"><span><i style="background:#bfe8cf"></i>Known</span><span><i style="background:#ffe7a3"></i>Learning</span><span><i style="background:#ffc4be"></i>Tricky</span><span><i style="background:#f1ece0"></i>Not seen yet</span></div>
     <div class="lgrid">${grid}</div>
-    <h3>Journey</h3><div class="statrow">${STOPS.map((s, l) => `<div class="stat">${s.icon} ${s.am}<b style="font-size:16px;color:var(--yellow)">${"★".repeat((k.save.best || {})[l] || 0)}${"☆".repeat(3 - ((k.save.best || {})[l] || 0))}</b></div>`).join("")}</div>`;
+    <h3>Journey</h3><div class="statrow">${STOPS.map((s, l) => `<div class="stat">${s.icon} ${s.am}<b style="font-size:16px">${LEVELS[l].map(fi => `<span style="font-family:var(--fidel);color:${famMastered(fi, k.save, kidSet(k)) ? "var(--green)" : "#bdb6a2"}">${glyph(fi, 0)}</span>`).join(" ")}</b></div>`).join("")}</div>
+    <p class="hint">Green letters are families ${esc(k.name)} has mastered on the journey.</p>`;
 }
-const MODE_NAMES = { learn:"Learn", trace:"Trace the letter", quizA:"Find the letter", quizB:"What sound?", balloon:"Balloon pop", memory:"Memory match", words:"Build a word", review:"Smart review", numbers:"Numbers", songs:"Songs" };
+const MODE_NAMES = { learn:"Learn", trace:"Trace the letter", quizA:"Find the letter", quizB:"What sound?", balloon:"Balloon pop", memory:"Memory match", words:"Build a word", missing:"Missing letter", ttt:"Fidel tic-tac-toe", review:"Smart review", numbers:"Numbers", songs:"Songs", piano:"Piano and drum" };
 function renderSettings(){
   const k = pk, s = kidSet(k);
   const tog = (key, on, label, sub = "") => `<div class="setrow"><span>${label}${sub ? `<small>${sub}</small>` : ""}</span><button class="toggle ${on ? "on" : ""}" data-key="${key}" aria-pressed="${on}"></button></div>`;
@@ -302,7 +303,7 @@ function renderSettings(){
       <h3 style="margin-top:0">Play time</h3>
       <div class="setrow"><span>Daily time limit<small>After this, the game says it's time for a rest. You can add 10 minutes with your PIN.</small></span>
         <select id="sLimit">${LIMITS.map(m => `<option value="${m}" ${m === s.limit ? "selected" : ""}>${m ? m + " minutes" : "No limit"}</option>`).join("")}</select></div>
-      ${tog("unlockAll", s.unlockAll, "Open all journey stops", "Lets them play any level without earning 3 stars first")}
+      ${tog("unlockAll", s.unlockAll, "Open the whole journey", "Lets them start any letter family without mastering the one before")}
     </div>
     <div class="panel wide">
       <div class="setrow"><span>Name and picture</span><button class="pill alt" id="sEdit">Edit</button></div>
@@ -320,7 +321,7 @@ function renderSettings(){
   $("sEdit").onclick = () => editKid(k.id, "pKid");
   $("sReset").onclick = () => {
     if (!confirm(`Reset all of ${k.name}'s progress?`)) return;
-    k.save = { stars:0, best:{}, level:0, voice:k.save.voice || "normal", stickers:[] }; k.stats = {};
+    k.save = { stars:0, best:{}, level:0, voice:k.save.voice || "normal", stickers:[], fam:{} }; k.stats = {};
     // Mark the reset so other devices' older, higher scores don't come back on sync
     k.resetAt = Date.now(); persist(); renderProgress(); toast("Progress reset");
   };

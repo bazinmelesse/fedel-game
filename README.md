@@ -23,7 +23,12 @@ A second version of the game at `/app/` with family accounts:
 - **Parent account** with email and password (Firebase), password reset, and a 4-digit PIN for the parent page. Or "this device only" with no email.
 - **Child profiles**, each with their own stars, stickers and letter progress, synced across tablets when online.
 - **Parent page**: a progress grid of all 238 letters, tricky letters, which games each child can play, voice lock, sound effects, daily time limit, open all levels.
-- **New games**: journey map across Ethiopia with stickers, trace the letter, balloon pop, build a word, picture words in Learn, smart review.
+- **Home page and tabs**: after picking a child, a home page with a "continue your journey" card and tabs for Journey, Books, Games, Music and Art.
+- **Journey**: one letter family at a time. Each family has six activities in order (meet the 7 letters, find the letter, what sound, trace, balloon pop, memory match). Finishing them masters the family and opens the next one. Every 4 families is a stop across Ethiopia with a sticker.
+- **Games**: the letter games as free play with the letters reached so far, plus Fidel tic-tac-toe, build a word, missing letter, smart review and numbers.
+- **Books**: built automatically from `story/books.js`, so new books appear in the app by themselves.
+- **Music**: the sing-along songs, a Fidel piano (each key sings a letter form) and a kebero drum beat game.
+- **Art**: colouring pages (ቤት, አበባ, ዓሣ, ፀሐይ, ጀበና and the child's current letter) and a drawing canvas with a faint letter to draw over.
 
 Firestore security rules (Firebase console → Firestore → Rules):
 
