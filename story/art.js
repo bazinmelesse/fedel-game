@@ -1,4 +1,4 @@
-/* Drawn illustrations for "Dama the Proud Cat" (ዳማ ኩሩው ድመት).
+/* Drawn illustrations for "Wuro the Proud Cat" (ውሮ ኩሩው ድመት).
    Every picture is built from the same small set of drawing helpers so the characters
    look the same on every page. Each picture is an SVG string, viewBox 0 0 800 500. */
 (function(){
@@ -286,5 +286,5 @@ const ART = {
 
 window.STORY_ART = ART;
 // Shared drawing helpers so other books match this style
-window.STORY_KIT = { LINE, C, svg, sky, hills, grass, flowers, tukul, warka, face, sun, cloud, hearts, bunting, motion, owl, cat };
+window.STORY_KIT = { LINE, C, svg, sky, hills, grass, flowers, tukul, warka, face, sun, cloud, hearts, bunting, motion, owl, cat, mouse, hole };
 })();

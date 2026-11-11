@@ -1,4 +1,4 @@
-/* Drawn illustrations for "Selam and the Red Hen" (ሰላም እና ቀይቱ ዶሮ). */
+/* Drawn illustrations for "Mimi and the Red Hen" (ሚሚ እና ቀይቱ ዶሮ). */
 (function(){
 const K = window.STORY_KIT, LINE = K.LINE, C = K.C;
 const selam = o => K.person(Object.assign({ hair:"braids", shirt:"#3a7bd5", dress:true, skin:"#7a4a2f" }, o));

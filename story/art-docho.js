@@ -62,7 +62,7 @@ function boot(x, y, s = 1, o = {}){
   </g>`;
 }
 
-/* The giant, Aba Gulbe. o = {x, y, s, shoes:"old"|"new", arm:"wave"|"down"|"hold", dance, holdShoe} */
+/* The giant, Ato Deftite. o = {x, y, s, shoes:"old"|"new", arm:"wave"|"down"|"hold", dance, holdShoe} */
 function giant(o){
   const s = o.s || 1, tib = `<path d="M0,0 h1" />`;
   const shoes = o.shoes === "new"

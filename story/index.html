@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>ዳማ ኩሩው ድመት</title>
+<title>ውሮ ኩሩው ድመት</title>
 <meta name="theme-color" content="#2e7d5b">
 <link rel="manifest" href="../manifest.json">
 <style>
@@ -83,7 +83,7 @@ body.english .en{display:block}
 <div class="flag"></div>
 <header>
   <a class="btn" href="../index.html" aria-label="Back to the games">←</a>
-  <h1>ዳማ ኩሩው ድመት</h1>
+  <h1>ውሮ ኩሩው ድመት</h1>
   <button class="btn" id="readBtn" aria-label="Read to me: turn the pages by itself">📖 <small>Read to me</small></button>
   <button class="btn" id="enBtn" aria-label="Show English">EN</button>
   <button class="btn" id="sayBtn" aria-label="Listen again">🔊</button>
@@ -96,6 +96,7 @@ body.english .en{display:block}
 <script src="art-mumu.js"></script>
 <script src="art-selam.js"></script>
 <script src="art-nib.js"></script>
+<script src="art-ayit.js"></script>
 <script src="books.js"></script>
 <script>
 /* Picture books that turn their pages with a tap or a swipe. Which book shows comes from the address:
@@ -114,6 +115,8 @@ function markKey(text, key){
 }
 
 /* Open a book: build one leaf per page, the first page on top */
+const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../index.html";
+document.querySelector('a[aria-label="Back to the games"]').href = HOME;
 function openBook(){
   BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
   BK = BOOKS[BOOK_ID]; PAGES = BK.pages; ART = BK.art(); N = PAGES.length;
@@ -137,7 +140,7 @@ function openBook(){
         <div class="words">${words}</div>
       </div>
       ${i === 0 ? `<div class="tapme">ንካኝ · Tap to read ›</div>` : ""}
-      ${pg.end ? `<div class="endbtns"><button class="btn" data-again>↺ እንደገና · Again</button><a class="btn" href="../index.html">🏠 ጨዋታዎች · Games</a></div>` : ""}
+      ${pg.end ? `<div class="endbtns"><button class="btn" data-again>↺ እንደገና · Again</button><a class="btn" href="${HOME}">🏠 ጨዋታዎች · Games</a></div>` : ""}
       ${!pg.full ? `<div class="num">${i} / ${N - 2}</div><div class="curl"></div>` : ""}
       <div class="shade"></div>
     </div>

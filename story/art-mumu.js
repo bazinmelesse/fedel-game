@@ -1,4 +1,4 @@
-/* Drawn illustrations for "Mumu and Bolo" (ሙሙ እና ቦሎ): a cat and a dog who argue,
+/* Drawn illustrations for "Wiriye and Buchiye" (ውርዬ እና ቡችዬ): a cat and a dog who argue,
    until a rainy night when they have to find the little goat together.
    Uses the shared helpers from art.js and art-docho.js. */
 (function(){
