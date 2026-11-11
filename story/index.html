@@ -100,14 +100,8 @@ body.english .en{display:block}
    story/#dama, story/#docho or story/#mumu. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
    up to the last page ("The End").
    A page without a recording simply stays quiet. */
-const BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
-const BK = BOOKS[BOOK_ID], PAGES = BK.pages, ART = BK.art();
-document.title = BK.title;
-document.querySelector("header h1").textContent = BK.title;
-addEventListener("hashchange", () => location.reload());
-
+let BOOK_ID, BK, PAGES, ART, N, leaves = [];
 const book = document.getElementById("book"), voice = document.getElementById("voice");
-const N = PAGES.length;
 let cur = 0, busy = false, autoRead = false, started = false, autoTimer = null;
 try { if (localStorage.getItem("story-en") === "1") document.body.classList.add("english"); } catch(e){}
 document.getElementById("enBtn").classList.toggle("on", document.body.classList.contains("english"));
@@ -117,8 +111,16 @@ function markKey(text, key){
   return esc(text).split(key).join(`<span class="key" data-l="${key}">${key}</span>`);
 }
 
-/* Build one leaf per page, the first page on top */
-const leaves = PAGES.map((pg, i) => {
+/* Open a book: build one leaf per page, the first page on top */
+function openBook(){
+  BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
+  BK = BOOKS[BOOK_ID]; PAGES = BK.pages; ART = BK.art(); N = PAGES.length;
+  document.title = BK.title;
+  document.querySelector("header h1").textContent = BK.title;
+  setReadMode(false); voice.pause();
+  cur = 0; busy = false; started = false;
+  book.innerHTML = "";
+  leaves = PAGES.map((pg, i) => {
   const leaf = document.createElement("div");
   leaf.className = "leaf";
   leaf.style.zIndex = N - i;
@@ -140,7 +142,10 @@ const leaves = PAGES.map((pg, i) => {
     <div class="face back"></div>`;
   book.appendChild(leaf);
   return leaf;
-});
+  });
+}
+openBook();
+addEventListener("hashchange", openBook);
 
 function setAngle(i, deg, animate){
   const leaf = leaves[i];
