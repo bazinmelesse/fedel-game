@@ -214,7 +214,7 @@ window.BOOKS = {
       "And Keyitu said, \"Cluck, cluck, cluck.\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  nib: { icon:"🐝", title:"ማሬ እና ዝዝ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
+  nib: { icon:"🐝", title:"ማሬ እና ዚዚ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ን", am:[
       "በአደይ አበባ በተሞላ ሜዳ ማሬ የምትባል ንብ ትኖር ነበር።",
@@ -222,12 +222,12 @@ window.BOOKS = {
     en:["In a field full of adey abeba flowers lived a bee named Mare.",
       "Every morning she flew from flower to flower, collecting nectar."] },
   { art:"p2", key:"ዝ", am:[
-      "ዝዝ የሚባል ዝንብ እየበረረ መጣ። «ዝዝዝ! ማሬ፣ ለምን ሁልጊዜ ትሠሪያለሽ? ነይ እንጫወት!»",
+      "ዚዚ የሚባል ዝንብ እየበረረ መጣ። «ዝዝዝ! ማሬ፣ ለምን ሁልጊዜ ትሠሪያለሽ? ነይ እንጫወት!»",
       "ማሬም «ክረምት ከመግባቱ በፊት ማር መሥራት አለብኝ» አለች።"],
     en:["A fly named Zizi came buzzing by. \"Bzzz! Mare, why are you always working? Come and play!\"",
       "Mare said, \"I have to make honey before the rainy season comes.\""] },
   { art:"p3", key:"ጫ", am:[
-      "ዝዝ ቀኑን ሙሉ ተጫወተ። በላሟ አፍንጫ ላይ፣ በእንጀራው ላይ፣ በልጁ ጆሮ ላይ አረፈ።",
+      "ዚዚ ቀኑን ሙሉ ተጫወተ። በላሟ አፍንጫ ላይ፣ በእንጀራው ላይ፣ በልጁ ጆሮ ላይ አረፈ።",
       "ሁሉም «ሂድ! ሂድ!» አሉት።"],
     en:["Zizi played all day. He landed on the cow's nose, on the injera, and on a boy's ear.",
       "Everyone said, \"Go away! Go away!\""] },
@@ -242,23 +242,23 @@ window.BOOKS = {
     en:["Then the rainy season came.",
       "Dark clouds covered the sky, and the rain fell day and night."] },
   { art:"p6", key:"ራ", am:[
-      "ዝዝ በዝናቡ በሰበሰ፣ በረደው፣ ራበውም። ውጪ ምንም ምግብ አልነበረም።",
+      "ዚዚ በዝናቡ በሰበሰ፣ በረደው፣ ራበውም። ውጪ ምንም ምግብ አልነበረም።",
       "«ዝ… ዝ…» ድምፁ ትንሽ ሆነ።"],
     en:["Zizi was soaked by the rain. He was cold, and he was hungry. There was no food anywhere outside.",
       "\"Bz… bz…\" His buzz became very small."] },
   { art:"p7", key:"ቀ", am:[
-      "ዝዝ ወደ ቀፎው በረረና በሩን አንኳኳ።",
+      "ዚዚ ወደ ቀፎው በረረና በሩን አንኳኳ።",
       "«ማሬ፣ እባክሽ እርጂኝ!»"],
     en:["Zizi flew to the hive and knocked on the door.",
       "\"Mare, please help me!\""] },
   { art:"p8", key:"ጣ", am:[
-      "ማሬ ለዝዝ አንድ ጠብታ ጣፋጭ ማርና ሞቅ ያለ ቦታ ሰጠችው።",
+      "ማሬ ለዚዚ አንድ ጠብታ ጣፋጭ ማርና ሞቅ ያለ ቦታ ሰጠችው።",
       "«ዛሬ እረዳሃለሁ» አለች። «ከክረምት በኋላ ግን አንተም ትሠራለህ።»"],
     en:["Mare gave Zizi a drop of sweet honey and a warm place to stay.",
       "\"Today I will help you,\" she said. \"But after the rainy season, you will work too.\""] },
   { art:"p9", key:"መ", am:[
       "መስከረም ሲጠባ አደይ አበባ እንደገና አበበ።",
-      "ዝዝም ለንቦቹ አዳዲስ አበቦች ያሉበትን ቦታ እያሳየ ረዳቸው። «አብሮ መሥራት ደስ ይላል!» አለ ዝዝ።"],
+      "ዚዚም ለንቦቹ አዳዲስ አበቦች ያሉበትን ቦታ እያሳየ ረዳቸው። «አብሮ መሥራት ደስ ይላል!» አለ ዚዚ።"],
     en:["When Meskerem came, the adey abeba flowers bloomed again.",
       "And Zizi helped the bees by showing them where the new flowers were. \"Working together is fun!\" said Zizi."] },
   { art:"end", full:true, end:true, am:[], en:[] }
