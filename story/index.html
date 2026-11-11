@@ -286,6 +286,12 @@ document.getElementById("enBtn").onclick = () => {
   try { localStorage.setItem("story-en", on ? "1" : "0"); } catch(e){}
 };
 document.getElementById("sayBtn").onclick = () => narrate();
+// Keep the offline copy up to date: check for a new version and reload once when it arrives
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController && !window.__reloaded){ window.__reloaded = true; location.reload(); } });
+  navigator.serviceWorker.register("../sw.js", { scope:"../", updateViaCache:"none" }).then(r => r.update()).catch(() => {});
+}
 </script>
 </body>
 </html>
