@@ -501,3 +501,38 @@ const HUB_GAMES = { ttt:startTTT, missing:startMissing, piano:startPiano, drum:s
 // Leaving a screen also stops the piano tune
 const _stopGames = stopGames;
 stopGames = function(){ _stopGames(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
+
+/* ---------- Intro: the chorus of የፊደል ደስታ when the app opens ----------
+   Plays once each time the app is opened (not on every reload within the visit). Browsers only let
+   sound start after a tap, so if it can't start by itself a big Start button appears. A parent can
+   turn it off on the parent page. */
+const INTRO_LINES = [[.49, "ፊደል ፊደል እንማር፣"], [2.79, "በደስታ እንዘምር፣"], [5.11, "አንድ በአንድ እንናገር፣"], [7.41, "ፊደላችንን እንወቅ!"]];
+const intro = { a:null, raf:0, done:false };
+function introOff(){ return !!db.introOff; }
+function showIntro(){
+  let seen = false; try { seen = sessionStorage.getItem("fidel-intro") === "1"; sessionStorage.setItem("fidel-intro", "1"); } catch(e){}
+  if (seen || introOff()) return;
+  $("introLetters").innerHTML = ["ሀ","ለ","ሐ","መ","ሠ"].map((c, i) => `<span style="background:${BCOLORS[i]};animation-delay:${i * .15}s">${c}</span>`).join("");
+  $("intro").classList.add("on");
+  $("introGo").style.visibility = "hidden";
+  intro.a = new Audio("../songs/intro.mp3");
+  intro.a.addEventListener("ended", endIntro);
+  intro.a.play().then(introTick, () => { $("introGo").style.visibility = "visible"; });
+}
+function introTick(){
+  if (intro.done) return;
+  const t = intro.a.currentTime;
+  let line = ""; INTRO_LINES.forEach(([s, l]) => { if (t >= s) line = l; });
+  if ($("introLine").textContent !== line) $("introLine").textContent = line;
+  intro.raf = requestAnimationFrame(introTick);
+}
+function endIntro(){
+  if (intro.done) return;
+  intro.done = true; cancelAnimationFrame(intro.raf);
+  if (intro.a) intro.a.pause();
+  const el = $("intro"); el.classList.add("out");
+  setTimeout(() => el.classList.remove("on", "out"), 600);
+}
+$("introGo").onclick = () => { $("introGo").style.visibility = "hidden"; intro.a.play().then(introTick, endIntro); };
+$("introSkip").onclick = endIntro;
+addEventListener("load", showIntro);

@@ -128,7 +128,7 @@ function mergeDB(a, b){
   if (!a || !a.kids || (!a.parent && !a.kids.length)) return b;
   if (!b || !b.kids) return a;
   const newer = (b.updated || 0) > (a.updated || 0) ? b : a;
-  const out = { v:1, parent: newer.parent || a.parent || b.parent, last:a.last, updated:Math.max(a.updated || 0, b.updated || 0),
+  const out = { v:1, parent: newer.parent || a.parent || b.parent, introOff: newer.introOff, last:a.last, updated:Math.max(a.updated || 0, b.updated || 0),
                 removed:[...new Set([...(a.removed || []), ...(b.removed || [])])], kids:[] };
   const ids = [...new Set([...a.kids, ...b.kids].map(k => k.id))].filter(id => !out.removed.includes(id));
   ids.forEach(id => {
