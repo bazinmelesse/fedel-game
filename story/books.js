@@ -2,7 +2,7 @@
    and the Amharic text with English underneath. Narration goes in story/audio/<book id>-<page>.mp3,
    from 0 (the cover) to the last page ("The End"). */
 window.BOOKS = {
-  dama: { title:"ውሮ ኩሩው ድመት", en:"Wuro the Proud Cat", art:() => window.STORY_ART, pages:[
+  dama: { icon:"🐱", title:"ውሮ ኩሩው ድመት", en:"Wuro the Proud Cat", art:() => window.STORY_ART, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ድ", am:[
       "በአንድ ትንሽ መንደር ውሮ የሚባል ነጭ ድመት ይኖር ነበር። ውሮ ቆንጆ ነበር፤ ግን በጣም ኩራተኛ ነበር።",
@@ -59,7 +59,7 @@ window.BOOKS = {
       "And Wuro learned: \"Never look down on anyone. Even the smallest has their own strength.\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  docho: { title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, pages:[
+  docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ጫ", am:[
       "በአንድ መንደር ዶጮ የሚባል ትንሽ ጫማ ሰፊ ይኖር ነበር። ዶጮ ከሁሉም ሰው ያነሰ ነበር፤ ግን ጎበዝ ነበር።",
@@ -114,7 +114,7 @@ window.BOOKS = {
       "Docho waved back from his shoe house and said, \"Even if we are small, together we can make big things!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  mumu: { title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU, pages:[
+  mumu: { icon:"🐶", title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሙ", am:[
       "በአንድ የገጠር ቤት ውርዬ የምትባል ድመትና ቡችዬ የሚባል ውሻ ይኖሩ ነበር። ሁለቱም ሁልጊዜ ይጣሉ ነበር።",
@@ -165,7 +165,7 @@ window.BOOKS = {
       "Wiriye says, \"When we're friends, everything is easier.\" And Buchiye says, \"Yes!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  selam: { title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM, pages:[
+  selam: { icon:"🐔", title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሰ", am:[
       "በአንድ መንደር ሚሚ የምትባል ልጅ ትኖር ነበር። ሚሚ ቀይ ዶሮ ነበረቻት፤ ስሟም ቀይቱ ነበር።",
@@ -214,7 +214,7 @@ window.BOOKS = {
       "And Keyitu said, \"Cluck, cluck, cluck.\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  nib: { title:"ማሬ እና ዝዝ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
+  nib: { icon:"🐝", title:"ማሬ እና ዝዝ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ን", am:[
       "በአደይ አበባ በተሞላ ሜዳ ማሬ የምትባል ንብ ትኖር ነበር።",
@@ -263,7 +263,7 @@ window.BOOKS = {
       "And Zizi helped the bees by showing them where the new flowers were. \"Working together is fun!\" said Zizi."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  ayit: { title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT, pages:[
+  ayit: { icon:"🐭", title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"አ", am:[
       "በአንድ ትልቅ ጎተራ ውስጥ ብዙ አይጦች ይኖሩ ነበር።",
@@ -310,6 +310,55 @@ window.BOOKS = {
       "ነብሮ ስትመጣ ጠባቂው «ፊው!» ብሎ ያፏጫል፤ አይጦቹም ሁሉ ወደ ጉድጓዳቸው ይሮጣሉ።"],
     en:["From that day on, every night one mouse climbs on top of the grain store to keep watch.",
       "When Nebro comes, the guard whistles \"Wheeee!\" and all the mice run into their hole."] },
+  { art:"end", full:true, end:true, am:[], en:[] }
+] },
+  tota: { icon:"🦓", title:"ሦስቱ ጓደኛሞችና ሐይቁ", en:"The Three Friends and the Lake", art:() => window.STORY_ART_TOTA, pages:[
+  { art:"cover", full:true, am:[], en:[] },
+  { art:"p1", key:"ሜ", am:[
+      "በአንድ ሰፊ ሜዳ ሦስት ጓደኛሞች ይኖሩ ነበር፦ ቀበሮ፣ ጦጣ እና የሜዳ አህያ።",
+      "ቀበሮ ብልህ ነበረች፤ ጦጣ ዛፍ መውጣት ትችል ነበር፤ የሜዳ አህያው ደግሞ ጠንካራ ነበር።"],
+    en:["On a wide plain lived three friends: Fox, Monkey and Zebra.",
+      "Fox was clever, Monkey could climb trees, and Zebra was strong."] },
+  { art:"p2", key:"ው", am:[
+      "በዚያ ዓመት ዝናብ አልዘነበም። ኩሬው ደረቀ፤ ውሃም ጠፋ።",
+      "«ውሃ ከየት እናገኛለን?» ብለው ተጨነቁ።"],
+    en:["That year, no rain fell. The pond dried up, and there was no water.",
+      "\"Where can we find water?\" they worried."] },
+  { art:"p3", key:"ዛ", am:[
+      "ጦጣ ወደ ረጅሙ ዛፍ ጫፍ ወጣች።",
+      "«ተመልከቱ! ከኮረብታው ባሻገር የሚያብረቀርቅ ሐይቅ አለ!» አለች።"],
+    en:["Monkey climbed to the top of the tallest tree.",
+      "\"Look! There's a shining lake beyond the hill!\" she said."] },
+  { art:"p4", key:"ጀ", am:[
+      "መንገዱ ረጅም ነበር። ጦጣ ደከማት፤ የሜዳ አህያውም «ጀርባዬ ላይ ውጪ» አላት።",
+      "ቀበሮም «እኔንም ተሸከመኝ!» አለች። የሜዳ አህያው ግን «አንቺ ፈጣን እግሮች አሉሽ» ብሎ ሳቀ።"],
+    en:["The way was long. Monkey got tired, so Zebra said, \"Climb up on my back.\"",
+      "\"Carry me too!\" said Fox. But Zebra laughed, \"You have quick legs!\""] },
+  { art:"p5", key:"ሽ", am:[
+      "መንገዱ ለሁለት ተከፈለ። «በየትኛው እንሂድ?»",
+      "ቀበሮ አፍንጫዋን አሸተተች። «የውሃ ሽታ ወደዚህ ነው!» አለች።"],
+    en:["The path split in two. \"Which way shall we go?\"",
+      "Fox sniffed with her nose. \"The smell of water is this way!\" she said."] },
+  { art:"p6", key:"ን", am:[
+      "በድንገት በመንገዱ ላይ ትልቅ አንበሳ ተጋድሞ አዩ!",
+      "ሦስቱም ፈሩ፤ ልባቸው ዱክ ዱክ አለ።"],
+    en:["Suddenly they saw a big lion lying across the path!",
+      "All three were scared, and their hearts went thump, thump."] },
+  { art:"p7", key:"ሣ", am:[
+      "የሜዳ አህያው በሹክሹክታ «በረጅሙ ሣር ውስጥ እንሂድ፤ ሸንተረሬ ይደብቀናል» አለ።",
+      "ሦስቱም ድምፅ ሳያሰሙ ቀስ ብለው በሣሩ ውስጥ አለፉ። አንበሳውም ተኝቶ ቀረ።"],
+    en:["Zebra whispered, \"Let's go through the tall grass. My stripes will hide us.\"",
+      "Without a sound, the three crept slowly through the grass. And the lion stayed asleep."] },
+  { art:"p8", key:"ሐ", am:[
+      "በመጨረሻ ሐይቁ ደረሱ! ውሃው ቀዝቃዛና ጣፋጭ ነበር።",
+      "ጠጡ፣ ታጠቡ፣ በደስታም ውሃ ተረጫጩ።"],
+    en:["At last they reached the lake! The water was cool and sweet.",
+      "They drank, they washed, and they splashed each other with joy."] },
+  { art:"p9", key:"ብ", am:[
+      "ወደ ቤት ሲመለሱ ለሌሎቹ እንስሳት ሁሉ የሐይቁን መንገድ አሳዩ።",
+      "ቀበሮም «እያንዳንዳችን የራሳችን ብርታት አለን፤ አብረን ስንሆን ግን የበለጠ እንበረታለን» አለች።"],
+    en:["On the way home, they showed all the other animals the way to the lake.",
+      "And Fox said, \"Each of us has our own strength, but together we are even stronger.\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] }
 };
