@@ -164,5 +164,103 @@ window.BOOKS = {
     en:["From that day on, Mumu and Bolo were friends. They share the sunny spot, the milk and the mat.",
       "Mumu says, \"When we're friends, everything is easier.\" And Bolo says, \"Yes!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
+] },
+  selam: { title:"ሰላም እና ቀይቱ ዶሮ", en:"Selam and the Red Hen", art:() => window.STORY_ART_SELAM, pages:[
+  { art:"cover", full:true, am:[], en:[] },
+  { art:"p1", key:"ሰ", am:[
+      "በአንድ መንደር ሰላም የምትባል ልጅ ትኖር ነበር። ሰላም ቀይ ዶሮ ነበረቻት፤ ስሟም ቀይቱ ነበር።",
+      "በየጠዋቱ ከትምህርት ቤት በፊት ሰላም ለቀይቱ እህል ትሰጣት ነበር።"],
+    en:["In a village lived a girl named Selam. Selam had a red hen, and the hen's name was Keyitu.",
+      "Every morning before school, Selam gave Keyitu some grain."] },
+  { art:"p2", key:"እ", am:[
+      "በየቀኑ ቀይቱ አንድ እንቁላል ትጥል ነበር።",
+      "ሰላም እንቁላሎቹን አንድ በአንድ በቅርጫት ውስጥ ታስቀምጣቸው ነበር።"],
+    en:["Every day, Keyitu laid one egg.",
+      "Selam put the eggs in a basket, one by one."] },
+  { art:"p3", key:"ጠ", am:[
+      "አንድ ቀን ቀይቱ ጠፋች!",
+      "ሰላም በአትክልቱ ቦታ፣ ከቤቱ ጀርባ፣ በውሃው ጉድጓድ አጠገብ ፈለገቻት። ግን የትም አልነበረችም።"],
+    en:["One day, Keyitu was gone!",
+      "Selam looked in the garden, behind the house and by the well. But she wasn't anywhere."] },
+  { art:"p4", key:"ገ", am:[
+      "ከዚያም ከገለባው ክምር ውስጥ ቀስ ያለ «ቅ ቅ ቅ» ሰማች። ቀይቱ በእንቁላሎቹ ላይ ተቀምጣ ነበር!",
+      "እናቷም «ቀይቱ እንቁላሎቹን እያሞቀች ነው። በ፳፩ ቀን ጫጩቶች ይወጣሉ» አለቻት።"],
+    en:["Then she heard a soft \"cluck, cluck, cluck\" from the pile of hay. Keyitu was sitting on the eggs!",
+      "Her mother said, \"Keyitu is keeping the eggs warm. In 21 days, chicks will come out.\""] },
+  { art:"p5", key:"ቀ", am:[
+      "ሰላም በየቀኑ ግድግዳው ላይ በጠመኔ ቁጥር ጻፈች፦ ፩፣ ፪፣ ፫…",
+      "ለቀይቱም በየቀኑ ውሃና እህል አመጣችላት።"],
+    en:["Every day, Selam wrote a number on the wall with chalk: 1, 2, 3…",
+      "And every day she brought Keyitu water and grain."] },
+  { art:"p6", key:"ቋ", am:[
+      "በ፳፩ኛው ቀን «ቋ!» የሚል ድምፅ ተሰማ።",
+      "«ቋ! ቋ!» እንቁላሎቹ መሰንጠቅ ጀመሩ!"],
+    en:["On the 21st day, there was a little \"crack!\"",
+      "\"Crack! Crack!\" The eggs began to open!"] },
+  { art:"p7", key:"ጫ", am:[
+      "ትንንሽ ቢጫ ጫጩቶች ወጡ።",
+      "ሰላም ቆጠረች፦ ፩፣ ፪፣ ፫፣ ፬፣ ፭፣ ፮፣ ፯፣ ፰፣ ፱፣ ፲! አሥር ጫጩቶች!"],
+    en:["Tiny yellow chicks came out.",
+      "Selam counted: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10! Ten chicks!"] },
+  { art:"p8", key:"ተ", am:[
+      "ጫጩቶቹ ቀይቱን በሁሉም ቦታ ተከተሉ።",
+      "ሰላም ከትምህርት ቤት ስትመለስ ደግሞ ሁሉም «ጪው! ጪው!» እያሉ ወደ እሷ ይሮጡ ነበር።"],
+    en:["The chicks followed Keyitu everywhere.",
+      "And when Selam came home from school, they all ran to her, going \"Cheep! Cheep!\""] },
+  { art:"p9", key:"ቤ", am:[
+      "ሰላም ፈገግ አለች። «ቀይቱ፣ አሁን ትልቅ ቤተሰብ አለን!»",
+      "ቀይቱም «ቅ ቅ ቅ» አለች።"],
+    en:["Selam smiled. \"Keyitu, now we have a big family!\"",
+      "And Keyitu said, \"Cluck, cluck, cluck.\""] },
+  { art:"end", full:true, end:true, am:[], en:[] }
+] },
+  nib: { title:"ማሬ እና ዝዝ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
+  { art:"cover", full:true, am:[], en:[] },
+  { art:"p1", key:"ን", am:[
+      "በአደይ አበባ በተሞላ ሜዳ ማሬ የምትባል ንብ ትኖር ነበር።",
+      "በየጠዋቱ ከአበባ ወደ አበባ እየበረረች የአበባ ጭማቂ ትሰበስብ ነበር።"],
+    en:["In a field full of adey abeba flowers lived a bee named Mare.",
+      "Every morning she flew from flower to flower, collecting nectar."] },
+  { art:"p2", key:"ዝ", am:[
+      "ዝዝ የሚባል ዝንብ እየበረረ መጣ። «ዝዝዝ! ማሬ፣ ለምን ሁልጊዜ ትሠሪያለሽ? ነይ እንጫወት!»",
+      "ማሬም «ክረምት ከመግባቱ በፊት ማር መሥራት አለብኝ» አለች።"],
+    en:["A fly named Zizi came buzzing by. \"Bzzz! Mare, why are you always working? Come and play!\"",
+      "Mare said, \"I have to make honey before the rainy season comes.\""] },
+  { art:"p3", key:"ጫ", am:[
+      "ዝዝ ቀኑን ሙሉ ተጫወተ። በላሟ አፍንጫ ላይ፣ በእንጀራው ላይ፣ በልጁ ጆሮ ላይ አረፈ።",
+      "ሁሉም «ሂድ! ሂድ!» አሉት።"],
+    en:["Zizi played all day. He landed on the cow's nose, on the injera, and on a boy's ear.",
+      "Everyone said, \"Go away! Go away!\""] },
+  { art:"p4", key:"ማ", am:[
+      "ማሬ የአበባውን ጭማቂ ወደ ቀፎው ወሰደች።",
+      "በቀፎው ውስጥ ንቦቹ አብረው ጣፋጭ ማር ሠሩ፤ በትንንሽ የሰም ቤቶች ውስጥም አስቀመጡት።"],
+    en:["Mare carried the nectar to the hive.",
+      "Inside the hive, the bees made sweet honey together and stored it in tiny wax rooms."] },
+  { art:"p5", key:"ክ", am:[
+      "ከዚያም ክረምት ገባ።",
+      "ጥቁር ደመና ሰማዩን ሸፈነ፤ ዝናቡም ቀንና ሌሊት ዘነበ።"],
+    en:["Then the rainy season came.",
+      "Dark clouds covered the sky, and the rain fell day and night."] },
+  { art:"p6", key:"ራ", am:[
+      "ዝዝ በዝናቡ በሰበሰ፣ በረደው፣ ራበውም። ውጪ ምንም ምግብ አልነበረም።",
+      "«ዝ… ዝ…» ድምፁ ትንሽ ሆነ።"],
+    en:["Zizi was soaked by the rain. He was cold, and he was hungry. There was no food anywhere outside.",
+      "\"Bz… bz…\" His buzz became very small."] },
+  { art:"p7", key:"ቀ", am:[
+      "ዝዝ ወደ ቀፎው በረረና በሩን አንኳኳ።",
+      "«ማሬ፣ እባክሽ እርጂኝ!»"],
+    en:["Zizi flew to the hive and knocked on the door.",
+      "\"Mare, please help me!\""] },
+  { art:"p8", key:"ጣ", am:[
+      "ማሬ ለዝዝ አንድ ጠብታ ጣፋጭ ማርና ሞቅ ያለ ቦታ ሰጠችው።",
+      "«ዛሬ እረዳሃለሁ» አለች። «ከክረምት በኋላ ግን አንተም ትሠራለህ።»"],
+    en:["Mare gave Zizi a drop of sweet honey and a warm place to stay.",
+      "\"Today I will help you,\" she said. \"But after the rainy season, you will work too.\""] },
+  { art:"p9", key:"መ", am:[
+      "መስከረም ሲጠባ አደይ አበባ እንደገና አበበ።",
+      "ዝዝም ለንቦቹ አዳዲስ አበቦች ያሉበትን ቦታ እያሳየ ረዳቸው። «አብሮ መሥራት ደስ ይላል!» አለ ዝዝ።"],
+    en:["When Meskerem came, the adey abeba flowers bloomed again.",
+      "And Zizi helped the bees by showing them where the new flowers were. \"Working together is fun!\" said Zizi."] },
+  { art:"end", full:true, end:true, am:[], en:[] }
 ] }
 };
