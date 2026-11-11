@@ -502,11 +502,11 @@ const HUB_GAMES = { ttt:startTTT, missing:startMissing, piano:startPiano, drum:s
 const _stopGames = stopGames;
 stopGames = function(){ _stopGames(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
 
-/* ---------- Intro: the chorus of የፊደል ደስታ when the app opens ----------
-   Plays once each time the app is opened (not on every reload within the visit). Browsers only let
-   sound start after a tap, so if it can't start by itself a big Start button appears. A parent can
-   turn it off on the parent page. */
-const INTRO_LINES = [[.49, "ፊደል ፊደል እንማር፣"], [2.79, "በደስታ እንዘምር፣"], [5.11, "አንድ በአንድ እንናገር፣"], [7.41, "ፊደላችንን እንወቅ!"]];
+/* ---------- Intro: five seconds of the የፊደል ደስታ chorus when the app opens ----------
+   Plays once each time the app is opened (not on every reload within the visit), then fades away by itself.
+   Browsers only let sound start after a tap, so if it can't start straight away it starts on the child's
+   first tap instead (the splash has already gone by then). A parent can turn it off on the parent page. */
+const INTRO_LINES = [[.24, "ፊደል ፊደል እንማር፣"], [2.54, "በደስታ እንዘምር፣"]];
 const intro = { a:null, raf:0, done:false };
 function introOff(){ return !!db.introOff; }
 function showIntro(){
@@ -514,10 +514,16 @@ function showIntro(){
   if (seen || introOff()) return;
   $("introLetters").innerHTML = ["ሀ","ለ","ሐ","መ","ሠ"].map((c, i) => `<span style="background:${BCOLORS[i]};animation-delay:${i * .15}s">${c}</span>`).join("");
   $("intro").classList.add("on");
-  $("introGo").style.visibility = "hidden";
   intro.a = new Audio("../songs/intro.mp3");
   intro.a.addEventListener("ended", endIntro);
-  intro.a.play().then(introTick, () => { $("introGo").style.visibility = "visible"; });
+  intro.a.play().then(introTick, () => {
+    // No sound allowed yet: show the splash briefly, and play the tune on the first tap
+    $("introLine").textContent = INTRO_LINES[0][1];
+    setTimeout(endIntro, 1800);
+    const first = () => { removeEventListener("pointerdown", first, true); if (!introOff()) intro.a.play().catch(() => {}); };
+    addEventListener("pointerdown", first, true);
+  });
+  setTimeout(endIntro, 6000);
 }
 function introTick(){
   if (intro.done) return;
@@ -526,13 +532,12 @@ function introTick(){
   if ($("introLine").textContent !== line) $("introLine").textContent = line;
   intro.raf = requestAnimationFrame(introTick);
 }
+// The splash fades; the tune (if it is playing) finishes on its own
 function endIntro(){
   if (intro.done) return;
   intro.done = true; cancelAnimationFrame(intro.raf);
-  if (intro.a) intro.a.pause();
   const el = $("intro"); el.classList.add("out");
   setTimeout(() => el.classList.remove("on", "out"), 600);
 }
-$("introGo").onclick = () => { $("introGo").style.visibility = "hidden"; intro.a.play().then(introTick, endIntro); };
-$("introSkip").onclick = endIntro;
+$("intro").onclick = endIntro;
 addEventListener("load", showIntro);

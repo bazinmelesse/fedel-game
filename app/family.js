@@ -252,7 +252,7 @@ function renderAccount(){
     $("aUp").onclick = () => { $("suErr").textContent = ""; show("signup"); };
     $("aIn").onclick = () => { $("siErr").textContent = ""; show("signin"); };
   }
-  el.insertAdjacentHTML("beforeend", `<div class="setrow"><span>Intro song<small>Plays a few seconds of የፊደል ደስታ when the app opens</small></span><button class="toggle ${db.introOff ? "" : "on"}" id="aIntro"></button></div>`);
+  el.insertAdjacentHTML("beforeend", `<div class="setrow"><span>Intro song<small>Plays five seconds of የፊደል ደስታ when the app opens</small></span><button class="toggle ${db.introOff ? "" : "on"}" id="aIntro"></button></div>`);
   $("aIntro").onclick = () => { db.introOff = !db.introOff; persist(); renderAccount(); };
   $("aPin").onclick = () => askNewPin(() => { persist(); renderAccount(); });
 }
