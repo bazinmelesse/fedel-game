@@ -503,28 +503,31 @@ const _stopGames = stopGames;
 stopGames = function(){ _stopGames(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
 
 /* ---------- Intro: five seconds of the የፊደል ደስታ chorus when the app opens ----------
-   Plays once each time the app is opened (not on every reload within the visit), then fades away by itself.
-   Browsers only let sound start after a tap, so if it can't start straight away it starts on the child's
-   first tap instead (the splash has already gone by then). A parent can turn it off on the parent page. */
+   Plays once each time the app is opened (not on every reload within the visit), with the picture
+   showing the whole time, then fades away by itself. Browsers only let sound start after a tap, so when
+   it can't start straight away the picture waits, and the first tap anywhere on it starts the tune.
+   A parent can turn it off on the parent page. */
 const INTRO_LINES = [[.24, "ፊደል ፊደል እንማር፣"], [2.54, "በደስታ እንዘምር፣"]];
-const intro = { a:null, raf:0, done:false };
+const intro = { a:null, raf:0, done:false, playing:false };
 function introOff(){ return !!db.introOff; }
 function showIntro(){
   let seen = false; try { seen = sessionStorage.getItem("fidel-intro") === "1"; sessionStorage.setItem("fidel-intro", "1"); } catch(e){}
   if (seen || introOff()) return;
   $("introLetters").innerHTML = ["ሀ","ለ","ሐ","መ","ሠ"].map((c, i) => `<span style="background:${BCOLORS[i]};animation-delay:${i * .15}s">${c}</span>`).join("");
+  $("introLine").textContent = INTRO_LINES[0][1];
   $("intro").classList.add("on");
   intro.a = new Audio("../songs/intro.mp3");
   intro.a.addEventListener("ended", endIntro);
-  intro.a.play().then(introTick, () => {
-    // No sound allowed yet: show the splash briefly, and play the tune on the first tap
-    $("introLine").textContent = INTRO_LINES[0][1];
-    setTimeout(endIntro, 1800);
-    const first = () => { removeEventListener("pointerdown", first, true); if (!introOff()) intro.a.play().catch(() => {}); };
-    addEventListener("pointerdown", first, true);
-  });
-  setTimeout(endIntro, 6000);
+  playIntro(() => $("intro").classList.add("wait"));
 }
+function playIntro(blocked){
+  intro.a.play().then(() => {
+    intro.playing = true; $("intro").classList.remove("wait"); introTick();
+    setTimeout(endIntro, 6500);           // in case "ended" never comes
+  }, blocked || endIntro);
+}
+// While waiting for a tap, the first tap anywhere starts the tune (with the picture still showing)
+$("intro").onclick = () => { if (!intro.playing) playIntro(); };
 function introTick(){
   if (intro.done) return;
   const t = intro.a.currentTime;
@@ -532,12 +535,11 @@ function introTick(){
   if ($("introLine").textContent !== line) $("introLine").textContent = line;
   intro.raf = requestAnimationFrame(introTick);
 }
-// The splash fades; the tune (if it is playing) finishes on its own
 function endIntro(){
   if (intro.done) return;
   intro.done = true; cancelAnimationFrame(intro.raf);
+  if (intro.a) intro.a.pause();
   const el = $("intro"); el.classList.add("out");
-  setTimeout(() => el.classList.remove("on", "out"), 600);
+  setTimeout(() => el.classList.remove("on", "out", "wait"), 600);
 }
-$("intro").onclick = endIntro;
 addEventListener("load", showIntro);
