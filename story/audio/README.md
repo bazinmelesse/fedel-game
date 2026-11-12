@@ -3,7 +3,7 @@ Narration for the picture books. One recording per page, named by book and page 
 - Wuro the Proud Cat: dama-0.mp3 (cover), dama-1.mp3 to dama-9.mp3 (story pages), dama-10.mp3 ("The End"). Recorded ✓
 - Docho and the Giant's Shoe: docho-0.mp3 (cover), docho-1.mp3 to docho-9.mp3, docho-10.mp3 ("The End"). Recorded ✓
 - Wiriye and Buchiye: mumu-0.mp3 (cover), mumu-1.mp3 to mumu-9.mp3, mumu-10.mp3. Recorded ✓
-- Mimi and the Red Hen: selam-0.mp3 (cover), selam-1.mp3 to selam-9.mp3, selam-10.mp3
+- Mimi and the Red Hen: selam-0.mp3 (cover), selam-1.mp3 to selam-9.mp3, selam-10.mp3. Recorded ✓
 - Mare and Zizi: nib-0.mp3 (cover), nib-1.mp3 to nib-9.mp3, nib-10.mp3
 - The Mice and the Bell: ayit-0.mp3 (cover), ayit-1.mp3 to ayit-9.mp3, ayit-10.mp3
 - The Three Friends and the Lake: tota-0.mp3 (cover), tota-1.mp3 to tota-9.mp3, tota-10.mp3
