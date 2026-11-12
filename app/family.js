@@ -2,7 +2,7 @@
 /* ---------- Family: sign-up, sign-in, who's playing, parent page, daily time ---------- */
 const AVATARS = ["k1","k2","k3","k4","k5","k6","k7","k8","k9","k10","k11","k12"];
 const LIMITS = [0, 10, 15, 20, 30, 45, 60, 90];
-const PLAY_SCREENS = ["home","journey","fam","books","games","music","art","learn","quiz","memory","numLearn","song","trace","balloon","words","stickers","result","ttt","missing","piano","drum","color","draw"];
+const PLAY_SCREENS = ["home","journey","fam","books","games","music","art","learn","quiz","memory","numLearn","song","trace","balloon","words","stickers","result","ttt","missing","piano","drum","color","draw","watch"];
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]);
 
 function cloudErr(e){

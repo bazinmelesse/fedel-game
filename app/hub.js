@@ -63,6 +63,7 @@ window.onShow = id => {
   else if (id === "books") renderBooks();
   else if (id === "games") renderGamesHint();
   else if (id === "art") renderArtList();
+  else if (id === "music") renderVideoList();
   if (TAB_SCREENS.includes(id)){ JR.fam = null; $("learn").classList.remove("meet"); }
 };
 document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { sfx.tap(); if (window.stopGames) stopGames(); goTab(b.dataset.tab); }));
@@ -124,6 +125,14 @@ function openFam(fi){
   $("famHead").querySelectorAll(".cell").forEach(c => c.onclick = () => speak(glyph(fi, +c.dataset.o)));
   $("famHead").querySelector(".big").onclick = () => speak(glyph(fi, 0));
   const box = $("famSteps"); box.innerHTML = "";
+  // A short video for the family, when there is one; it's extra, not one of the activities
+  if (FAM_VIDEOS[fi]){
+    const v = document.createElement("button");
+    v.className = "jstep watch";
+    v.innerHTML = `<span class="ic">🎬</span><span><b>Watch · <span style="font-family:var(--fidel);color:inherit;font-size:18px">ተመልከት</span></b><span>A short video of the ${glyph(fi, 0)} family</span></span><span class="st">▶️</span>`;
+    v.onclick = () => { sfx.tap(); backTo = "fam"; startWatch(fi); };
+    box.appendChild(v);
+  }
   let firstOpen = JSTEPS.findIndex((_, i) => !stepDone(fi, i));
   JSTEPS.forEach((st, i) => {
     if (!stepOn(i)) return;
@@ -497,10 +506,32 @@ $("drawSave").onclick = () => {
   if (DR.strokes.length > 3){ addStars(1); confetti(); toast("Saved! ⭐"); }
 };
 
+/* ---------- Letter family videos: short vertical videos, one per family as they're made ---------- */
+const FAM_VIDEOS = { 0:"../videos/ha-family-short.mp4" };
+function startWatch(fi){
+  const v = $("watchVideo");
+  if (!v.src.endsWith(FAM_VIDEOS[fi].slice(2))) v.src = FAM_VIDEOS[fi];
+  v.currentTime = 0;
+  show("watch");
+  v.play().catch(() => {});
+}
+$("watchVideo").addEventListener("ended", () => { addStars(1); confetti(); });
+function renderVideoList(){
+  const box = $("videoList"), ids = Object.keys(FAM_VIDEOS).map(Number);
+  $("videoSec").style.display = ids.length ? "" : "none";
+  box.innerHTML = "";
+  ids.forEach(fi => {
+    const b = document.createElement("button"); b.className = "mode";
+    b.innerHTML = `<div class="big" style="background:var(--red)">${glyph(fi, 0)}</div><div><b>The ${glyph(fi, 0)} family</b><span>${famLetters(fi).map(x => glyph(...x)).join(" ")}</span></div>`;
+    b.onclick = () => { sfx.tap(); JR.fam = null; backTo = "music"; startWatch(fi); };
+    box.appendChild(b);
+  });
+}
+
 const HUB_GAMES = { ttt:startTTT, missing:startMissing, piano:startPiano, drum:startDrum, draw:startDraw };
 // Leaving a screen also stops the piano tune
 const _stopGames = stopGames;
-stopGames = function(){ _stopGames(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
+stopGames = function(){ _stopGames(); $("watchVideo").pause(); PN.timers.forEach(clearTimeout); PN.rec = false; $("pnRec").textContent = "⏺ Record"; KB.want = null; };
 
 /* ---------- Intro: a short picture when the app opens ----------
    Shows once each time the app is opened (not on every reload within the visit) and fades away by
