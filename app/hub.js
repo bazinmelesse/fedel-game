@@ -507,7 +507,7 @@ $("drawSave").onclick = () => {
 };
 
 /* ---------- Letter family videos: short vertical videos, one per family as they're made ---------- */
-const FAM_VIDEOS = { 0:"../videos/ha-family-short.mp4" };
+const FAM_VIDEOS = { 0:"../videos/ha-family-short-2.mp4", 1:"../videos/le-family-short.mp4" };
 function startWatch(fi){
   const v = $("watchVideo");
   if (!v.src.endsWith(FAM_VIDEOS[fi].slice(2))) v.src = FAM_VIDEOS[fi];
