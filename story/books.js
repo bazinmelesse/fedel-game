@@ -2,61 +2,58 @@
    and the Amharic text with English underneath. Narration goes in story/audio/<book id>-<page>.mp3,
    from 0 (the cover) to the last page ("The End"). */
 window.BOOKS = {
-  dama: { icon:"🐱", title:"ውሮ ኩሩው ድመት", en:"Wuro the Proud Cat", art:() => window.STORY_ART, pages:[
+  dama: { icon:"🐱", title:"ኩራተኛው ድመትና ጥበበኛዋ ወፍ", en:"The Proud Cat and the Wise Bird", art:() => window.STORY_ART_MITITI, pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ድ", am:[
-      "በአንድ ትንሽ መንደር ውሮ የሚባል ነጭ ድመት ይኖር ነበር። ፀጉሩ እንደ ጥጥ ያበራ ነበር፤ ልቡ ግን በኩራት የተሞላ ነበር።",
-      "«እኔን የሚያህል ድመት የለም!» እያለ ይመካ ነበር። «ሳገባም ከዓለም ሁሉ የምትበልጠውን ነው።»",
-      "የመንደሩን ድመቶች ሁሉ ይንቅ ነበር፤ በተለይ ትንሿን ባለ ሸንተረር ድመት ውሪትን።"],
-    en:["In a small village lived a white cat named Wuro. His fur shone like cotton, but his heart was full of pride.",
-      "\"There is no cat as fine as me!\" he boasted. \"And when I marry, it will be the greatest one in the whole world.\"",
-      "He looked down on all the village cats, especially little striped Wurit."] },
-  { art:"p2", key:"ጉ", am:[
-      "ግን ከሁሉ የሚበልጠው ማን ነው? ውሮ ይህን ለማወቅ ወደ ትልቁ የዋርካ ዛፍ ሄደ፤ እዚያ ጥበበኛዋ እማማ ጉጉት ትኖር ነበር።",
-      "«እማማ ጉጉት፣ በዓለም ላይ ታላቁ ማነው?» ብሎ ጠየቃት።",
-      "እማማ ጉጉት ቀስ ብላ ዓይኖቿን አርገበገበች። «ቀና ብለህ ተመልከት። ፀሐይ ዓለምን ሁሉ ታበራለች፤ ሂድና እሷን ጠይቅ።»"],
-    en:["But who was the greatest of all? To find out, Wuro went to the big warka tree, where wise Grandma Owl lived.",
-      "\"Grandma Owl, who is the greatest in the world?\" he asked.",
-      "Grandma Owl slowly blinked her big eyes. \"Look up. The Sun lights up the whole world. Go and ask her.\""] },
-  { art:"p3", key:"ፀ", am:[
-      "ውሮ ረጅሙን ኮረብታ ወጥቶ ወደ ሰማይ ጮኸ፦ «ፀሐይ ሆይ! ታላቋ አንቺ ነሽ?»",
-      "ፀሐይ በሞቀ ፈገግታ መለሰችለት። «ዓለምን አሞቃለሁ፤ ግን ደመና በመጣ ቁጥር ፊቴን ይሸፍናል። ደመና ከእኔ ይበረታል።»",
-      "ውሮም ደመናውን ፍለጋ ጉዞውን ቀጠለ።"],
-    en:["Wuro climbed the tall hill and called up to the sky, \"Sun! Are you the greatest?\"",
-      "The Sun answered with a warm smile. \"I warm the whole world, but whenever Cloud comes, he covers my face. Cloud is stronger than me.\"",
-      "So Wuro set off to find the Cloud."] },
-  { art:"p4", key:"ደ", am:[
-      "ደመናውን ከፍ ብሎ ሲንሳፈፍ አገኘው። «ደመና ሆይ! ፀሐይን የምትሸፍን ታላቁ አንተ ነህ?»",
-      "ደመናው ራሱን ነቀነቀ። «ነፋስ ሲነፍስ እንደ ላባ ይበትነኛል። ነፋስ ከእኔ ይበረታል።»"],
-    en:["He found the Cloud floating high in the sky. \"Cloud! You cover the Sun. Are you the greatest?\"",
-      "The Cloud shook his head. \"When Wind blows, he scatters me like feathers. Wind is stronger than me.\""] },
-  { art:"p5", key:"ነ", am:[
-      "ወዲያው ኃይለኛ ነፋስ «ፉውው!» እያለ መጣ። «ነፋስ ሆይ! ደመናን የምትበትን አንተስ ከሁሉ ትበልጣለህ?»",
-      "«ደመናን እበትናለሁ፤ ዛፎችን አወዛውዛለሁ» አለ ነፋሱ። «ተራራውን ግን ከቦታው ማንቀሳቀስ አልችልም። ተራራ ከእኔ ይበረታል።»"],
-    en:["Just then a strong wind came whooshing by. \"Wind! You scatter the clouds. Are you the greatest of all?\"",
-      "\"I scatter the clouds and shake the trees,\" said the Wind. \"But I cannot move the Mountain. Mountain is stronger than me.\""] },
-  { art:"p6", key:"ተ", am:[
-      "ውሮ ወደ ተራራው ሄዶ «ተራራ ሆይ! ነፋስ እንኳ ሊያንቀሳቅስህ አይችልም። ታላቁ አንተ ነህ?» አለው።",
-      "ተራራው በከባድ ድምፅ ሳቀ። «ነፋስን አቆማለሁ፤ ግን ትንሿ አይጥ ከእግሬ ሥር እየቆፈረች ቀስ በቀስ ትሸረሽረኛለች። አይጥ ከእኔ ትበረታለች።»"],
-    en:["Wuro went to the Mountain. \"Mountain! Even the Wind cannot move you. Are you the greatest?\"",
-      "The Mountain laughed in a deep, rumbling voice. \"I stop the Wind, but a little Mouse digs under my feet and wears me away bit by bit. Mouse is stronger than me.\""] },
-  { art:"p7", key:"አ", am:[
-      "ውሮ ከተራራው ሥር ትንሿን አይጥ አገኛት። «አይጥ ሆይ! ተራራን የምታፈርሺው ታላቋ አንቺ ነሽ?»",
-      "አይጧ ተንቀጠቀጠች። «እኔ? ኧረ በፍጹም! ውሪት የምትባል ድመት ስትመጣ እየሮጥኩ ጉድጓዴ እገባለሁ። ውሪት ከእኔ ትበረታለች።»"],
-    en:["At the foot of the Mountain, Wuro found the little Mouse. \"Mouse! You wear down the Mountain. Are you the greatest?\"",
-      "The Mouse trembled. \"Me? Oh no! When a cat called Wurit comes, I run straight into my hole. Wurit is stronger than me.\""] },
-  { art:"p8", key:"ይ", am:[
-      "ውሮ ደነገጠ። «ውሪት? ያቺ የናቅኋት ትንሿ ውሪት?»",
-      "ፀሐይ፣ ደመና፣ ነፋስ፣ ተራራ፣ አይጥ… ታላቂቱ ግን አጠገቡ የምትኖረው ውሪት ነበረች! ውሮ ወደ መንደሩ እየሮጠ ተመለሰ።",
-      "«ውሪት፣ ይቅርታ አድርጊልኝ፤ ንቄሽ ነበር» አላት። ውሪትም ፈገግ ብላ «ይቅር ብዬሃለሁ» አለችው።"],
-    en:["Wuro was stunned. \"Wurit? Little Wurit, the one I looked down on?\"",
-      "Sun, Cloud, Wind, Mountain, Mouse… and the greatest of all had been living right next door! Wuro ran all the way back to the village.",
-      "\"Wurit, please forgive me. I looked down on you,\" he said. Wurit smiled. \"I forgive you.\""] },
-  { art:"p9", key:"ሰ", am:[
-      "ብዙም ሳይቆይ ውሮና ውሪት ሰርግ ደገሱ። መንደሩ ሁሉ ዘፈነ፣ ጨፈረ፤ ፀሐይም ከላይ ሆና ፈገግ አለች።",
-      "ውሮም ትልቅ ትምህርት ተማረ፦ «ማንንም አትናቅ፤ ትንሹም ቢሆን የራሱ ብርታት አለው።»"],
-    en:["Soon Wuro and Wurit had their wedding. The whole village sang and danced, and the Sun smiled down from above.",
-      "And Wuro learned a big lesson: \"Never look down on anyone. Even the smallest has their own strength.\""] },
+      "ድሮ ድሮ፣ በአንድ ውብ መንደር ውስጥ ውሮ የሚባል ድመት ይኖር ነበር።",
+      "ውሮ ለስላሳ ጸጉር፣ የሚያብረቀርቁ ዓይኖችና ረጅም ጅራት ነበሩት። በመንደሩ ውስጥ ሲራመድ ጭንቅላቱን ከፍ አድርጎ በኩራት ይሄድ ነበር።"],
+    en:["Once upon a time, in a beautiful village, there lived a cat named Wuro.",
+      "Wuro had soft fur, shining eyes and a long tail. When he walked through the village, he held his head high and strutted proudly."] },
+  { art:"p2", key:"ቆ", am:[
+      "«እኔ ከሁላችሁም በላይ ቆንጆ ነኝ! ከሁላችሁም በላይ ብልህ ነኝ!» እያለ ይመካ ነበር።"],
+    en:["\"I am more beautiful than all of you! I am cleverer than all of you!\" he would boast."] },
+  { art:"p3", key:"ወ", am:[
+      "አንድ ቀን ውሮ በትልቅ ዛፍ ሥር ተቀምጦ ዘፈን የምትዘፍን ትንሽ ወፍ አየ።",
+      "«አንቺ ትንሽ ወፍ! ምን ያህል ትንሽ እንደሆንሽ ተመልከቺ! እኔ ግን ትልቅና ጠንካራ ነኝ!» አላት።"],
+    en:["One day, sitting under a big tree, Wuro saw a little bird singing a song.",
+      "\"You little bird! Look how tiny you are! But I am big and strong!\" he said."] },
+  { art:"p4", key:"ሳ", am:[
+      "ወፏም ፈገግ ብላ፣ «ውሮ ሆይ፣ ትልቅ መሆን ብቻ ትልቅነት አይደለም። መልካም ልብ መኖርም አስፈላጊ ነው» አለችው።",
+      "ውሮ ግን ሳቀ። «ሃ! ሃ! ሃ! እኔ የማንንም እርዳታ አልፈልግም!» አለ።"],
+    en:["The bird smiled and said, \"Wuro, being big is not the same as being great. Having a kind heart matters too.\"",
+      "But Wuro laughed. \"Ha! Ha! Ha! I don't need anyone's help!\""] },
+  { art:"p5", key:"ቢ", am:[
+      "በማግስቱ ውሮ በጫካው ውስጥ ሲዘዋወር የሚያምር ቢራቢሮ አየ።",
+      "ቢራቢሮዋን ለመያዝ እየዘለለ ሲሮጥ ወደ ጥልቅ ጉድጓድ ውስጥ ወደቀ!"],
+    en:["The next day, as Wuro wandered in the forest, he saw a beautiful butterfly.",
+      "He ran and leapt to catch it, and fell into a deep pit!"] },
+  { art:"p6", key:"ሚ", am:[
+      "«ሚያው! ሚያው! እርዱኝ!» ብሎ ጮኸ።",
+      "ነገር ግን ማንም አልሰማውም።"],
+    en:["\"Meow! Meow! Help me!\" he cried.",
+      "But nobody heard him."] },
+  { art:"p7", key:"ጠ", am:[
+      "ከትንሽ ጊዜ በኋላ ያቺ ጥበበኛ ወፍ በላዩ በራሪ ሆና አለፈች። «ውሮ! ምን ሆንክ?» ብላ ጠየቀችው።",
+      "«እባክሽ እርጂኝ! ከዚህ መውጣት አልቻልኩም!» አላት።",
+      "ወፏም በፍጥነት በራ ሄዳ የመንደሩን እንስሳት ጠራች።"],
+    en:["After a little while, the wise bird flew over him. \"Wuro! What happened?\" she asked.",
+      "\"Please help me! I can't get out of here!\" he said.",
+      "The bird flew off quickly and called the animals of the village."] },
+  { art:"p8", key:"ገ", am:[
+      "ጥንቸሉ ረጅም ገመድ አመጣ። ፍየሉ ገመዱን አጥብቆ ያዘ።",
+      "ሌሎቹም እንስሳት ተባብረው ውሮን ከጉድጓዱ አወጡት።"],
+    en:["The rabbit brought a long rope. The goat held it tight.",
+      "And all the other animals worked together and pulled Wuro out of the pit."] },
+  { art:"p9", key:"ይ", am:[
+      "ውሮ በኀፍረት ራሱን አቀረቀረ። «ወዳጆቼ፣ ይቅርታ አድርጉልኝ። ሁልጊዜ ከሁላችሁ እበልጣለሁ እያልኩ እመካ ነበር። ዛሬ ግን ያለ እናንተ እርዳታ ከዚህ መውጣት እንደማልችል ተረዳሁ» አለ።",
+      "ወፏም ፈገግ አለች። «አየህ ውሮ፣ እውነተኛ ታላቅነት በኩራት ሳይሆን በትሕትናና በፍቅር ነው።»"],
+    en:["Wuro hung his head in shame. \"My friends, please forgive me. I always boasted that I was better than all of you. But today I learned that I could not get out without your help.\"",
+      "The bird smiled. \"You see, Wuro, true greatness is not in pride, but in humility and love.\""] },
+  { art:"p10", key:"ደ", am:[
+      "ከዚያን ቀን ጀምሮ ውሮ ተለወጠ። ለሁሉም እንስሳት ደግ ሆነ። ሌሎችን መርዳትንም ተማረ። በመንደሩም ሁሉም እንስሳት በፍቅርና በደስታ ኖሩ።",
+      "የተረቱ ትምህርት፦ ኩራት ወዳጅነትን ያርቃል፤ ትሕትናና መረዳዳት ግን ፍቅርን ያጠናክራሉ።"],
+    en:["From that day on, Wuro changed. He was kind to every animal, and he learned to help others. And all the animals of the village lived together in love and joy.",
+      "The lesson: Pride pushes friends away, but humility and helping each other make love stronger."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
   docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, pages:[
