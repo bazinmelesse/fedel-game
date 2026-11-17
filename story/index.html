@@ -108,6 +108,7 @@ body.english .en{display:block}
 let BOOK_ID, BK, PAGES, ART, N, leaves = [];
 const book = document.getElementById("book"), voice = document.getElementById("voice");
 let cur = 0, busy = false, autoRead = false, started = false, autoTimer = null;
+let titleDone = false, titlePending = false;   // the cover reads the book's title before the first page turns
 try { if (localStorage.getItem("story-en") === "1") document.body.classList.add("english"); } catch(e){}
 document.getElementById("enBtn").classList.toggle("on", document.body.classList.contains("english"));
 
@@ -150,6 +151,10 @@ function openBook(){
   book.appendChild(leaf);
   return leaf;
   });
+  // Say the title as the book opens; browsers may block this until the first tap, which then says it instead
+  titleDone = false; titlePending = false;
+  voice.src = `audio/${BOOK_ID}-0.mp3`;
+  voice.play().catch(() => {});
 }
 openBook();
 addEventListener("hashchange", openBook);
@@ -172,9 +177,15 @@ function narrate(){
   voice.currentTime = 0;
   voice.play().catch(() => {});
 }
-voice.addEventListener("ended", () => { if (autoRead) autoTimer = setTimeout(() => turn(1), 1200); });
+voice.addEventListener("ended", () => {
+  if (cur === 0 && voice.src.endsWith(`${BOOK_ID}-0.mp3`)){
+    titleDone = true;
+    if (titlePending){ titlePending = false; turn(1); return; }
+  }
+  if (autoRead) autoTimer = setTimeout(() => turn(1), 1200); });
 voice.addEventListener("error", () => {
   // No recording for this page yet: when reading by itself, give time to look at the page, then turn
+  if (titlePending){ titlePending = false; titleDone = true; turn(1); return; }
   if (!autoRead) return;
   const words = (PAGES[cur].am.join(" ").length || 30);
   autoTimer = setTimeout(() => turn(1), Math.max(4000, words * 90));
@@ -205,6 +216,17 @@ function turn(dir){
   if (busy) return;
   if (dir > 0 && cur < N - 1) forward();
   if (dir < 0 && cur > 0) backward(false);
+}
+
+/* Leaving the cover: say the title first (unless it was already said), then turn to page 1.
+   Tapping again while the title plays skips ahead. */
+function next(){
+  if (cur !== 0) return turn(1);
+  if (titlePending){ titlePending = false; titleDone = true; return turn(1); }
+  const playing = !voice.paused && voice.src.endsWith(`${BOOK_ID}-0.mp3`);
+  if (titleDone && !playing) return turn(1);
+  titlePending = true;
+  if (!playing) narrate();
 }
 
 function setReadMode(on){
@@ -244,7 +266,7 @@ function endDrag(e){
     // a tap
     if (Math.abs(dx) < 8 && Math.abs(e.clientY - d.y) < 8){
       const r = book.getBoundingClientRect();
-      if (cur === 0 || e.clientX > r.left + r.width / 2) turn(1); else turn(-1);
+      if (cur === 0 || e.clientX > r.left + r.width / 2) next(); else turn(-1);
     }
     return;
   }
@@ -264,20 +286,20 @@ book.addEventListener("click", e => {
   if (e.target.closest("[data-again]")){
     voice.pause();
     for (let i = N - 2; i >= 0; i--){ leaves[i].classList.remove("gone"); setAngle(i, 0, true); }
-    cur = 0; started = false;
+    cur = 0; started = false; titleDone = false; titlePending = false;
   }
 });
 
 /* Keyboard arrows on a PC */
 addEventListener("keydown", e => {
-  if (e.key === "ArrowRight" || e.key === " ") turn(1);
+  if (e.key === "ArrowRight" || e.key === " ") next();
   if (e.key === "ArrowLeft") turn(-1);
 });
 
 document.getElementById("readBtn").onclick = () => {
   setReadMode(!autoRead);
   if (autoRead){
-    if (cur === 0 || cur === N - 1){ if (cur === N - 1) book.querySelector("[data-again]").click(); turn(1); }
+    if (cur === 0 || cur === N - 1){ if (cur === N - 1) book.querySelector("[data-again]").click(); next(); }
     else narrate();
   }
 };
