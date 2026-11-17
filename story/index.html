@@ -45,6 +45,8 @@ button,a.btn{font:inherit;color:inherit;border:0;cursor:pointer;text-decoration:
 .words p{margin:0}
 .en{display:none;font-family:system-ui,"Segoe UI",Roboto,sans-serif;font-size:.62em;line-height:1.45;color:var(--muted);font-style:italic}
 body.english .en{display:block}
+.w{border-radius:8px;transition:background .15s,box-shadow .15s}
+.w.on{background:#c9ecff;box-shadow:0 0 0 3px #c9ecff}
 .key{color:var(--red);font-weight:700;background:#fff0c2;border-radius:6px;padding:0 2px;cursor:pointer}
 .key.pop{animation:pop .5s}
 @keyframes pop{50%{transform:scale(1.5);display:inline-block}}
@@ -100,6 +102,7 @@ body.english .en{display:block}
 <script src="art-tota.js"></script>
 <script src="art-mititi.js"></script>
 <script src="books.js"></script>
+<script src="timing.js"></script>
 <script>
 /* Picture books that turn their pages with a tap or a swipe. Which book shows comes from the address:
    story/#dama, story/#docho or story/#mumu. Narration: one recording per page in story/audio, named <book>-0.mp3 (cover)
@@ -135,7 +138,7 @@ function openBook(){
   let words;
   if (i === 0) words = `<div class="title">${BK.title}</div><div class="sub">${BK.en} · ተረት</div>`;
   else if (pg.end) words = `<div class="title">ተፈጸመ!</div><div class="sub">The End</div>`;
-  else words = pg.am.map((t, k) => `<p>${markKey(t, pg.key)}<span class="en">${esc(pg.en[k] || "")}</span></p>`).join("");
+  else { let n = 0; words = pg.am.map((t, k) => `<p>${t.split(/\s+/).filter(Boolean).map(w => `<span class="w" data-w="${n++}">${markKey(w, pg.key)}</span>`).join(" ")}<span class="en">${esc(pg.en[k] || "")}</span></p>`).join(""); }
   leaf.innerHTML = `
     <div class="face front">
       <div class="page${pg.full ? " full" : ""}">
@@ -169,6 +172,22 @@ function setAngle(i, deg, animate){
   sh.style.opacity = Math.min(1, -deg / 140).toFixed(2);
 }
 
+/* Light up each word as the narration says it (timings in timing.js) */
+let lit = null;
+function unlight(){ if (lit){ lit.classList.remove("on"); lit = null; } }
+function follow(){
+  requestAnimationFrame(follow);
+  const T = (window.STORY_TIMING || {})[BOOK_ID]?.[cur];
+  if (!T || voice.paused || !voice.src.endsWith(`${BOOK_ID}-${cur}.mp3`)){ if (voice.ended || !T) unlight(); return; }
+  const t = voice.currentTime;
+  let i = -1;
+  for (let k = 0; k < T.length; k++){ if (T[k][0] <= t) i = k; else break; }
+  if (i >= 0 && t > T[i][1] + 0.6) i = -1;            // a pause between sentences
+  const el = i >= 0 ? leaves[cur].querySelector(`.w[data-w="${i}"]`) : null;
+  if (el !== lit){ unlight(); if (el){ el.classList.add("on"); lit = el; } }
+}
+requestAnimationFrame(follow);
+
 /* Narration for the page that is showing */
 function narrate(){
   clearTimeout(autoTimer);
@@ -178,6 +197,7 @@ function narrate(){
   voice.play().catch(() => {});
 }
 voice.addEventListener("ended", () => {
+  unlight();
   if (cur === 0 && voice.src.endsWith(`${BOOK_ID}-0.mp3`)){
     titleDone = true;
     if (titlePending){ titlePending = false; turn(1); return; }
