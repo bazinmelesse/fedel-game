@@ -424,13 +424,35 @@ function renderLearn(){
     row.appendChild(c);
   }
 }
-function sayCurrent(){ if (!speak(glyph(learnFam, learnOrder))) sfx.tap(); }
+function sayCurrent(){ stopRow(); if (!speak(glyph(learnFam, learnOrder))) sfx.tap(); }
 $("giant").onclick = sayCurrent;
 $("prevFam").onclick = () => { learnFam = (learnFam + FAMILIES.length - 1) % FAMILIES.length; learnOrder = 0; renderLearn(); sayCurrent(); };
 $("nextFam").onclick = () => { learnFam = (learnFam + 1) % FAMILIES.length; learnOrder = 0; renderLearn(); sayCurrent(); };
+/* "All 7": say the family's letters one after another, each waiting for the last to finish.
+   Pressing it again, or tapping another letter or family, stops it, so two runs never overlap. */
+let rowRun = 0;
+function stopRow(){ rowRun++; $("playRow").textContent = "🔊 All 7"; }
+function showOrder(){
+  $("giant").textContent = glyph(learnFam, learnOrder);
+  $("giantSay").textContent = sound(learnFam, learnOrder);
+  $("row7").querySelectorAll(".cell").forEach((c, o) => c.classList.toggle("sel", o === learnOrder));
+}
 $("playRow").onclick = () => {
+  if ($("playRow").textContent.includes("Stop")) return stopRow();
+  const run = ++rowRun;
+  $("playRow").textContent = "⏹ Stop";
   let o = 0;
-  const step = () => { if (current !== "learn" || o > 6) return; learnOrder = o++; renderLearn(); if (!speak(glyph(learnFam, learnOrder))) sfx.tap(); setTimeout(step, 1100); };
+  const step = () => {
+    if (run !== rowRun) return;
+    if (current !== "learn" || o > 6) return stopRow();
+    learnOrder = o++; showOrder();
+    if (!speak(glyph(learnFam, learnOrder)) || !clip){ sfx.tap(); setTimeout(step, 1100); return; }
+    const a = clip; let moved = false;
+    const next = () => { if (moved) return; moved = true; setTimeout(step, 300); };
+    a.addEventListener("ended", next, { once:true });
+    a.addEventListener("error", next, { once:true });
+    setTimeout(next, 3000);   // in case the clip never reports that it ended
+  };
   step();
 };
 
