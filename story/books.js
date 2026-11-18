@@ -321,7 +321,9 @@ window.BOOKS = {
       "When Nebro comes, the guard whistles \"Wheeee!\" and all the mice run into their hole."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  tota: { icon:"🦓", title:"ሦስቱ ጓደኛሞችና ሐይቁ", en:"The Three Friends and the Lake", art:() => window.STORY_ART_TOTA, pages:[
+  tota: { icon:"🦓", title:"ሦስቱ ጓደኛሞችና ሐይቁ", en:"The Three Friends and the Lake", art:() => window.STORY_ART_TOTA,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሜ", am:[
       "በአንድ ሰፊ ሜዳ ሦስት ጓደኛሞች ይኖሩ ነበር፦ ቀበሮ፣ ጦጣ እና የሜዳ አህያ።",
