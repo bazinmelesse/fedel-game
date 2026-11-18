@@ -59,7 +59,8 @@ window.BOOKS = {
       "The lesson: Pride pushes friends away, but humility and helping each other make love stronger."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, pages:[
+  docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+    pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ጫ", am:[
       "በአንድ መንደር ዶጮ የሚባል ትንሽ ጫማ ሰፊ ይኖር ነበር። ዶጮ ከሁሉም ሰው ያነሰ ነበር፤ ግን ጎበዝ ነበር።",
