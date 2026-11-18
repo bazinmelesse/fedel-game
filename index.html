@@ -7,12 +7,12 @@
 <meta name="theme-color" content="#2e7d5b">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg">
-<!-- The main link opens the family app, so the web page always has everything the app has. The original game is at game.html. -->
-<meta http-equiv="refresh" content="0; url=app/">
-<script>location.replace("app/" + location.search + location.hash);</script>
+<!-- The main link opens the family app in test mode (no sign-in, parent PIN 0000), so the web page always has everything the app has. The original game is at game.html. -->
+<meta http-equiv="refresh" content="0; url=app/?test">
+<script>location.replace("app/?test" + location.hash);</script>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fff8e7;color:#2b2b2b;font:18px system-ui,sans-serif;text-align:center}a{color:#2e7d5b}</style>
 </head>
 <body>
-<p>Opening <a href="app/">ፊደል ጨዋታ</a>…<br><small><a href="game.html">Classic game</a></small></p>
+<p>Opening <a href="app/?test">ፊደል ጨዋታ</a>…<br><small><a href="game.html">Classic game</a></small></p>
 </body>
 </html>

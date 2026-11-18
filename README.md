@@ -13,7 +13,7 @@ Letter and number voices were recorded with Narakeet.
 ## Play
 - **Online / install on a tablet:** open the GitHub Pages link in Chrome, then use the menu and tap "Add to Home screen". After the first visit it works with no internet.
 - **PC without internet:** download this repo and open `index.html` in Chrome or Edge.
-- The main link opens the family app (`/app/`), so the web page always has everything the app has. The original single-page game is still at `game.html`.
+- The main link opens the family app (`/app/?test`) in test mode: no sign-in, a "this device only" family with one child called Tester, parent PIN 0000. Opening `/app/` directly still shows the sign-in. The original single-page game is still at `game.html`.
 
 Progress is saved on each device.
 
