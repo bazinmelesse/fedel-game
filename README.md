@@ -13,12 +13,13 @@ Letter and number voices were recorded with Narakeet.
 ## Play
 - **Online / install on a tablet:** open the GitHub Pages link in Chrome, then use the menu and tap "Add to Home screen". After the first visit it works with no internet.
 - **PC without internet:** download this repo and open `index.html` in Chrome or Edge.
+- The main link opens the family app (`/app/`), so the web page always has everything the app has. The original single-page game is still at `game.html`.
 
 Progress is saved on each device.
 
 ## Family app (`/app`)
 
-A second version of the game at `/app/` with family accounts:
+The main version of the game, at `/app/` (the main link opens it), with family accounts:
 
 - **Parent account** with email and password (Firebase), password reset, and a 4-digit PIN for the parent page. Or "this device only" with no email.
 - **Child profiles**, each with their own stars, stickers and letter progress, synced across tablets when online.

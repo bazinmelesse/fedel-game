@@ -87,7 +87,7 @@ body.english .en{display:block}
 <body>
 <div class="flag"></div>
 <header>
-  <a class="btn" href="../index.html" aria-label="Back to the games">←</a>
+  <a class="btn" href="../game.html" aria-label="Back to the games">←</a>
   <h1>ኩራተኛው ድመትና ጥበበኛዋ ወፍ</h1>
   <button class="btn" id="readBtn" aria-label="Read to me: turn the pages by itself">📖 <small>Read to me</small></button>
   <button class="btn" id="enBtn" aria-label="Show English">EN</button>
@@ -124,7 +124,7 @@ function markKey(text, key){
 }
 
 /* Open a book: build one leaf per page, the first page on top */
-const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../index.html";
+const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../game.html";
 document.querySelector('a[aria-label="Back to the games"]').href = HOME;
 function openBook(){
   BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
