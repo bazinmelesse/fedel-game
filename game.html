@@ -39,6 +39,8 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
   display:flex;gap:16px;align-items:center;transition:transform .1s}
 .mode:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.12)}
 .mode .big{font-family:var(--fidel);font-size:64px;width:90px;height:90px;border-radius:20px;display:grid;place-items:center;color:#fff;flex:none}
+.mode .big.bookpic{width:144px;height:90px;overflow:hidden;padding:0}
+.mode .big.bookpic img{width:100%;height:100%;object-fit:cover;display:block}
 .mode b{display:block;font-size:22px}
 .mode span{color:var(--muted);font-size:16px}
 .levels{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
@@ -174,13 +176,13 @@ h2{margin:8px 0}
   </div>
   <h2 style="margin-top:28px">Stories · ተረቶች</h2>
   <div class="modes">
-    <a class="mode" href="story/#dama" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--blue)">📖</div><div><b>ኩራተኛው ድመትና ጥበበኛዋ ወፍ</b><span>The Proud Cat and the Wise Bird: a picture book to read and hear</span></div></a>
-    <a class="mode" href="story/#docho" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--green)">👞</div><div><b>ዶጮ እና የግዙፉ ጫማ</b><span>Docho and the Giant's Shoe: a picture book to read and hear</span></div></a>
-    <a class="mode" href="story/#mumu" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--yellow)">🐶</div><div><b>ውርዬ እና ቡችዬ</b><span>Wiriye and Buchiye: a cat and a dog learn to be friends</span></div></a>
-    <a class="mode" href="story/#selam" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--red)">🐔</div><div><b>ሚሚ እና ቀይቱ ዶሮ</b><span>Mimi and the Red Hen: count the chicks from ፩ to ፲</span></div></a>
-    <a class="mode" href="story/#nib" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--yellow)">🐝</div><div><b>ማሬ እና ዚዚ</b><span>Mare and Zizi: a bee, a fly and the rainy season</span></div></a>
-    <a class="mode" href="story/#ayit" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--blue)">🐭</div><div><b>አይጦቹና ቃጭሉ</b><span>The Mice and the Bell: who will tie the bell on the cat?</span></div></a>
-    <a class="mode" href="story/#tota" style="text-decoration:none;color:inherit"><div class="big" style="background:var(--yellow)">🦓</div><div><b>ሦስቱ ጓደኛሞችና ሐይቁ</b><span>The Three Friends and the Lake: a fox, a monkey and a zebra look for water</span></div></a>
+    <a class="mode" href="story/#dama" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--blue)"><img src="story/img/dama/thumb.webp" alt="" draggable="false"></div><div><b>ኩራተኛው ድመትና ጥበበኛዋ ወፍ</b><span>The Proud Cat and the Wise Bird: a picture book to read and hear</span></div></a>
+    <a class="mode" href="story/#docho" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--green)"><img src="story/img/docho/thumb.webp" alt="" draggable="false"></div><div><b>ዶጮ እና የግዙፉ ጫማ</b><span>Docho and the Giant's Shoe: a picture book to read and hear</span></div></a>
+    <a class="mode" href="story/#mumu" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--yellow)"><img src="story/img/mumu/thumb.webp" alt="" draggable="false"></div><div><b>ውርዬ እና ቡችዬ</b><span>Wiriye and Buchiye: a cat and a dog learn to be friends</span></div></a>
+    <a class="mode" href="story/#selam" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--red)"><img src="story/img/selam/thumb.webp" alt="" draggable="false"></div><div><b>ሚሚ እና ቀይቱ ዶሮ</b><span>Mimi and the Red Hen: count the chicks from ፩ to ፲</span></div></a>
+    <a class="mode" href="story/#nib" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--yellow)"><img src="story/img/nib/thumb.webp" alt="" draggable="false"></div><div><b>ማሬ እና ዚዚ</b><span>Mare and Zizi: a bee, a fly and the rainy season</span></div></a>
+    <a class="mode" href="story/#ayit" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--blue)"><img src="story/img/ayit/thumb.webp" alt="" draggable="false"></div><div><b>አይጦቹና ቃጭሉ</b><span>The Mice and the Bell: who will tie the bell on the cat?</span></div></a>
+    <a class="mode" href="story/#tota" style="text-decoration:none;color:inherit"><div class="big bookpic" style="background:var(--yellow)"><img src="story/img/tota/thumb.webp" alt="" draggable="false"></div><div><b>ሦስቱ ጓደኛሞችና ሐይቁ</b><span>The Three Friends and the Lake: a fox, a monkey and a zebra look for water</span></div></a>
   </div>
 </section>
 
