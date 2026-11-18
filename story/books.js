@@ -2,7 +2,10 @@
    and the Amharic text with English underneath. Narration goes in story/audio/<book id>-<page>.mp3,
    from 0 (the cover) to the last page ("The End"). */
 window.BOOKS = {
-  dama: { icon:"🐱", title:"ኩራተኛው ድመትና ጥበበኛዋ ወፍ", en:"The Proud Cat and the Wise Bird", art:() => window.STORY_ART_MITITI, pages:[
+  dama: { icon:"🐱", title:"ኩራተኛው ድመትና ጥበበኛዋ ወፍ", en:"The Proud Cat and the Wise Bird", art:() => window.STORY_ART_MITITI,
+    // painted pictures (story/img/dama); pages 1 and 3 borrow pictures 2 and 4 until their own arrive
+    images:{ cover:"cover", p1:"p2", p2:"p2", p3:"p4", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", p10:"p10", end:"end" },
+    pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ድ", am:[
       "ድሮ ድሮ፣ በአንድ ውብ መንደር ውስጥ ውሮ የሚባል ድመት ይኖር ነበር።",
