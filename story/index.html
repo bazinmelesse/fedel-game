@@ -40,6 +40,9 @@ button,a.btn{font:inherit;color:inherit;border:0;cursor:pointer;text-decoration:
 .page > .pic{height:100%;aspect-ratio:1.35}
 .pic{position:relative;overflow:hidden}
 .pic svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pic img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;pointer-events:none}
+.page.full .pic img{object-position:center 30%}
+@media (orientation:portrait){ .page.full .pic img{object-position:center bottom} }
 .words{padding:clamp(14px,2.4vw,34px) clamp(14px,2.4vw,34px) 34px;display:flex;flex-direction:column;justify-content:safe center;gap:.6em;overflow:auto;
   font-family:var(--fidel);font-size:clamp(15px,1.75vw,26px);line-height:1.55}
 .words p{margin:0}
@@ -84,7 +87,7 @@ body.english .en{display:block}
 <body>
 <div class="flag"></div>
 <header>
-  <a class="btn" href="../index.html" aria-label="Back to the games">←</a>
+  <a class="btn" href="../game.html" aria-label="Back to the games">←</a>
   <h1>ኩራተኛው ድመትና ጥበበኛዋ ወፍ</h1>
   <button class="btn" id="readBtn" aria-label="Read to me: turn the pages by itself">📖 <small>Read to me</small></button>
   <button class="btn" id="enBtn" aria-label="Show English">EN</button>
@@ -121,7 +124,7 @@ function markKey(text, key){
 }
 
 /* Open a book: build one leaf per page, the first page on top */
-const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../index.html";
+const HOME = new URLSearchParams(location.search).get("from") === "app" ? "../app/" : "../game.html";
 document.querySelector('a[aria-label="Back to the games"]').href = HOME;
 function openBook(){
   BOOK_ID = (location.hash.slice(1) in BOOKS) ? location.hash.slice(1) : "dama";
@@ -142,7 +145,7 @@ function openBook(){
   leaf.innerHTML = `
     <div class="face front">
       <div class="page${pg.full ? " full" : ""}">
-        <div class="pic">${pg.full ? ART[pg.art]().replace("xMidYMid slice", "xMidYMax slice") : ART[pg.art]()}${pg.key ? `<div class="badge">${pg.key}</div>` : ""}</div>
+        <div class="pic">${BK.images?.[pg.art] ? `<img src="img/${BOOK_ID}/${BK.images[pg.art]}.webp" alt="" draggable="false"${i > 1 ? ' loading="lazy"' : ""}>` : pg.full ? ART[pg.art]().replace("xMidYMid slice", "xMidYMax slice") : ART[pg.art]()}${pg.key ? `<div class="badge">${pg.key}</div>` : ""}</div>
         <div class="words">${words}</div>
       </div>
       ${i === 0 ? `<div class="tapme">ንካኝ · Tap to read ›</div>` : ""}

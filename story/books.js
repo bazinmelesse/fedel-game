@@ -2,7 +2,10 @@
    and the Amharic text with English underneath. Narration goes in story/audio/<book id>-<page>.mp3,
    from 0 (the cover) to the last page ("The End"). */
 window.BOOKS = {
-  dama: { icon:"🐱", title:"ኩራተኛው ድመትና ጥበበኛዋ ወፍ", en:"The Proud Cat and the Wise Bird", art:() => window.STORY_ART_MITITI, pages:[
+  dama: { icon:"🐱", title:"ኩራተኛው ድመትና ጥበበኛዋ ወፍ", en:"The Proud Cat and the Wise Bird", art:() => window.STORY_ART_MITITI,
+    // painted pictures (story/img/dama); pages 1 and 3 borrow pictures 2 and 4 until their own arrive
+    images:{ cover:"cover", p1:"p2", p2:"p2", p3:"p4", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", p10:"p10", end:"end" },
+    pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ድ", am:[
       "ድሮ ድሮ፣ በአንድ ውብ መንደር ውስጥ ውሮ የሚባል ድመት ይኖር ነበር።",
@@ -56,7 +59,8 @@ window.BOOKS = {
       "The lesson: Pride pushes friends away, but humility and helping each other make love stronger."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, pages:[
+  docho: { icon:"👞", title:"ዶጮ እና የግዙፉ ጫማ", en:"Docho and the Giant's Shoe", art:() => window.STORY_ART_DOCHO, images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+    pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ጫ", am:[
       "በአንድ መንደር ዶጮ የሚባል ትንሽ ጫማ ሰፊ ይኖር ነበር። ዶጮ ከሁሉም ሰው ያነሰ ነበር፤ ግን ጎበዝ ነበር።",
@@ -111,7 +115,9 @@ window.BOOKS = {
       "Docho waved back from his shoe house and said, \"Even if we are small, together we can make big things!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  mumu: { icon:"🐶", title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU, pages:[
+  mumu: { icon:"🐶", title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሙ", am:[
       "በአንድ የገጠር ቤት ውርዬ የምትባል ድመትና ቡችዬ የሚባል ውሻ ይኖሩ ነበር። ሁለቱም ሁልጊዜ ይጣሉ ነበር።",
@@ -162,7 +168,9 @@ window.BOOKS = {
       "Wiriye says, \"When we're friends, everything is easier.\" And Buchiye says, \"Yes!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  selam: { icon:"🐔", title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM, pages:[
+  selam: { icon:"🐔", title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሰ", am:[
       "በአንድ መንደር ሚሚ የምትባል ልጅ ትኖር ነበር። ሚሚ ቀይ ዶሮ ነበረቻት፤ ስሟም ቀይቱ ነበር።",
@@ -211,7 +219,9 @@ window.BOOKS = {
       "And Keyitu said, \"Cluck, cluck, cluck.\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  nib: { icon:"🐝", title:"ማሬ እና ዚዚ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB, pages:[
+  nib: { icon:"🐝", title:"ማሬ እና ዚዚ", en:"Mare and Zizi", art:() => window.STORY_ART_NIB,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ን", am:[
       "በአደይ አበባ በተሞላ ሜዳ ማሬ የምትባል ንብ ትኖር ነበር።",
@@ -260,7 +270,9 @@ window.BOOKS = {
       "And Zizi helped the bees by showing them where the new flowers were. \"Working together is fun!\" said Zizi."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  ayit: { icon:"🐭", title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT, pages:[
+  ayit: { icon:"🐭", title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"አ", am:[
       "በአንድ ትልቅ ጎተራ ውስጥ ብዙ አይጦች ይኖሩ ነበር።",
@@ -309,7 +321,9 @@ window.BOOKS = {
       "When Nebro comes, the guard whistles \"Wheeee!\" and all the mice run into their hole."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  tota: { icon:"🦓", title:"ሦስቱ ጓደኛሞችና ሐይቁ", en:"The Three Friends and the Lake", art:() => window.STORY_ART_TOTA, pages:[
+  tota: { icon:"🦓", title:"ሦስቱ ጓደኛሞችና ሐይቁ", en:"The Three Friends and the Lake", art:() => window.STORY_ART_TOTA,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሜ", am:[
       "በአንድ ሰፊ ሜዳ ሦስት ጓደኛሞች ይኖሩ ነበር፦ ቀበሮ፣ ጦጣ እና የሜዳ አህያ።",

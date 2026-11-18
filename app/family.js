@@ -366,8 +366,16 @@ window.onCloudPulled = () => {
 };
 
 /* ----- Start ----- */
+// The main web link opens the app with ?test: skip the sign-in and start a "this device only" family
+// with one child, so it's quick to try out. The parent PIN for it is 0000.
+const TEST_MODE = new URLSearchParams(location.search).has("test");
 function boot(){
   cloudInit();
+  if (!db.parent && TEST_MODE){
+    db.parent = { cloud:false, test:true }; setPin("0000");
+    if (!db.kids.length) db.kids.push(newKid("Tester", AVATARS[0]));
+    persist();
+  }
   if (!db.parent) return goWelcome();
   if (!db.kids.length) return editKid(null);
   if (db.kids.length === 1) return pickKid(db.kids[0].id);
