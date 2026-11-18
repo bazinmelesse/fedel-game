@@ -115,7 +115,9 @@ window.BOOKS = {
       "Docho waved back from his shoe house and said, \"Even if we are small, together we can make big things!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  mumu: { icon:"🐶", title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU, pages:[
+  mumu: { icon:"🐶", title:"ውርዬ እና ቡችዬ", en:"Wiriye and Buchiye", art:() => window.STORY_ART_MUMU,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሙ", am:[
       "በአንድ የገጠር ቤት ውርዬ የምትባል ድመትና ቡችዬ የሚባል ውሻ ይኖሩ ነበር። ሁለቱም ሁልጊዜ ይጣሉ ነበር።",
