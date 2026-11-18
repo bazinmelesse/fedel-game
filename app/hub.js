@@ -184,7 +184,10 @@ function renderBooks(){
   books.forEach(([id, bk], i) => {
     const a = document.createElement("a");
     a.className = "mode"; a.href = `../story/?from=app#${id}`; a.style.cssText = "text-decoration:none;color:inherit";
-    a.innerHTML = `<div class="big" style="background:${BOOK_COLORS[i % BOOK_COLORS.length]}">${bk.icon || BOOK_LOOK[id] || "📖"}</div><div><b style="font-family:var(--fidel)">${esc(bk.title || id)}</b><span>${esc(bk.en || "")}</span></div>`;
+    const pic = bk.images && bk.images.cover
+      ? `<div class="big bookpic" style="background:${BOOK_COLORS[i % BOOK_COLORS.length]}"><img src="../story/img/${id}/thumb.webp" alt="" draggable="false" onerror="this.parentNode.textContent='${bk.icon || BOOK_LOOK[id] || "📖"}'"></div>`
+      : `<div class="big" style="background:${BOOK_COLORS[i % BOOK_COLORS.length]}">${bk.icon || BOOK_LOOK[id] || "📖"}</div>`;
+    a.innerHTML = `${pic}<div><b style="font-family:var(--fidel)">${esc(bk.title || id)}</b><span>${esc(bk.en || "")}</span></div>`;
     a.onclick = () => { try { sessionStorage.setItem("fidel-return", "books"); } catch(e){} };
     box.appendChild(a);
   });

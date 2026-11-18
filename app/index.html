@@ -40,6 +40,8 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
   display:flex;gap:16px;align-items:center;transition:transform .1s}
 .mode:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.12)}
 .mode .big{font-family:var(--fidel);font-size:64px;width:90px;height:90px;border-radius:20px;display:grid;place-items:center;color:#fff;flex:none}
+.mode .big.bookpic{width:144px;height:90px;overflow:hidden;padding:0}
+.mode .big.bookpic img{width:100%;height:100%;object-fit:cover;display:block}
 .mode b{display:block;font-size:22px}
 .mode span{color:var(--muted);font-size:16px}
 .levels{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
