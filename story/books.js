@@ -168,7 +168,9 @@ window.BOOKS = {
       "Wiriye says, \"When we're friends, everything is easier.\" And Buchiye says, \"Yes!\""] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  selam: { icon:"🐔", title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM, pages:[
+  selam: { icon:"🐔", title:"ሚሚ እና ቀይቱ ዶሮ", en:"Mimi and the Red Hen", art:() => window.STORY_ART_SELAM,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"ሰ", am:[
       "በአንድ መንደር ሚሚ የምትባል ልጅ ትኖር ነበር። ሚሚ ቀይ ዶሮ ነበረቻት፤ ስሟም ቀይቱ ነበር።",
