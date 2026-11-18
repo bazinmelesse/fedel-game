@@ -270,7 +270,9 @@ window.BOOKS = {
       "And Zizi helped the bees by showing them where the new flowers were. \"Working together is fun!\" said Zizi."] },
   { art:"end", full:true, end:true, am:[], en:[] }
 ] },
-  ayit: { icon:"🐭", title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT, pages:[
+  ayit: { icon:"🐭", title:"አይጦቹና ቃጭሉ", en:"The Mice and the Bell", art:() => window.STORY_ART_AYIT,
+  images:{ cover:"cover", p1:"p1", p2:"p2", p3:"p3", p4:"p4", p5:"p5", p6:"p6", p7:"p7", p8:"p8", p9:"p9", end:"end" },
+  pages:[
   { art:"cover", full:true, am:[], en:[] },
   { art:"p1", key:"አ", am:[
       "በአንድ ትልቅ ጎተራ ውስጥ ብዙ አይጦች ይኖሩ ነበር።",
