@@ -165,11 +165,12 @@ function spawnBalloon(isAns){
 }
 function tapBalloon(b){
   if (b.popped) return;
-  if (b.g === glyph(...BP.ans)){
+  // Any letter that sounds like the one asked counts (ሀ, ሃ, ሐ … for "ha")
+  if (sameSound(b.g, BP.ans)){
     b.popped = true; b.el.classList.add("pop"); sfx.good(); burst(b.el);
-    recordLetter(b.g, BP.tries === 0);
-    // Every balloon with the same letter pops together
-    BP.bals.forEach(o => { if (o.g === b.g && !o.popped){ o.popped = true; o.el.classList.add("pop"); } });
+    recordLetter(glyph(...BP.ans), BP.tries === 0);
+    // Every balloon that sounds the same pops together, so none is left over for the next question
+    BP.bals.forEach(o => { if (sameSound(o.g, b.g) && !o.popped){ o.popped = true; o.el.classList.add("pop"); } });
     BP.n++; setTimeout(askBalloon, 500);
   } else {
     BP.tries++; BP.misses++; sfx.bad();
@@ -182,7 +183,7 @@ function stepBalloons(t){
   if (current !== "balloon") return;
   const dt = Math.min(.05, (t - (BP.prev || t)) / 1000); BP.prev = t;
   const live = BP.bals.filter(b => !b.popped && b.y > -140).length;
-  const ansUp = BP.bals.some(b => !b.popped && b.g === glyph(...BP.ans) && b.y > -100);
+  const ansUp = BP.bals.some(b => !b.popped && sameSound(b.g, BP.ans) && b.y > -100);
   if (BP.n < BP.targets.length && (!ansUp || BP.needAns) && t - BP.last > 700){ spawnBalloon(true); BP.last = t; BP.needAns = false; }
   else if (live < 6 && t - BP.last > 900){ spawnBalloon(false); BP.last = t; }
   BP.bals.forEach(b => {
@@ -222,7 +223,8 @@ function nextWord(){
   // The word's letters plus two look-alike extras
   const extra = [];
   letters.forEach(c => { const fi = famOf(c), o = c.codePointAt(0) - FAMILIES[fi][0]; extra.push(glyph(fi, (o + 3) % 7)); });
-  const decoys = shuffle(extra.filter(c => !letters.includes(c))).slice(0, 2);
+  // Decoys never sound like a letter of the word: spelling stays exact, but a same-sounding letter isn't a fair trap
+  const decoys = shuffle(extra.filter(c => !letters.includes(c) && !letters.some(l => sameSound(l, c)))).slice(0, 2);
   const box = $("wTiles"); box.innerHTML = "";
   shuffle([...letters, ...decoys]).forEach(c => {
     const b = document.createElement("button"); b.textContent = c;

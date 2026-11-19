@@ -4,7 +4,6 @@ A kids' game for learning the Ge'ez (Ethiopic) alphabet. It works offline on PCs
 
 - **Learn**: each letter family with its 7 forms and their sounds
 - **Find the letter**, **What sound?**, **Memory match**: practice games with stars and unlockable levels
-- **Voices**: a voice picker (🔊 at the top) with Normal, Bird, Cat, Bear, Lion and Surprise character voices made from the same recordings
 - **Numbers**: Ge'ez numbers ፩ to ፼ with spoken Amharic words, plus a number quiz
 - **Songs**: two sing-along songs (የፊደል ደስታ and የፊደል ቤተሰብ) with lyrics shown one line at a time over an Ethiopian highlands scene, with things labelled by their Amharic word and balloons carrying the letters being sung. "Fix timing" lets a grown-up tap along once to make the lyric timing exact.
 
@@ -23,8 +22,9 @@ The main version of the game, at `/app/` (the main link opens it), with family a
 
 - **Parent account** with email and password (Firebase), password reset, and a 4-digit PIN for the parent page. Or "this device only" with no email.
 - **Child profiles**, each with their own stars, stickers and letter progress, synced across tablets when online.
-- **Parent page**: a progress grid of all 238 letters, tricky letters, which games each child can play, voice lock, sound effects, daily time limit, open all levels.
+- **Parent page**: a progress grid of all 238 letters, tricky letters, which games each child can play, sound effects, daily time limit, open all levels.
 - **Home page and tabs**: after picking a child, a home page with a "continue your journey" card and tabs for Journey, Books, Games, Music and Art.
+- **Sound groups**: letters that sound the same (ሀ ሃ ሐ ሓ ኀ ኃ, ሰ ሠ, አ ኣ ዐ ዓ, ጸ ፀ) are one answer in every game asked or answered by sound, so any of them counts as right. Spelling games keep the exact spelling.
 - **Journey**: one letter family at a time. Each family has six activities in order (meet the 7 letters, find the letter, what sound, trace, balloon pop, memory match). Finishing them masters the family and opens the next one. Every 4 families is a stop across Ethiopia with a sticker.
 - **Games**: the letter games as free play with the letters reached so far, plus Fidel tic-tac-toe, build a word, missing letter, smart review and numbers.
 - **Books**: built automatically from `story/books.js`, so new books appear in the app by themselves.
