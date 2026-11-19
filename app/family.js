@@ -144,7 +144,7 @@ function goWho(){
   show("who");
 }
 function pickKid(id){
-  db.last = id; persist(true); loadKid(); surprise.left = 0;
+  db.last = id; persist(true); loadKid();
   if (overLimit()) return show("rest");
   renderHome(); show("home");
   // Children made before the character pictures existed get to choose one
@@ -296,9 +296,7 @@ function renderSettings(){
       ${Object.keys(MODE_NAMES).map(m => tog("mode." + m, s.modes[m] !== false, MODE_NAMES[m])).join("")}
     </div>
     <div class="panel wide">
-      <h3 style="margin-top:0">Voice and sound</h3>
-      ${tog("voiceLock", s.voiceLock, "Choose the voice for them", "Hides the voice button so the child can't change it")}
-      <div class="setrow"><span>Voice</span><select id="sVoice">${VOICES.map(v => `<option value="${v.id}" ${v.id === s.voice ? "selected" : ""}>${v.icon} ${v.name}</option>`).join("")}</select></div>
+      <h3 style="margin-top:0">Sound</h3>
       ${tog("sfx", s.sfx, "Sound effects", "Dings and buzzes in the games")}
     </div>
     <div class="panel wide">
@@ -318,12 +316,11 @@ function renderSettings(){
     if (key.startsWith("mode.")){ const m = key.slice(5); set.modes = Object.assign({}, cur.modes, { [m]: cur.modes[m] === false }); }
     else set[key] = !cur[key];
   }));
-  $("sVoice").onchange = e => change(set => set.voice = e.target.value);
   $("sLimit").onchange = e => change(set => set.limit = +e.target.value);
   $("sEdit").onclick = () => editKid(k.id, "pKid");
   $("sReset").onclick = () => {
     if (!confirm(`Reset all of ${k.name}'s progress?`)) return;
-    k.save = { stars:0, best:{}, level:0, voice:k.save.voice || "normal", stickers:[], fam:{} }; k.stats = {};
+    k.save = { stars:0, best:{}, level:0, stickers:[], fam:{} }; k.stats = {};
     // Mark the reset so other devices' older, higher scores don't come back on sync
     k.resetAt = Date.now(); persist(); renderProgress(); toast("Progress reset");
   };

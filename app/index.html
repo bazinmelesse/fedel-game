@@ -21,14 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,"Segoe UI",Robo
 .flag{height:8px;background:linear-gradient(90deg,var(--green) 33.3%,var(--yellow) 33.3% 66.6%,var(--red) 66.6%)}
 header{display:flex;align-items:center;gap:12px;padding:12px 16px}
 header h1{font-family:var(--fidel);font-size:28px;margin:0;flex:1}
-.voicebtn{font-size:26px;background:var(--card);border-radius:999px;width:52px;height:46px;box-shadow:var(--shadow)}
-.voicepick{position:fixed;top:70px;right:12px;z-index:20;background:var(--card);border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:12px;display:none;width:min(92vw,330px)}
-.voicepick.on{display:block}
-.voicepick b{display:block;margin:0 0 8px;font-size:18px}
-.voicepick .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.voicepick button{background:var(--bg);border-radius:16px;padding:8px 4px;font-size:36px}
-.voicepick button small{display:block;font-size:13px;color:var(--muted)}
-.voicepick button.sel{outline:4px solid var(--blue)}
+.topbtn{font-size:26px;background:var(--card);border-radius:999px;width:52px;height:46px;box-shadow:var(--shadow)}
 .stars{font-size:22px;font-weight:700;background:var(--card);padding:6px 14px;border-radius:999px;box-shadow:var(--shadow)}
 button{font:inherit;color:inherit;border:0;cursor:pointer}
 .back{background:var(--card);border-radius:14px;padding:8px 14px;font-size:22px;box-shadow:var(--shadow)}
@@ -156,7 +149,7 @@ h2{margin:8px 0}
 .stop .me{width:40px;height:40px;display:block}
 .stop .me .avimg{border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 .avatars button .avimg{aspect-ratio:1;height:auto}
-body.grown .stars,body.grown .voicebtn{visibility:hidden}
+body.grown .stars,body.grown .topbtn{visibility:hidden}
 .panel{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:20px;max-width:520px;margin:12px auto}
 .panel.wide{max-width:none}
 .panel label{display:block;margin:12px 0;font-weight:600}
@@ -375,8 +368,7 @@ body.tabs-on .tabbar{display:flex}
 <header>
   <button class="back" id="backBtn" style="visibility:hidden" aria-label="Back">⬅</button>
   <h1>ፊደል ጨዋታ</h1>
-  <button class="voicebtn" id="voiceBtn" aria-label="Choose a voice">🔊</button>
-  <button class="voicebtn kidbtn" id="kidBtn" aria-label="Switch player">🙂</button>
+  <button class="topbtn kidbtn" id="kidBtn" aria-label="Switch player">🙂</button>
   <div class="stars">⭐ <span id="starCount">0</span></div>
 </header>
 
@@ -735,7 +727,6 @@ body.tabs-on .tabbar{display:flex}
   </div>
 </section>
 
-<div class="voicepick" id="voicePick"><b>Pick a voice · ድምፅ ምረጥ</b><div class="opts" id="voiceOpts"></div></div>
 <div class="modal" id="picModal"><div class="panel" style="width:min(100%,460px)">
   <b style="font-size:22px">Pick your picture · ስእልህን ምረጥ</b>
   <div class="avatars" id="picOpts" style="grid-template-columns:repeat(4,1fr);margin-top:14px"></div>
@@ -785,6 +776,18 @@ function sound(fi, order){
   return c + VOWELS[order];
 }
 function glyph(fi, order){ return String.fromCodePoint(FAMILIES[fi][0] + order); }
+/* Sound groups: letters with the same sound label (ሀ ሃ ሐ ሓ ኀ ኃ all say "ha"; ሰ ሠ; አ ኣ ዐ ዓ; ጸ ፀ) are one
+   answer whenever a question is asked or answered by sound, so any of them counts as right.
+   Letters can be given as [family, order] or as the letter itself. */
+function letterOf(x){
+  if (Array.isArray(x)) return x;
+  const cp = x.codePointAt(0), fi = FAMILIES.findIndex(f => cp >= f[0] && cp <= f[0] + 6);
+  return fi < 0 ? null : [fi, cp - FAMILIES[fi][0]];
+}
+function sameSound(a, b){
+  const x = letterOf(a), y = letterOf(b);
+  return !!x && !!y && sound(...x) === sound(...y);
+}
 
 /* Levels: groups of families, in the traditional ሀ ለ ሐ መ order */
 const LEVELS = [];
@@ -795,7 +798,7 @@ const ROUND = 10;
 /* Each child's progress lives in their profile (see core.js); loadKid() swaps it in */
 let save = { stars:0, best:{}, level:0 };
 function loadKid(){
-  save = Object.assign({ stars:0, best:{}, level:0, voice:"normal", stickers:[], fam:{} }, store.get());
+  save = Object.assign({ stars:0, best:{}, level:0, stickers:[], fam:{} }, store.get());
   if (!save.fam) save.fam = {};
   if (!save.stickers) save.stickers = [];
   if (save.level >= LEVELS.length) save.level = 0;
@@ -811,51 +814,13 @@ function findVoice(){
   amVoice = vs.find(v => /^am/i.test(v.lang)) || vs.find(v => /^ti/i.test(v.lang)) || null;
 }
 if ("speechSynthesis" in window){ findVoice(); speechSynthesis.onvoiceschanged = findVoice; }
-/* Character voices: the same recordings played faster and higher, or slower and deeper.
-   "Surprise" switches character every few sounds so the voice doesn't get tiring. */
-const VOICES = [
-  { id:"normal",  icon:"🙂", name:"Normal", rate:1 },
-  { id:"bird",    icon:"🐦", name:"Bird",   rate:1.32 },
-  { id:"cat",     icon:"🐱", name:"Cat",    rate:1.16 },
-  { id:"bear",    icon:"🐻", name:"Bear",   rate:.88 },
-  { id:"lion",    icon:"🦁", name:"Lion",   rate:.78 },
-  { id:"surprise",icon:"🎲", name:"Surprise" },
-];
-let surprise = { v:VOICES[1], left:0 };
-// A parent can lock the voice from the parent page; otherwise the child picks
-function voiceId(){ const s = kidSet(); return s.voiceLock ? s.voice : save.voice; }
-function currentVoice(){
-  const v = VOICES.find(x => x.id === voiceId()) || VOICES[0];
-  if (v.id !== "surprise") return v;
-  if (surprise.left-- <= 0){ const others = VOICES.filter(x => x.rate && x !== surprise.v); surprise = { v:pick(others), left:2 }; }
-  return surprise.v;
-}
-function voiced(a){
-  a.preservesPitch = a.mozPreservesPitch = a.webkitPreservesPitch = false;
-  a.playbackRate = currentVoice().rate;
-  return a;
-}
-function renderVoices(){
-  const v = VOICES.find(x => x.id === voiceId()) || VOICES[0];
-  $("voiceBtn").textContent = v.icon;
-  $("voiceBtn").style.display = kidSet().voiceLock ? "none" : "";
-  $("voiceOpts").innerHTML = "";
-  VOICES.forEach(x => {
-    const b = document.createElement("button");
-    b.className = x === v ? "sel" : "";
-    b.innerHTML = `${x.icon}<small>${x.name}</small>`;
-    b.onclick = () => { save.voice = x.id; store.set(save); surprise.left = 0; renderVoices(); speak("ሀ"); };
-    $("voiceOpts").appendChild(b);
-  });
-}
-
 // Each letter has a recorded clip in audio/<codepoint>.mp3 (Amharic voice recorded with Narakeet)
 let clip = null;
 function speak(text){
   const cp = text.codePointAt(0);
   if (text.length === 1 && cp >= 0x1200 && cp <= 0x137F){
     if (clip) clip.pause();
-    clip = voiced(new Audio("../audio/" + cp.toString(16) + ".mp3"));
+    clip = new Audio("../audio/" + cp.toString(16) + ".mp3");
     clip.play().catch(() => {});
     return true;
   }
@@ -922,7 +887,6 @@ function renderHome(){
   renderHero();
   // Hide the games a parent switched off
   document.querySelectorAll(".tabpage [data-mode]").forEach(b => { b.style.display = set.modes[b.dataset.mode] === false ? "none" : ""; });
-  renderVoices();
 }
 document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
   sfx.tap();
@@ -1061,9 +1025,10 @@ function sayAns(x){ quiz.kind === "num" ? sayNum(x[0]) : speak(glyph(...x)); }
 $("qSpeak").onclick = () => sayAns(quiz.ans);
 function answer(btn, x){
   if (quiz.locked) return;
-  if (x.join() === quiz.ans.join()){
+  const ok = quiz.kind === "num" ? x[0] === quiz.ans[0] : sameSound(x, quiz.ans);
+  if (ok){
     btn.classList.add("good"); sfx.good(); sayAns(x);
-    if (quiz.tries === 0){ quiz.right++; if (quiz.kind !== "num") recordLetter(glyph(...x), true); }
+    if (quiz.tries === 0){ quiz.right++; if (quiz.kind !== "num") recordLetter(glyph(...quiz.ans), true); }
     quiz.locked = true;
     burst(btn);
     setTimeout(() => { quiz.locked = false; quiz.n++; nextQ(); }, 900);
@@ -1117,7 +1082,7 @@ function numWord(n){
 }
 function sayNum(n){
   if (clip) clip.pause();
-  clip = voiced(new Audio("../audio/num/" + n + ".mp3"));
+  clip = new Audio("../audio/num/" + n + ".mp3");
   clip.play().catch(() => {});
 }
 function startNumLearn(){
@@ -1183,7 +1148,8 @@ function flip(b, t){
   if (mem.open.length < 2) return;
   mem.flips++;
   const [a, c] = mem.open;
-  if (a.id === c.id){
+  // A letter card matches any sound card that says the same (see sameSound)
+  if (a.id === c.id || (a.fidel !== c.fidel && sameSound(a.x, c.x))){
     a.done = c.done = true; mem.open = []; mem.found++;
     setTimeout(() => { a.el.classList.add("done"); c.el.classList.add("done"); sfx.good(); burst(c.el); }, 250);
     if (mem.found === 6) setTimeout(() => {
@@ -1427,8 +1393,6 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
   navigator.serviceWorker.register("sw.js", { updateViaCache:"none" }).then(r => r.update()).catch(()=>{});
 }
 
-$("voiceBtn").onclick = e => { e.stopPropagation(); $("voicePick").classList.toggle("on"); };
-document.addEventListener("click", e => { if (!$("voicePick").contains(e.target)) $("voicePick").classList.remove("on"); });
 </script>
 <script src="../story/books.js"></script>
 <script src="games.js"></script>

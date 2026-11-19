@@ -7,7 +7,7 @@
 const DB_KEY = "fidel-app-db";
 const DEFAULT_SET = {
   modes:{ learn:true, quizA:true, quizB:true, memory:true, trace:true, balloon:true, words:true, review:true, numbers:true, songs:true, ttt:true, missing:true, piano:true },
-  voiceLock:false, voice:"normal", limit:0, sfx:true, unlockAll:false
+  limit:0, sfx:true, unlockAll:false
 };
 let db = loadDB();
 function loadDB(){
@@ -31,7 +31,7 @@ function kidSet(k = activeKid()){
 }
 function newKid(name, avatar){
   return { id:"k" + Date.now().toString(36) + (Math.random() * 1e4 | 0), name, avatar,
-           save:{ stars:0, best:{}, level:0, voice:"normal" }, stats:{}, set:{}, time:{ day:"", sec:0, extra:0 } };
+           save:{ stars:0, best:{}, level:0 }, stats:{}, set:{}, time:{ day:"", sec:0, extra:0 } };
 }
 // Small salted hash (FNV-1a) so the PIN isn't stored as plain digits
 function hashPin(pin, salt){
